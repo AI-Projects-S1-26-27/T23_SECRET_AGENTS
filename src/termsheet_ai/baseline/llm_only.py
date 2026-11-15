@@ -38,11 +38,11 @@ RISK_FLAG_IDS = (
 _PROMPT = """You are an LLM-only baseline for a venture-capital term-sheet evaluation.
 Analyze the text directly. Do not use external tools, retrieval, rules, or hidden assumptions.
 Return ONLY one JSON object using exactly this schema:
-{
+{{
   "clause_family": one of {families},
   "risk_flags": [zero or more IDs from {flags}],
   "summary": "a concise plain-English explanation"
-}
+}}
 
 Use "other" if the text does not fit a listed family. A risk flag may be included only if
 the text itself supports it. Text follows:
