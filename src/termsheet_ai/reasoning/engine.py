@@ -338,8 +338,11 @@ class ForwardChainingEngine(BaseReasoner):
                 "requires_series_majority", pp.requires_series_majority, pp.clause_id, span
             )
 
-        for key, value in facts.custom_facts.items():
-            wm.assert_fact(key, value)
+        # S3 -> S4 grounding safeguard:
+        # Raw custom facts lack per-entry source validation metadata.
+        # Do not insert them into reasoning working memory until validated.
+        # Other components can still access ExtractedFacts.custom_facts.
+
         return wm
 
     def infer(self, wm: WorkingMemory, doc_id: str) -> AuditTrace:
