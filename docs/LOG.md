@@ -166,3 +166,162 @@
 ---
 
 *Last updated: 2026-11-11 by M5*
+#### M2 — Data & Preprocessing
+- [x] **Annotation guide v0** — [`docs/annotation_guide_v0.md`](annotation_guide_v0.md)
+  - Documented annotation rules, literal source-span requirements, null handling,
+    expected flags, and gold-file format
+  - Added family-specific guidance and attributes for all 13 clause families
+- [x] **Synthetic evaluation registration** — [`corpus/manifest.json`](../corpus/manifest.json)
+  - Registered all 30 synthetic text/gold pairs as auto-labeled entries
+  - Maintained a 20-document dev split with the currently available corpus
+- [x] **SEC EDGAR Form D lookup client** — [`src/termsheet_ai/edgar/client.py`](../src/termsheet_ai/edgar/client.py)
+  - Added required User-Agent support, rate limiting, response caching, and
+    found/not-found/ambiguous result handling
+  - Ensured lookup failures degrade to `not_found` without surfacing false risk flags
+- [x] **EDGAR mocked test suite** — [`tests/test_edgar.py`](../tests/test_edgar.py)
+  - Covers positive, empty, ambiguous, failed, cached, batched, rate-limited,
+    and invalid-input lookups
+
+### Validation
+- [x] Targeted EDGAR tests pass in the repository virtual environment
+- [x] Manifest JSON and synthetic text/gold registrations validated
+
+### Remaining
+- [ ] Gold annotations for the real documents require independent human labeling
+  by Annotators A and B before reconciliation and Cohen's kappa reporting.
+
+## Week 5 (8–14 Nov 2026)
+
+### In progress
+
+#### M2 — Data & Preprocessing
+- [x] **Corpus evaluation harness** — [`src/termsheet_ai/evaluation/corpus.py`](../src/termsheet_ai/evaluation/corpus.py)
+  - Validates manifest paths, gold sidecars, duplicate clause IDs, and literal source spans
+  - Computes family precision, recall, F1, confusion matrices, and expected-flag counts
+  - Emits explicit missing-file and missing-annotation diagnostics
+- [x] **Evaluation CLI and focused tests** — [`scripts/evaluate_corpus.py`](../scripts/evaluate_corpus.py) and [`tests/test_evaluation.py`](../tests/test_evaluation.py)
+  - Supports validation-only audits and prediction-vs-gold evaluation
+  - Covers valid and invalid spans, missing files, duplicate IDs, metrics, and malformed predictions
+- [x] **Corpus audit**
+  - Synthetic sidecars are available for the 30 registered synthetic documents
+  - Real-document gold sidecars remain blocked on independent Annotator A/B labeling
+
+#### M1 — Team Lead / System Architect & Pipeline Lead
+- [x] **Input Guardrails & Robustness Layer** — [`src/termsheet_ai/pipeline/guardrails.py`](../src/termsheet_ai/pipeline/guardrails.py)
+  - Enforced file size limits, empty document detection, MIME checks, and text coherence ratios.
+  - Added out-of-domain legal document warning heuristics to prevent false-positive reasoning.
+  - Hardened `TermSheetPipeline` runner to catch and record malformed inputs without unhandled crashes.
+  - Added test suite in [`tests/test_robustness.py`](../tests/test_robustness.py) (9 tests passing).
+- [x] **Master End-to-End Evaluation Harness** — [`scripts/evaluate_pipeline.py`](../scripts/evaluate_pipeline.py)
+  - Evaluates full S1–S5 pipeline against ground-truth sidecars (`.gold.json`).
+  - Computes precision, recall, F1 for risk flags, fact extraction accuracy, and zero-hallucination rate.
+  - Tested across all 30 synthetic documents (`reports/eval_results.json` and `reports/eval_summary.md`).
+- [x] **Head-to-Head LLM Baseline Benchmark** — [`scripts/benchmark_llm_baseline.py`](../scripts/benchmark_llm_baseline.py)
+  - Compares neuro-symbolic pipeline against ungrounded LLM baseline.
+  - Proves 0.0% numerical hallucination rate vs. 100.0% in raw LLM, with 100% verifiable proof trees.
+  - Emitted benchmark comparison artifacts in `reports/baseline_comparison.json` and `reports/baseline_comparison.md`.
+- [x] **SEC EDGAR UI Integration** — [`src/termsheet_ai/ui/views.py`](../src/termsheet_ai/ui/views.py)
+  - Connected investor lookup UI panel to `EdgarClient` with live CIK, filing date, and SEC links.
+- [x] **Automation & Development Tooling** — [`Makefile`](../Makefile)
+  - Added Makefile targets: `lint`, `format`, `test`, `test-cov`, `eval`, `benchmark`, `audit-corpus`, `run-ui`.
+- [x] **Comprehensive Final Report Draft** — [`docs/FINAL_REPORT.md`](FINAL_REPORT.md)
+  - Authored full architecture report, KR&R proofs, benchmark tables, failure analysis, and member contribution matrix.
+
+#### M6 — Symbolic Knowledge Representation & Reasoning (KR&R)
+
+- [x] **Multi-Step Forward-Chaining Rule Engine** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
+  - Implemented iterative forward chaining over YAML-defined Horn rules until no additional facts can be derived.
+  - Extended `HornRule` to support derived facts through the `derives` attribute.
+  - Maintained working-memory facts and clause associations for source traceability.
+  - Supported rule-order-independent inference for dependent rules.
+  - Integrated rule-based severity scoring and generation of risk flags.
+
+- [x] **Justification Records & Recursive Proof Trees** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
+  - Implemented recursive proof-tree construction for inferred facts and risk flags.
+  - Linked triggered rules to premise facts, source references, and intermediate derivations.
+  - Added cycle detection to prevent infinite recursion during proof generation.
+  - Enabled multi-step reasoning explanations for auditability.
+
+- [x] **S3 → S4 Fact Grounding Safeguards** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
+  - Added `is_grounded` verification before inserting structured extracted facts into working memory.
+  - Excluded ungrounded liquidation preference, anti-dilution, board composition, founder vesting, and protective provision facts.
+  - Prevented raw `custom_facts` without per-entry grounding metadata from entering S4 working memory.
+  - Preserved existing `custom_facts` data for other pipeline components, including consistency checking and explanations.
+  - Documented the need for future source-validated custom-fact support.
+
+- [x] **JSON Audit Trace & Proof-Tree Export Utilities** — [`src/termsheet_ai/reasoning/export.py`](../src/termsheet_ai/reasoning/export.py)
+  - Developed JSON serialization utilities for reasoning audit traces and nested proof trees.
+  - Added support for exporting risk scores, rule traces, justification records, and premise facts.
+  - Implemented readable UTF-8 JSON output with consistent dictionary-key ordering.
+  - Added automated tests in [`tests/test_reasoning_export.py`](../tests/test_reasoning_export.py).
+
+- [x] **S4 Risk-Flag Evaluation & Error Analysis** — [`scripts/analyze_reasoning_errors.py`](../scripts/analyze_reasoning_errors.py)
+  - Analyzed risk-flag predictions across 30 synthetic term sheets using the existing end-to-end evaluation results.
+  - Developed per-document and per-rule false-positive and false-negative analysis.
+  - Generated machine-readable and Markdown reports:
+    - [`reports/reasoning_error_analysis.json`](../reports/reasoning_error_analysis.json)
+    - [`reports/reasoning_error_analysis.md`](../reports/reasoning_error_analysis.md)
+  - Identified frequently misclassified and missed risk rules to guide future improvements.
+  - Investigated the interaction between S3 participation extraction and S4 liquidation-preference rules.
+
+### M6 — Validation & Evaluation
+
+- [x] **Reasoning Unit Tests** — [`tests/test_reasoning.py`](../tests/test_reasoning.py)
+  - 11 reasoning tests passed.
+  - Verified multi-step forward chaining and recursive proof-tree generation.
+  - Verified rejection of ungrounded structured facts and unverified custom facts.
+  - Confirmed that unverified custom facts cannot independently trigger risk warnings.
+
+- [x] **30-Document Risk-Flag Evaluation**
+  - True Positives: **63**
+  - False Positives: **74**
+  - False Negatives: **133**
+  - Risk-Flag Precision: **45.99%**
+  - Risk-Flag Recall: **32.14%**
+  - Risk-Flag F1 Score: **37.84%**
+  - Documents with reported execution errors: **0**
+
+- [x] **Rule-Level Error Analysis**
+  - Most frequent false positive: `R-LP-05` — 26 occurrences.
+  - Other frequent false positives: `R-LP-02` and `R-VS-03` — 12 each.
+  - Most frequently missed rules: `R-DV-01` and `R-EX-01` — 17 each.
+  - Additional frequent misses: `R-OP-01` and `R-RD-01` — 15 each.
+  - Identified potential participation-negation handling problems in upstream extraction.
+  - Confirmed that the evaluation metrics describe the full S1–S5 pipeline, not S4 in isolation.
+
+### M6 — Blockers & Limitations
+- Raw `custom_facts` currently lack per-entry validated source evidence and are excluded from S4 inference, potentially reducing coverage for some rule families.
+- The existing end-to-end evaluation has relatively low risk-flag precision and recall; errors cannot yet be attributed exclusively to S4.
+- Some extraction improvements require coordination with members responsible for S3.
+- Independent human annotations for real-document evaluation remain a team-level dependency.
+
+
+### Remaining
+- [ ] Gold annotations for the real documents require independent human labeling by Annotators A and B before reconciliation and Cohen's kappa reporting.
+
+## Week 6 (15–21 Nov 2026)
+
+### Completed
+
+#### M7 — Full-Stack UI & Evaluation
+- [x] **Streamlit UI** — [`app.py`](../app.py) and [`src/termsheet_ai/ui/`](../src/termsheet_ai/ui/)
+  - Demo mode (bundled mock payload) and upload mode (runs `TermSheetPipeline` on the uploaded file)
+  - Severity-coloured clause cards showing the original clause beside its plain-English summary
+  - Flags tab with a proof-trace tree; chained rules (e.g. `R-CT-02` → `R-CT-05`) nest in the tree
+  - Extracted-facts tab with verbatim source quotes and a grounding indicator
+  - Investor tab wired to the SEC EDGAR client by M1
+  - 8 tests in [`tests/test_ui.py`](../tests/test_ui.py), including a Streamlit `AppTest` smoke run
+- [x] **Report figures** — [`scripts/make_plots.py`](../scripts/make_plots.py), run as part of `make eval`
+  - Risk-flag precision/recall/F1, field-level fact accuracy, risk distribution (standard vs adversarial),
+    clause-classification confusion matrix, per-family F1 and baseline comparison
+  - Each figure is skipped cleanly if its input file is not present
+- [x] **Annotation tooling** — [`scripts/annotator_tools.py`](../scripts/annotator_tools.py) and [`scripts/compute_kappa.py`](../scripts/compute_kappa.py)
+  - Blank, unlabelled gold templates for independent Annotator B labelling (no pipeline or Annotator A labels shown)
+  - Validator for gold files against the annotation guide (families, literal source spans, rule IDs)
+  - Cohen's kappa on clause family and on expected flags, attribute exact-match rates, and a disagreement list for reconciliation
+- [x] **Makefile targets** — `plots`, `annotate-template`, `annotate-check`, `kappa`; `make eval` now ends by generating the figures
+- [x] **Tests** — [`tests/test_m7_tools.py`](../tests/test_m7_tools.py) (13 tests)
+
+### Remaining (M7)
+- [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting
+- [ ] Demo video
