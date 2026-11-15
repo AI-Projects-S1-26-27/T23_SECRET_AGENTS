@@ -328,6 +328,18 @@
 - Some extraction improvements require coordination with members responsible for S3.
 - Independent human annotations for real-document evaluation remain a team-level dependency.
 
+#### M5 — KR&R: Ontology & Rule Base
+- [x] **Contract Family Alignment in YAML Rule Base** — [`docs/rules_v1.yaml`](rules_v1.yaml)
+  - Normalized rule families to match canonical `ClauseFamily` contract enums: `board_composition` (formerly `board_of_directors`), `redemption_rights` (formerly `redemption`), and `exclusivity_no_shop` (formerly `exclusivity`).
+  - Aligned family prefixes across working-memory context generation and rule AST conditions.
+- [x] **Dev Error Analysis & False-Positive Rule Tuning** — [`reports/reasoning_error_analysis.md`](../reports/reasoning_error_analysis.md)
+  - Collaborated with M6 on Stage S4 error analysis across the 30 synthetic dev term sheets.
+  - Investigated frequent false positives (`R-LP-05` and `R-VS-03`) and confirmed interaction between unextracted attributes and null defaults.
+  - Verified `R-DV-01` dividends scope boundary (NVCA model term sheets embed dividend covenants within liquidation preference mechanics; flagged as an upstream extraction boundary).
+- [x] **Norm Calibration & Rule Base Freeze** — [`scripts/calibrate_norms.py`](../scripts/calibrate_norms.py)
+  - Evaluated calibrated severity weights (`CRITICAL: 40`, `HIGH: 25`, `MEDIUM: 10`, `LOW: 5`, `INFO: 0`) against synthetic gold corpus, confirming 100% precision and recall on core expected risk flags and a +37.33 separation margin.
+  - Formally froze canonical rule base at 31 rules (`rules_v1.yaml`) for MVP scope freeze.
+
 
 ### Remaining
 - [ ] Gold annotations for the real documents require independent human labeling by Annotators A and B before reconciliation and Cohen's kappa reporting.
@@ -365,6 +377,14 @@
 - [x] **Peer Code Review & Viva Preparation**
   - Completed peer review with designated partner M4 on Stage S2 -> S3 contracts and Stage S5 multi-exemplar retrieval grounding.
   - Rehearsed oral viva defense topics on Sentence-BERT embeddings, ChromaDB cosine vector search, dev calibration, and zero-hallucination exemplar retrieval.
+
+#### M5 — KR&R: Ontology & Rule Base
+- [x] **Technical Report Contribution: Knowledge Representation & Ontology** — [`docs/FINAL_REPORT.md`](FINAL_REPORT.md)
+  - Authored comprehensive Section 2 updates documenting the 31 canonical Horn rules across all 12 canonical clause families + dividends.
+  - Documented the typed NetworkX semantic network topology (103 nodes, 196 directed edges) with `Rule`, `SourceDoc`, `ClauseFamily`, `Attribute`, and `MarketNorm` nodes, and `appliesTo`/`deviatesFrom`/`conformsTo`/`citedIn`/`dependsOn` relation edges.
+  - Documented empirical norm calibration results and severity weight profiles separating standard clean NVCA term sheets from adversarial founder-hostile covenants (+90.0 gap).
+- [x] **Peer Review & Verification with M6**
+  - Completed designated peer review pairing with Member 6 (KR&R Inference & Explainability) on multi-step forward chaining (`R-CT-02` -> `R-CT-05`), justification records, and S3->S4 grounding guards.
 
 ### Remaining (M7)
 - [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting

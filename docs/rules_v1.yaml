@@ -18,7 +18,7 @@ rules:
     conclusion: "HighLiquidationMultiple"
 
   - id: "R-CT-02"
-    family: "board_of_directors"
+    family: "board_composition"
     condition: "investor_seats > founder_seats"
     severity: "HIGH"
     message: "Investors control the majority of the board."
@@ -99,7 +99,7 @@ rules:
     conclusion: "ExcessiveOptionPool"
 
   - id: "R-RD-01"
-    family: "redemption"
+    family: "redemption_rights"
     condition: "redemption_years < 5"
     severity: "HIGH"
     message: "Redemption rights are exercisable in less than 5 years, creating early liquidity pressure."
@@ -108,7 +108,7 @@ rules:
     conclusion: "EarlyRedemptionHorizon"
 
   - id: "R-EX-01"
-    family: "exclusivity"
+    family: "exclusivity_no_shop"
     condition: "duration_days > 45"
     severity: "MEDIUM"
     message: "No-shop/exclusivity period exceeds standard 30-45 days."
@@ -126,7 +126,7 @@ rules:
     conclusion: "CumulativeDividendLiability"
 
   - id: "R-CT-03"
-    family: "board_of_directors"
+    family: "board_composition"
     condition: "independent_seats == 0"
     severity: "MEDIUM"
     message: "No independent board seats allocated, potentially leading to deadlock."
@@ -171,7 +171,7 @@ rules:
     conclusion: "NarrowBasedAntiDilution"
 
   - id: "R-CT-04"
-    family: "board_of_directors"
+    family: "board_composition"
     condition: "founder_seats <= 1 and total_seats >= 5"
     severity: "HIGH"
     message: "Founders hold single minority seat on large board, relinquishing strategic control."
@@ -279,7 +279,7 @@ rules:
     conclusion: "HighQualifiedIPOThreshold"
 
   - id: "R-RD-02"
-    family: "redemption"
+    family: "redemption_rights"
     condition: "interest_rate > 10"
     severity: "HIGH"
     message: "Mandatory redemption carries a punitive interest rate above 10% per annum on unredeemed shares."
