@@ -1,0 +1,281 @@
+{
+  "confusion_matrix": {
+    "anti_dilution": {
+      "anti_dilution": 18,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 1,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "board_composition": {
+      "anti_dilution": 0,
+      "board_composition": 9,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 7,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 3,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "conversion_rights": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 25,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 5,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "drag_along": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 14,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 8,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "exclusivity_no_shop": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 8,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 2,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "founder_vesting": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 13,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 0,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "information_rights": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 11,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 19,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "liquidation_preference": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 21,
+      "option_pool": 0,
+      "other": 0,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "option_pool": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 22,
+      "other": 0,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "other": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 20,
+      "option_pool": 0,
+      "other": 156,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "protective_provisions": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 1,
+      "protective_provisions": 29,
+      "redemption_rights": 0,
+      "rofr_co_sale": 0
+    },
+    "redemption_rights": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 1,
+      "protective_provisions": 0,
+      "redemption_rights": 19,
+      "rofr_co_sale": 0
+    },
+    "rofr_co_sale": {
+      "anti_dilution": 0,
+      "board_composition": 0,
+      "conversion_rights": 0,
+      "drag_along": 0,
+      "exclusivity_no_shop": 0,
+      "founder_vesting": 0,
+      "information_rights": 0,
+      "liquidation_preference": 0,
+      "option_pool": 0,
+      "other": 0,
+      "protective_provisions": 0,
+      "redemption_rights": 0,
+      "rofr_co_sale": 11
+    }
+  },
+  "family_metrics": {
+    "anti_dilution": {
+      "precision": 1.0,
+      "recall": 0.9474,
+      "f1": 0.973,
+      "support": 19
+    },
+    "board_composition": {
+      "precision": 1.0,
+      "recall": 0.4737,
+      "f1": 0.6429,
+      "support": 19
+    },
+    "conversion_rights": {
+      "precision": 1.0,
+      "recall": 0.8333,
+      "f1": 0.9091,
+      "support": 30
+    },
+    "drag_along": {
+      "precision": 1.0,
+      "recall": 0.6364,
+      "f1": 0.7778,
+      "support": 22
+    },
+    "exclusivity_no_shop": {
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8889,
+      "support": 10
+    },
+    "founder_vesting": {
+      "precision": 0.65,
+      "recall": 1.0,
+      "f1": 0.7879,
+      "support": 13
+    },
+    "information_rights": {
+      "precision": 1.0,
+      "recall": 0.3667,
+      "f1": 0.5366,
+      "support": 30
+    },
+    "liquidation_preference": {
+      "precision": 0.5122,
+      "recall": 1.0,
+      "f1": 0.6774,
+      "support": 21
+    },
+    "option_pool": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 22
+    },
+    "other": {
+      "precision": 0.7959,
+      "recall": 0.8864,
+      "f1": 0.8387,
+      "support": 176
+    },
+    "protective_provisions": {
+      "precision": 1.0,
+      "recall": 0.9667,
+      "f1": 0.9831,
+      "support": 30
+    },
+    "redemption_rights": {
+      "precision": 1.0,
+      "recall": 0.95,
+      "f1": 0.9744,
+      "support": 20
+    },
+    "rofr_co_sale": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 11
+    }
+  },
+  "accuracy": 0.8416,
+  "macro_f1": 0.8454
+}

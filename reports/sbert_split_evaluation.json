@@ -1,0 +1,946 @@
+{
+  "dev_split": {
+    "document_count": 16,
+    "clause_count": 222,
+    "metrics": {
+      "accuracy": 0.8468,
+      "macro_precision": 0.9126,
+      "macro_recall": 0.8367,
+      "macro_f1": 0.8356,
+      "weighted_f1": 0.8416,
+      "family_metrics": {
+        "anti_dilution": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 9
+        },
+        "board_composition": {
+          "precision": 1.0,
+          "recall": 0.3333,
+          "f1": 0.5,
+          "support": 9
+        },
+        "conversion_rights": {
+          "precision": 1.0,
+          "recall": 0.9375,
+          "f1": 0.9677,
+          "support": 16
+        },
+        "drag_along": {
+          "precision": 1.0,
+          "recall": 0.7692,
+          "f1": 0.8696,
+          "support": 13
+        },
+        "exclusivity_no_shop": {
+          "precision": 1.0,
+          "recall": 0.6667,
+          "f1": 0.8,
+          "support": 6
+        },
+        "founder_vesting": {
+          "precision": 0.5556,
+          "recall": 1.0,
+          "f1": 0.7143,
+          "support": 5
+        },
+        "information_rights": {
+          "precision": 1.0,
+          "recall": 0.375,
+          "f1": 0.5455,
+          "support": 16
+        },
+        "liquidation_preference": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6667,
+          "support": 11
+        },
+        "option_pool": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 12
+        },
+        "other": {
+          "precision": 0.8081,
+          "recall": 0.8791,
+          "f1": 0.8421,
+          "support": 91
+        },
+        "protective_provisions": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 16
+        },
+        "redemption_rights": {
+          "precision": 1.0,
+          "recall": 0.9167,
+          "f1": 0.9565,
+          "support": 12
+        },
+        "rofr_co_sale": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 6
+        }
+      },
+      "confusion_matrix": [
+        [
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          6,
+          0,
+          0,
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          0,
+          80,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          11,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          6
+        ]
+      ],
+      "class_labels": [
+        "anti_dilution",
+        "board_composition",
+        "conversion_rights",
+        "drag_along",
+        "exclusivity_no_shop",
+        "founder_vesting",
+        "information_rights",
+        "liquidation_preference",
+        "option_pool",
+        "other",
+        "protective_provisions",
+        "redemption_rights",
+        "rofr_co_sale"
+      ]
+    }
+  },
+  "held_out_test_split": {
+    "document_count": 14,
+    "clause_count": 201,
+    "metrics": {
+      "accuracy": 0.8358,
+      "macro_precision": 0.9259,
+      "macro_recall": 0.8337,
+      "macro_f1": 0.8463,
+      "weighted_f1": 0.8291,
+      "family_metrics": {
+        "anti_dilution": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9474,
+          "support": 10
+        },
+        "board_composition": {
+          "precision": 1.0,
+          "recall": 0.6,
+          "f1": 0.75,
+          "support": 10
+        },
+        "conversion_rights": {
+          "precision": 1.0,
+          "recall": 0.7143,
+          "f1": 0.8333,
+          "support": 14
+        },
+        "drag_along": {
+          "precision": 1.0,
+          "recall": 0.4444,
+          "f1": 0.6154,
+          "support": 9
+        },
+        "exclusivity_no_shop": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 4
+        },
+        "founder_vesting": {
+          "precision": 0.7273,
+          "recall": 1.0,
+          "f1": 0.8421,
+          "support": 8
+        },
+        "information_rights": {
+          "precision": 1.0,
+          "recall": 0.3571,
+          "f1": 0.5263,
+          "support": 14
+        },
+        "liquidation_preference": {
+          "precision": 0.5263,
+          "recall": 1.0,
+          "f1": 0.6897,
+          "support": 10
+        },
+        "option_pool": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 10
+        },
+        "other": {
+          "precision": 0.7835,
+          "recall": 0.8941,
+          "f1": 0.8352,
+          "support": 85
+        },
+        "protective_provisions": {
+          "precision": 1.0,
+          "recall": 0.9286,
+          "f1": 0.963,
+          "support": 14
+        },
+        "redemption_rights": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 8
+        },
+        "rofr_co_sale": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 5
+        }
+      },
+      "confusion_matrix": [
+        [
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          10,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          0,
+          76,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          13,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      ],
+      "class_labels": [
+        "anti_dilution",
+        "board_composition",
+        "conversion_rights",
+        "drag_along",
+        "exclusivity_no_shop",
+        "founder_vesting",
+        "information_rights",
+        "liquidation_preference",
+        "option_pool",
+        "other",
+        "protective_provisions",
+        "redemption_rights",
+        "rofr_co_sale"
+      ]
+    }
+  },
+  "combined_corpus": {
+    "document_count": 30,
+    "clause_count": 423,
+    "metrics": {
+      "accuracy": 0.8416,
+      "macro_precision": 0.9199,
+      "macro_recall": 0.8354,
+      "macro_f1": 0.8454,
+      "weighted_f1": 0.8372,
+      "family_metrics": {
+        "anti_dilution": {
+          "precision": 1.0,
+          "recall": 0.9474,
+          "f1": 0.973,
+          "support": 19
+        },
+        "board_composition": {
+          "precision": 1.0,
+          "recall": 0.4737,
+          "f1": 0.6429,
+          "support": 19
+        },
+        "conversion_rights": {
+          "precision": 1.0,
+          "recall": 0.8333,
+          "f1": 0.9091,
+          "support": 30
+        },
+        "drag_along": {
+          "precision": 1.0,
+          "recall": 0.6364,
+          "f1": 0.7778,
+          "support": 22
+        },
+        "exclusivity_no_shop": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889,
+          "support": 10
+        },
+        "founder_vesting": {
+          "precision": 0.65,
+          "recall": 1.0,
+          "f1": 0.7879,
+          "support": 13
+        },
+        "information_rights": {
+          "precision": 1.0,
+          "recall": 0.3667,
+          "f1": 0.5366,
+          "support": 30
+        },
+        "liquidation_preference": {
+          "precision": 0.5122,
+          "recall": 1.0,
+          "f1": 0.6774,
+          "support": 21
+        },
+        "option_pool": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 22
+        },
+        "other": {
+          "precision": 0.7959,
+          "recall": 0.8864,
+          "f1": 0.8387,
+          "support": 176
+        },
+        "protective_provisions": {
+          "precision": 1.0,
+          "recall": 0.9667,
+          "f1": 0.9831,
+          "support": 30
+        },
+        "redemption_rights": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1": 0.9744,
+          "support": 20
+        },
+        "rofr_co_sale": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        }
+      },
+      "confusion_matrix": [
+        [
+          18,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          9,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          0,
+          0,
+          19,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          22,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          20,
+          0,
+          156,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          29,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          19,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11
+        ]
+      ],
+      "class_labels": [
+        "anti_dilution",
+        "board_composition",
+        "conversion_rights",
+        "drag_along",
+        "exclusivity_no_shop",
+        "founder_vesting",
+        "information_rights",
+        "liquidation_preference",
+        "option_pool",
+        "other",
+        "protective_provisions",
+        "redemption_rights",
+        "rofr_co_sale"
+      ]
+    }
+  },
+  "generalization_gap": {
+    "accuracy_gap": 0.011,
+    "macro_f1_gap": -0.0107,
+    "weighted_f1_gap": 0.0125
+  },
+  "held_out_adversarial_detection": {
+    "total_adversarial_clauses": 14,
+    "correct_detections": 14,
+    "accuracy": 1.0,
+    "breakdown": {
+      "Aggressive Liquidation (>=3x / part)": {
+        "total": 4,
+        "correct": 4
+      },
+      "Full-Ratchet Anti-Dilution": {
+        "total": 5,
+        "correct": 5
+      },
+      "Investor-Controlled Board": {
+        "total": 2,
+        "correct": 2
+      },
+      "Hostile Founder Vesting": {
+        "total": 3,
+        "correct": 3
+      }
+    }
+  },
+  "model_parameters": {
+    "model_name": "all-MiniLM-L6-v2",
+    "alpha": 0.6,
+    "confidence_threshold": 0.35,
+    "ood_threshold": 0.15,
+    "mode": "hybrid"
+  }
+}

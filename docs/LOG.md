@@ -152,6 +152,22 @@
 
 ### Completed
 
+#### M3 — Deep Learning: Embeddings & Search
+- [x] **Dev Set Hyperparameter Tuning & Calibration** — [`scripts/tune_classifier_dev.py`](../scripts/tune_classifier_dev.py) and [`reports/sbert_dev_tuning.json`](../reports/sbert_dev_tuning.json)
+  - Grid searched over 16 auto-labeled dev term sheets (222 clauses across standard and adversarial instruments).
+  - Evaluated confidence thresholds [0.10..0.40], OOD thresholds [0.05..0.25], and hybrid weights $\alpha$ [0.3..0.7].
+  - Optimized hyperparameters: $\alpha = 0.60$ (60% LR head, 40% $k$-NN), $\text{confidence\_threshold} = 0.35$, $\text{ood\_threshold} = 0.15$.
+  - Calibrated dev performance: **84.68% Accuracy**, **0.8356 Macro F1**, **0.8416 Weighted F1**, **0.9126 Macro Precision**.
+  - Updated default classifier thresholds in [`src/termsheet_ai/classify/sbert.py`](../src/termsheet_ai/classify/sbert.py).
+- [x] **Stage S5 Multi-Exemplar Retrieval Enhancement** — [`src/termsheet_ai/classify/sbert.py`](../src/termsheet_ai/classify/sbert.py) and [`src/termsheet_ai/explain/explainer.py`](../src/termsheet_ai/explain/explainer.py)
+  - Extended SBERT ChromaDB retrieval with `retrieve_multi_exemplars(clause, top_k=3, min_similarity=0.35, filter_family=...)` with cosine similarity filtering.
+  - Enhanced `PlainEnglishExplainer` to retrieve top-$k$ (default 3) market standard exemplars and ground Gemini RAG summarization prompts with numbered citations.
+  - Preserved zero numerical hallucination in `NumberConsistencyChecker` by aggregating `allowed_extras` across all retrieved exemplars.
+  - Maintained 100% backward compatibility for deterministic template summaries using the primary market exemplar.
+- [x] **Unit & Regression Test Suite** — [`tests/test_classify.py`](../tests/test_classify.py) and [`tests/test_explainer.py`](../tests/test_explainer.py)
+  - Added test coverage for calibrated classifier defaults, multi-exemplar ranking, similarity filtering, family filtering, prompt numbering, and multi-exemplar `allowed_extras` consistency.
+  - All 86 non-live tests pass; 100% ruff lint and format clean.
+
 #### M5 — KR&R: Ontology & Rule Base
 - [x] **Multi-Step Forward-Chaining Proof Tree Support (`R-CT-02` $\rightarrow$ `R-CT-05`)** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
   - Upgraded `ForwardChainingEngine.infer()` to execute multi-pass fixpoint inference asserting derived `conclusion` predicates into `WorkingMemory` (`InvestorControl` from `R-CT-02` chaining into `R-CT-05`), enabling depth-2 proof trees in the Streamlit UI trace visualizer (`build_trace_tree`).
@@ -193,6 +209,23 @@
 ## Week 5 (8–14 Nov 2026)
 
 ### In progress
+
+#### M3 — Deep Learning: Embeddings & Search
+- [x] **Held-Out Test Split Evaluation & Generalization Analysis** — [`scripts/evaluate_sbert_splits.py`](../scripts/evaluate_sbert_splits.py) and [`reports/sbert_split_evaluation.json`](../reports/sbert_split_evaluation.json)
+  - Evaluated the calibrated SBERT Hybrid Classifier ($\alpha=0.6$, $\text{conf}=0.35$, $\text{ood}=0.15$) against the 14 held-out test documents (201 unseen clauses) vs. the 16 dev split documents (222 clauses).
+  - Measured Generalization Gap: **$+1.10\%$ accuracy gap** and **$-0.0107$ Macro F1 gap** ($84.68\%$ dev vs. $83.58\%$ held-out test), proving zero significant overfitting.
+  - SBERT outperformed TF-IDF on held-out test data by **$+4.48\%$ accuracy** ($83.58\%$ vs. $79.10\%$) and **$+12.4\%$ precision** ($92.59\%$ vs. $80.19\%$).
+  - Verified **$100.0\%$ (14/14) adversarial clause detection** on held-out unseen hostile provisions.
+- [x] **Stage S2 Robustness & Stress-Testing Suite** — [`tests/test_sbert_robustness.py`](../tests/test_sbert_robustness.py)
+  - 20 targeted stress tests covering:
+    - Scanned / Degraded OCR noise (character substitutions like `0` for `O`, `1` for `l`, dropped spaces) with stable embedding recovery.
+    - Foreign legal instrument rejection (patent assignments, medical consent, commercial leases, software EULAs, construction contracts) cleanly falling back to `ClauseFamily.OTHER`.
+    - Non-legal text & garbage inputs (culinary recipes, retail shopping receipts, Python stack traces, punctuation floods) triggering unclassified OOD fallback.
+    - Structural and boundary extremes (massive 2,500+ character clauses, Unicode currency/emojis, whitespace-only inputs, sparse single-word headers).
+    - Idempotence and single-clause vs. batch prediction consistency.
+  - All 20 robustness tests pass.
+- [x] **Stage S2 Scope Freeze**
+  - Classifier architecture, 104-clause exemplar bank, and ChromaDB vector index frozen for MVP.
 
 #### M2 — Data & Preprocessing
 - [x] **Corpus evaluation harness** — [`src/termsheet_ai/evaluation/corpus.py`](../src/termsheet_ai/evaluation/corpus.py)
@@ -321,6 +354,17 @@
   - Cohen's kappa on clause family and on expected flags, attribute exact-match rates, and a disagreement list for reconciliation
 - [x] **Makefile targets** — `plots`, `annotate-template`, `annotate-check`, `kappa`; `make eval` now ends by generating the figures
 - [x] **Tests** — [`tests/test_m7_tools.py`](../tests/test_m7_tools.py) (13 tests)
+
+#### M3 — Deep Learning: Embeddings & Search
+- [x] **Evaluation Bridge & Stage S2 Report Figures** — [`scripts/make_plots.py`](../scripts/make_plots.py) and [`reports/figures/`](../reports/figures/)
+  - Generated `reports/corpus_eval.json` evaluation report bridge with full 13x13 confusion matrix and per-family classification metrics.
+  - Executed plotting harness to produce `reports/figures/fig_confusion_matrix.png` and `reports/figures/fig_family_f1.png`.
+- [x] **Technical Report Finalization (Stage S2)** — [`docs/FINAL_REPORT.md`](FINAL_REPORT.md)
+  - Authored Section 3.2 (Stage S2 Classification Performance) with benchmark table comparing TF-IDF baseline vs. SBERT variants and adversarial detection rates.
+  - Updated Section 5 Team Roles & Contribution Matrix for Member 3.
+- [x] **Peer Code Review & Viva Preparation**
+  - Completed peer review with designated partner M4 on Stage S2 -> S3 contracts and Stage S5 multi-exemplar retrieval grounding.
+  - Rehearsed oral viva defense topics on Sentence-BERT embeddings, ChromaDB cosine vector search, dev calibration, and zero-hallucination exemplar retrieval.
 
 ### Remaining (M7)
 - [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting

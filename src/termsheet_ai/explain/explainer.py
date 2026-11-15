@@ -28,7 +28,7 @@ deterministic template path is used unchanged.
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Union
 
 from termsheet_ai.explain.consistency import NumberConsistencyChecker
 from termsheet_ai.pipeline.base import BaseExplainer
@@ -109,32 +109,55 @@ class PlainEnglishExplainer(BaseExplainer):
         facts: Optional[ExtractedFacts] = None,
         retriever: Optional[Any] = None,
         llm_callable: Optional[_LLMCallable] = None,
+        retrieval_top_k: int = 3,
+        min_retrieval_similarity: float = 0.35,
     ):
         self.checker = checker or NumberConsistencyChecker()
         self.facts = facts
         self.retriever = retriever
         self.llm_callable = llm_callable
+        self.retrieval_top_k = retrieval_top_k
+        self.min_retrieval_similarity = min_retrieval_similarity
 
     # ------------------------------------------------------------------
     # Private helpers — retrieval and formatting
     # ------------------------------------------------------------------
 
+    def _get_market_references(
+        self,
+        clause: ClauseSpan,
+        top_k: Optional[int] = None,
+        min_similarity: Optional[float] = None,
+    ) -> List[Dict[str, Any]]:
+        """Retrieve multiple standard market exemplar phrasings via SBERT ChromaDB index."""
+        if self.retriever is None or clause.detected_family == ClauseFamily.OTHER:
+            return []
+
+        k = top_k if top_k is not None else self.retrieval_top_k
+        min_sim = min_similarity if min_similarity is not None else self.min_retrieval_similarity
+
+        try:
+            if hasattr(self.retriever, "retrieve_nearest_exemplars"):
+                raw_results = self.retriever.retrieve_nearest_exemplars(clause, top_k=k)
+            elif hasattr(self.retriever, "retrieve_multi_exemplars"):
+                raw_results = self.retriever.retrieve_multi_exemplars(clause, top_k=k)
+            else:
+                return []
+
+            filtered: List[Dict[str, Any]] = []
+            for item in raw_results:
+                if isinstance(item, dict):
+                    sim = item.get("cosine_similarity", 0.0)
+                    if sim >= min_sim:
+                        filtered.append(item)
+            return filtered
+        except Exception:
+            return []
+
     def _get_market_reference(self, clause: ClauseSpan) -> Optional[Dict[str, Any]]:
         """Retrieve standard market exemplar phrasing via SBERT ChromaDB index."""
-        if self.retriever is not None and hasattr(self.retriever, "retrieve_nearest_exemplars"):
-            try:
-                results = self.retriever.retrieve_nearest_exemplars(clause, top_k=1)
-                if results:
-                    top = results[0]
-                    # Only cite if similarity is solid and clause has an identified family
-                    if (
-                        top.get("cosine_similarity", 0.0) >= 0.35
-                        and clause.detected_family != ClauseFamily.OTHER
-                    ):
-                        return top
-            except Exception:
-                pass
-        return None
+        refs = self._get_market_references(clause, top_k=1)
+        return refs[0] if refs else None
 
     @staticmethod
     def _format_facts_for_prompt(facts: Optional[ExtractedFacts]) -> str:
@@ -179,15 +202,36 @@ class PlainEnglishExplainer(BaseExplainer):
         return "\n".join(parts)
 
     @staticmethod
-    def _format_exemplar_for_prompt(market_ref: Optional[Dict[str, Any]]) -> str:
-        """Render a retrieved SBERT exemplar as context text for the prompt."""
+    def _format_exemplar_for_prompt(
+        market_ref: Union[None, Dict[str, Any], List[Dict[str, Any]]],
+    ) -> str:
+        """Render retrieved SBERT exemplar(s) as context text for the prompt."""
         if not market_ref:
             return "No market exemplar retrieved."
-        source = market_ref.get("source", "unknown source")
-        text = market_ref.get("text", "")
-        similarity = market_ref.get("cosine_similarity", None)
-        sim_str = f" (similarity: {similarity:.2f})" if similarity is not None else ""
-        return f'From {source}{sim_str}: "{text}"'
+
+        # If a single dictionary is passed
+        if isinstance(market_ref, dict):
+            source = market_ref.get("source", "unknown source")
+            text = market_ref.get("text", "")
+            similarity = market_ref.get("cosine_similarity", None)
+            sim_str = f" (similarity: {similarity:.2f})" if similarity is not None else ""
+            return f'From {source}{sim_str}: "{text}"'
+
+        # If a list of exemplar dictionaries is passed
+        if isinstance(market_ref, list):
+            if len(market_ref) == 1:
+                return PlainEnglishExplainer._format_exemplar_for_prompt(market_ref[0])
+
+            lines: List[str] = []
+            for idx, ex in enumerate(market_ref, start=1):
+                source = ex.get("source", "unknown source")
+                text = ex.get("text", "")
+                similarity = ex.get("cosine_similarity", None)
+                sim_str = f" (similarity: {similarity:.2f})" if similarity is not None else ""
+                lines.append(f'{idx}. From {source}{sim_str}: "{text}"')
+            return "\n".join(lines)
+
+        return "No market exemplar retrieved."
 
     # ------------------------------------------------------------------
     # Private helpers — deterministic template (backward-compatible)
@@ -247,7 +291,7 @@ class PlainEnglishExplainer(BaseExplainer):
         self,
         clause: ClauseSpan,
         clause_flags: List[RiskFlag],
-        market_ref: Optional[Dict[str, Any]],
+        market_ref: Union[None, Dict[str, Any], List[Dict[str, Any]]],
         effective_facts: Optional[ExtractedFacts],
     ) -> Optional[str]:
         """Generate a Gemini RAG summary.  Returns *None* on any LLM failure."""
@@ -319,24 +363,26 @@ class PlainEnglishExplainer(BaseExplainer):
 
         for clause in clauses:
             clause_flags = flags_by_clause.get(clause.clause_id, [])
-            market_ref = self._get_market_reference(clause)
+            market_refs = self._get_market_references(clause)
+            primary_market_ref = market_refs[0] if market_refs else None
 
-            # Collect extra-allowed numbers from the exemplar so the checker
+            # Collect extra-allowed numbers from all retrieved exemplars so the checker
             # does not flag market-norm figures cited for comparison.
             allowed_extras: set[float] = set()
-            if market_ref:
-                if "text" in market_ref:
-                    allowed_extras.update(self.checker.extract_numbers(market_ref["text"]))
-                if "source" in market_ref:
-                    allowed_extras.update(self.checker.extract_numbers(market_ref["source"]))
+            for m_ref in market_refs:
+                if isinstance(m_ref, dict):
+                    if "text" in m_ref:
+                        allowed_extras.update(self.checker.extract_numbers(m_ref["text"]))
+                    if "source" in m_ref:
+                        allowed_extras.update(self.checker.extract_numbers(m_ref["source"]))
 
             # ----------------------------------------------------------------
-            # Try LLM-powered RAG summary first
+            # Try LLM-powered RAG summary first (grounded with multi-exemplars)
             # ----------------------------------------------------------------
             llm_text: Optional[str] = None
             if self.llm_callable is not None:
                 llm_text = self._build_llm_summary(
-                    clause, clause_flags, market_ref, effective_facts
+                    clause, clause_flags, market_refs, effective_facts
                 )
 
             # ----------------------------------------------------------------
@@ -344,7 +390,9 @@ class PlainEnglishExplainer(BaseExplainer):
             # ----------------------------------------------------------------
             # Retrieve the first justification record for the template path; also
             # used by the checker to allow numbers from rule premises.
-            _, first_justification = self._build_template_summary(clause, clause_flags, market_ref)
+            _, first_justification = self._build_template_summary(
+                clause, clause_flags, primary_market_ref
+            )
 
             if llm_text is not None:
                 # Verify numbers in the LLM output
@@ -371,7 +419,7 @@ class PlainEnglishExplainer(BaseExplainer):
                         unverified,
                     )
                     template_text, _ = self._build_template_summary(
-                        clause, clause_flags, market_ref
+                        clause, clause_flags, primary_market_ref
                     )
                     verified_tmpl, _ = self.checker.verify_summary(
                         summary_text=template_text,
@@ -384,7 +432,9 @@ class PlainEnglishExplainer(BaseExplainer):
                     numbers_verified = verified_tmpl
             else:
                 # Deterministic template path (no llm_callable or LLM failed)
-                template_text, _ = self._build_template_summary(clause, clause_flags, market_ref)
+                template_text, _ = self._build_template_summary(
+                    clause, clause_flags, primary_market_ref
+                )
                 verified_tmpl, _ = self.checker.verify_summary(
                     summary_text=template_text,
                     clause=clause,

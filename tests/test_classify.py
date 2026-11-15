@@ -339,6 +339,42 @@ class TestSbertClassifier:
         clf = SbertClassifier()
         assert clf.classify([]) == []
 
+    def test_sbert_calibrated_threshold_defaults(self):
+        """SbertClassifier must default to dev-calibrated hyperparameters."""
+        clf = SbertClassifier()
+        assert clf.confidence_threshold == 0.35
+        assert clf.ood_threshold == 0.15
+        assert clf.alpha == 0.6
+        assert clf.mode == "hybrid"
+
+    def test_sbert_retrieve_multi_exemplars(self, sample_clauses):
+        """retrieve_multi_exemplars must return top_k ranked exemplars sorted descending."""
+        clf = SbertClassifier()
+        exemplars = clf.retrieve_multi_exemplars(sample_clauses[0], top_k=3)
+
+        assert len(exemplars) == 3
+        sims = [e["cosine_similarity"] for e in exemplars]
+        assert sims == sorted(sims, reverse=True)
+        assert exemplars[0]["family"] == ClauseFamily.LIQUIDATION_PREFERENCE
+
+    def test_sbert_retrieve_with_filters(self, sample_clauses):
+        """retrieve_nearest_exemplars filters by min_similarity and family correctly."""
+        clf = SbertClassifier()
+        # Filter by family
+        anti_dilution_exemplars = clf.retrieve_nearest_exemplars(
+            sample_clauses[0], top_k=5, filter_family=ClauseFamily.ANTI_DILUTION
+        )
+        assert len(anti_dilution_exemplars) > 0
+        for ex in anti_dilution_exemplars:
+            assert ex["family"] == ClauseFamily.ANTI_DILUTION
+
+        # High min_similarity filter
+        strict_exemplars = clf.retrieve_nearest_exemplars(
+            sample_clauses[0], top_k=5, min_similarity=0.99
+        )
+        # Highly unlikely any exemplar has >= 0.99 similarity
+        assert len(strict_exemplars) == 0
+
 
 # ============================================================================
 # 4. Metrics Module Tests
