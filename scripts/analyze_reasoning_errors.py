@@ -1,4 +1,3 @@
-
 """Analyze S4 risk-flag errors from existing pipeline evaluation results."""
 
 from __future__ import annotations
@@ -43,9 +42,7 @@ def analyze(results: dict[str, Any]) -> dict[str, Any]:
                 "false_positives": fp,
                 "false_negatives": fn,
                 "grounding_rate": doc.get("grounding_rate"),
-                "numerical_verification_failure_rate": doc.get(
-                    "hallucination_rate"
-                ),
+                "numerical_verification_failure_rate": doc.get("hallucination_rate"),
                 "execution_errors": errors,
             }
         )
@@ -79,11 +76,7 @@ def format_report(analysis: dict[str, Any]) -> str:
 
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / (tp + fn) if tp + fn else 0.0
-    f1 = (
-        2 * precision * recall / (precision + recall)
-        if precision + recall
-        else 0.0
-    )
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
 
     lines = [
         "# Member 6 — S4 Risk-Flag Error Analysis",
@@ -95,8 +88,7 @@ def format_report(analysis: dict[str, Any]) -> str:
         f"Precision: {precision:.2%}",
         f"Recall: {recall:.2%}",
         f"F1: {f1:.2%}",
-        "Documents with execution errors: "
-        f"{analysis['documents_with_execution_errors']}",
+        f"Documents with execution errors: {analysis['documents_with_execution_errors']}",
         "",
         "## Most common false-positive rules",
         "",
