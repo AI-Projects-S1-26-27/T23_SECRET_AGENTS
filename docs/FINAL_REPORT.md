@@ -194,7 +194,7 @@ In tests on synthetic adversarial agreements, the pipeline successfully identifi
 | :--- | :--- | :--- |
 | **M1** (Lead / Evaluation Lead) | System Architecture & Eval | S1–S5 Pipeline contracts, runner orchestration, input guardrails, master evaluation harness (`evaluate_pipeline.py`), LLM baseline benchmark, Makefile automation. |
 | **M2** | Data & Preprocessing | Document ingestion (`extractor.py`), clause segmenter (`segmenter.py`), corpus collection, SEC EDGAR Form D client (`edgar/client.py`), annotation guide v0. |
-| **M3** | Deep Learning & Search | 104-clause exemplar bank (`exemplars.py`), TF-IDF baseline (`tfidf.py`), SBERT + ChromaDB hybrid classifier (`sbert.py`), S5 retrieval pairing. |
+| **M3** | Deep Learning & Search | 104-clause exemplar bank (`exemplars.py`), TF-IDF baseline (`tfidf.py`), SBERT + ChromaDB hybrid classifier (`sbert.py`), dev calibration & held-out split evaluation, S5 multi-exemplar retrieval pairing, S2 robustness test suite. |
 | **M4** | Generative Extraction | Gemini LLM fact extraction (`extract/`), JSON schema prompt construction, literal span validation. |
 | **M5** | Knowledge Representation | Term sheet legal ontology, 25 canonical Horn rules in YAML (`rules_v1.yaml`), legal standard mapping. |
 | **M6** | Symbolic Reasoning | Forward-chaining inference engine (`reasoning/forward_chainer.py`), proof-tree constructor, risk flag scoring. |

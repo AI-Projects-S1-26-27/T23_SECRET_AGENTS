@@ -453,6 +453,8 @@ def test_protective_provisions_working_memory_grounding():
     fired = {r.rule_id for r in trace.rule_traces}
     assert "R-PP-01" in fired
     assert "R-PP-02" in fired
+
+
 def test_multistep_forward_chaining():
     """A derived fact must trigger a dependent rule."""
 

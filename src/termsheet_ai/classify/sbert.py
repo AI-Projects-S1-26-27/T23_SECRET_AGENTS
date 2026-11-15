@@ -64,11 +64,11 @@ class SbertClassifier(BaseClassifier):
     def __init__(
         self,
         model_name: str = "all-MiniLM-L6-v2",
-        confidence_threshold: float = 0.40,
-        ood_threshold: float = 0.25,
+        confidence_threshold: float = 0.35,
+        ood_threshold: float = 0.15,
         mode: ClassifierMode = "hybrid",
         k_neighbors: int = 5,
-        alpha: float = 0.5,
+        alpha: float = 0.6,
         batch_size: int = 32,
         exemplars: Optional[List[Exemplar]] = None,
         embed_fn: Optional[Callable[[List[str]], np.ndarray]] = None,
@@ -291,7 +291,11 @@ class SbertClassifier(BaseClassifier):
             return p_hybrid, max_sims
 
     def retrieve_nearest_exemplars(
-        self, clause: Union[ClauseSpan, str], top_k: int = 3
+        self,
+        clause: Union[ClauseSpan, str],
+        top_k: int = 3,
+        min_similarity: float = 0.0,
+        filter_family: Optional[ClauseFamily] = None,
     ) -> List[Dict[str, Any]]:
         """Retrieve the top-k nearest exemplars for a clause from the ChromaDB index.
 
@@ -300,6 +304,8 @@ class SbertClassifier(BaseClassifier):
         Args:
             clause: ClauseSpan object or text string.
             top_k: Number of nearest exemplars to return.
+            min_similarity: Minimum cosine similarity required to include an exemplar.
+            filter_family: Optional ClauseFamily constraint to query only exemplars of this family.
 
         Returns:
             List of dictionaries containing exemplar details and cosine similarity scores.
@@ -314,11 +320,15 @@ class SbertClassifier(BaseClassifier):
 
         embedding = self._encode([text])
         k = min(top_k, len(self._exemplars))
-        results = self.collection.query(
-            query_embeddings=embedding.tolist(),
-            n_results=k,
-            include=["documents", "metadatas", "distances"],
-        )
+        query_kwargs: Dict[str, Any] = {
+            "query_embeddings": embedding.tolist(),
+            "n_results": k,
+            "include": ["documents", "metadatas", "distances"],
+        }
+        if filter_family is not None:
+            query_kwargs["where"] = {"family": filter_family.value}
+
+        results = self.collection.query(**query_kwargs)
 
         retrieved: List[Dict[str, Any]] = []
         if results["documents"] and results["documents"][0]:
@@ -328,6 +338,8 @@ class SbertClassifier(BaseClassifier):
 
             for doc, meta, dist in zip(docs, metas, dists, strict=True):
                 sim = max(0.0, 1.0 - float(dist))
+                if sim < min_similarity:
+                    continue
                 retrieved.append(
                     {
                         "text": doc,
@@ -340,6 +352,33 @@ class SbertClassifier(BaseClassifier):
                 )
 
         return retrieved
+
+    def retrieve_multi_exemplars(
+        self,
+        clause: Union[ClauseSpan, str],
+        top_k: int = 3,
+        min_similarity: float = 0.0,
+        filter_family: Optional[ClauseFamily] = None,
+    ) -> List[Dict[str, Any]]:
+        """Retrieve multiple nearest market standard exemplars for Stage S5 prompt grounding.
+
+        Convenience wrapper around ``retrieve_nearest_exemplars`` for Stage S5 multi-exemplar retrieval.
+
+        Args:
+            clause: ClauseSpan object or text string.
+            top_k: Number of nearest exemplars to return (default: 3).
+            min_similarity: Minimum cosine similarity threshold (default: 0.0).
+            filter_family: Optional ClauseFamily constraint to query exemplars of that family.
+
+        Returns:
+            List of matching exemplar dicts sorted by cosine similarity descending.
+        """
+        return self.retrieve_nearest_exemplars(
+            clause=clause,
+            top_k=top_k,
+            min_similarity=min_similarity,
+            filter_family=filter_family,
+        )
 
     def classify(self, clauses: List[ClauseSpan]) -> List[ClauseSpan]:
         """Classify each input clause span according to the S2 pipeline contract.

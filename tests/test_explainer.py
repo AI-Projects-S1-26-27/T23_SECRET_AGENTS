@@ -547,6 +547,96 @@ def test_rag_prompt_template_has_required_placeholders():
         assert key in _RAG_PROMPT_TEMPLATE, f"Prompt template missing placeholder: {key}"
 
 
+# ---------------------------------------------------------------------------
+# 15. Multi-Exemplar S5 Retrieval Tests (Week 4 Deliverable)
+# ---------------------------------------------------------------------------
+
+
+def test_multi_exemplar_retrieval_prompt_formatting():
+    """Multiple retrieved exemplars must be numbered and formatted in the LLM prompt."""
+    captured: list[str] = []
+
+    def capturing_llm(prompt: str) -> str:
+        captured.append(prompt)
+        return "Comprehensive summary grounded in multiple market exemplars."
+
+    exemplars = [
+        {
+            "source": "NVCA 2023 §4",
+            "text": "Standard 1x non-participating liquidation preference.",
+            "cosine_similarity": 0.88,
+        },
+        {
+            "source": "NVCA 2020 Model",
+            "text": "Broad-based weighted average anti-dilution.",
+            "cosine_similarity": 0.72,
+        },
+        {
+            "source": "Series Seed v3",
+            "text": "1x non-participating preferred shares.",
+            "cosine_similarity": 0.65,
+        },
+    ]
+
+    mock_retriever = MagicMock()
+    mock_retriever.retrieve_nearest_exemplars.return_value = exemplars
+
+    clause = _make_liq_clause()
+    trace = _make_audit_trace()
+
+    explainer = PlainEnglishExplainer(
+        llm_callable=capturing_llm,
+        retriever=mock_retriever,
+        retrieval_top_k=3,
+    )
+    explainer.explain([clause], trace)
+
+    assert len(captured) == 1
+    prompt = captured[0]
+    assert "1. From NVCA 2023 §4" in prompt
+    assert "2. From NVCA 2020 Model" in prompt
+    assert "3. From Series Seed v3" in prompt
+    assert "Standard 1x non-participating" in prompt
+
+
+def test_multi_exemplar_allowed_extras_prevent_hallucination():
+    """Numbers occurring across all retrieved exemplars are added to allowed_extras."""
+    exemplars = [
+        {
+            "source": "NVCA 2023 §4",
+            "text": "Market standard is a 1x preference.",
+            "cosine_similarity": 0.85,
+        },
+        {
+            "source": "NVCA 2020 §2",
+            "text": "Standard cumulative dividend rate is 8 percent.",
+            "cosine_similarity": 0.75,
+        },
+    ]
+
+    mock_retriever = MagicMock()
+    mock_retriever.retrieve_nearest_exemplars.return_value = exemplars
+
+    # LLM summary mentions numbers 2.0 (from clause), 1.0 (from exemplar 1), and 8.0 (from exemplar 2)
+    def citing_llm(prompt: str) -> str:
+        return (
+            "The term specifies a 2.0x preference compared to the 1x norm and 8 percent standard."
+        )
+
+    clause = _make_liq_clause()
+    trace = _make_audit_trace()
+
+    explainer = PlainEnglishExplainer(
+        llm_callable=citing_llm,
+        retriever=mock_retriever,
+    )
+    summaries = explainer.explain([clause], trace)
+
+    assert len(summaries) == 1
+    assert summaries[0].numbers_verified is True
+    assert "8 percent standard" in summaries[0].summary_text
+
+
 # ===========================================================================
 # Live Gemini Summarization Tests (Deliverable 2)
 # Skipped automatically when GEMINI_API_KEY is absent or network is unavailable.
