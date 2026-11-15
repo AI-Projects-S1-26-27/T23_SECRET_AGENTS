@@ -398,14 +398,18 @@ class ForwardChainingEngine(BaseReasoner):
 
                 fired_rules.add(rule.rule_id)
                 clause_id = "general"
+                # Prefer associating the flag with the clause matching the rule's own family
                 for key in premises:
-                    clause_id = (
-                        wm.get_clause_for_key(f"{rule.family}.{key}")
-                        or wm.get_clause_for_key(key)
-                        or clause_id
-                    )
-                    if clause_id != "general":
+                    cid = wm.get_clause_for_key(f"{rule.family}.{key}")
+                    if cid:
+                        clause_id = cid
                         break
+                if clause_id == "general":
+                    for key in premises:
+                        cid = wm.get_clause_for_key(key)
+                        if cid:
+                            clause_id = cid
+                            break
 
                 if rule.derives:
                     conclusion = ", ".join(
