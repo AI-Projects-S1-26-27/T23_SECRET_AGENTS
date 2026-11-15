@@ -325,3 +325,51 @@ def test_mixed_grounded_and_ungrounded_facts():
     assert "R-LP-01" not in rule_ids
     assert "R-LP-04" not in rule_ids
     assert "R-LP-05" not in rule_ids
+
+
+def test_ungrounded_custom_facts_not_asserted():
+    """Raw custom facts must not bypass S3 -> S4 grounding."""
+    from termsheet_ai.reasoning.engine import ForwardChainingEngine
+    from termsheet_ai.schemas.contracts import ExtractedFacts
+
+    facts = ExtractedFacts(
+        doc_id="grounding-custom-test",
+        custom_facts={
+            "liquidation_preference.multiple": 5.0,
+            "multiple": 5.0,
+            "investor_seats": 5,
+        },
+    )
+
+    engine = ForwardChainingEngine(rules=[])
+    wm = engine.build_working_memory_from_facts(facts)
+
+    assert not wm.has("liquidation_preference.multiple")
+    assert not wm.has("multiple")
+    assert not wm.has("investor_seats")
+
+
+def test_custom_facts_cannot_trigger_risk_rule():
+    """Unverified custom values must not produce a risk flag."""
+    from termsheet_ai.reasoning.engine import ForwardChainingEngine, HornRule
+    from termsheet_ai.schemas.contracts import ExtractedFacts, SeverityLevel
+
+    rule = HornRule(
+        rule_id="R-TEST-GROUNDING",
+        family="liquidation_preference",
+        condition="multiple >= 3",
+        severity=SeverityLevel.CRITICAL,
+        message="High liquidation multiple",
+        source="Test rule",
+    )
+
+    facts = ExtractedFacts(
+        doc_id="grounding-risk-test",
+        custom_facts={"multiple": 5.0},
+    )
+
+    engine = ForwardChainingEngine(rules=[rule])
+    result = engine.reason(facts)
+
+    assert result.flags == []
+    assert result.risk_score.overall_score == 0
