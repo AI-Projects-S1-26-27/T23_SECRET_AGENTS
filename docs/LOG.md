@@ -265,3 +265,30 @@
 
 ### Remaining
 - [ ] Gold annotations for the real documents require independent human labeling by Annotators A and B before reconciliation and Cohen's kappa reporting.
+
+## Week 6 (15–21 Nov 2026)
+
+### Completed
+
+#### M7 — Full-Stack UI & Evaluation
+- [x] **Streamlit UI** — [`app.py`](../app.py) and [`src/termsheet_ai/ui/`](../src/termsheet_ai/ui/)
+  - Demo mode (bundled mock payload) and upload mode (runs `TermSheetPipeline` on the uploaded file)
+  - Severity-coloured clause cards showing the original clause beside its plain-English summary
+  - Flags tab with a proof-trace tree; chained rules (e.g. `R-CT-02` → `R-CT-05`) nest in the tree
+  - Extracted-facts tab with verbatim source quotes and a grounding indicator
+  - Investor tab wired to the SEC EDGAR client by M1
+  - 8 tests in [`tests/test_ui.py`](../tests/test_ui.py), including a Streamlit `AppTest` smoke run
+- [x] **Report figures** — [`scripts/make_plots.py`](../scripts/make_plots.py), run as part of `make eval`
+  - Risk-flag precision/recall/F1, field-level fact accuracy, risk distribution (standard vs adversarial),
+    clause-classification confusion matrix, per-family F1 and baseline comparison
+  - Each figure is skipped cleanly if its input file is not present
+- [x] **Annotation tooling** — [`scripts/annotator_tools.py`](../scripts/annotator_tools.py) and [`scripts/compute_kappa.py`](../scripts/compute_kappa.py)
+  - Blank, unlabelled gold templates for independent Annotator B labelling (no pipeline or Annotator A labels shown)
+  - Validator for gold files against the annotation guide (families, literal source spans, rule IDs)
+  - Cohen's kappa on clause family and on expected flags, attribute exact-match rates, and a disagreement list for reconciliation
+- [x] **Makefile targets** — `plots`, `annotate-template`, `annotate-check`, `kappa`; `make eval` now ends by generating the figures
+- [x] **Tests** — [`tests/test_m7_tools.py`](../tests/test_m7_tools.py) (13 tests)
+
+### Remaining (M7)
+- [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting
+- [ ] Demo video

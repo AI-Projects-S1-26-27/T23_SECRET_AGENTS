@@ -34,6 +34,7 @@ parsing = [
 ]
 ui = [
     "streamlit>=1.28.0",
+    "matplotlib",
 ]
 
 [tool.setuptools.packages.find]

@@ -1,4 +1,4 @@
-.PHONY: help install test lint format eval eval-s2 docker-build docker-run clean
+.PHONY: help install test lint format eval eval-run eval-s2 docker-build docker-run clean plots annotate-template annotate-check kappa
 
 PYTHON ?= python
 
@@ -29,7 +29,7 @@ format:
 	ruff check . --fix
 	ruff format .
 
-eval:
+eval-run:
 	$(PYTHON) scripts/evaluate_pipeline.py
 	$(PYTHON) scripts/benchmark_llm_baseline.py
 
@@ -44,3 +44,17 @@ docker-run:
 
 clean:
 	rm -rf build dist *.egg-info .pytest_cache .ruff_cache __pycache__
+
+plots:
+	$(PYTHON) scripts/make_plots.py
+
+eval: eval-run plots
+
+annotate-template:
+	$(PYTHON) scripts/annotator_tools.py template --annotator B
+
+annotate-check:
+	$(PYTHON) scripts/annotator_tools.py check corpus/gold/annotator_b
+
+kappa:
+	$(PYTHON) scripts/compute_kappa.py

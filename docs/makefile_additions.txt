@@ -1,0 +1,20 @@
+# Add these targets to the Makefile. Every command line must start with a TAB, not spaces.
+# Also add "plots annotate-template annotate-check kappa" to the .PHONY line.
+
+plots:
+	$(PYTHON) scripts/make_plots.py
+
+annotate-template:
+	$(PYTHON) scripts/annotator_tools.py template --annotator B
+
+annotate-check:
+	$(PYTHON) scripts/annotator_tools.py check corpus/gold/annotator_b
+
+kappa:
+	$(PYTHON) scripts/compute_kappa.py
+
+# Replace the existing eval target with this (adds the plots step at the end):
+eval:
+	$(PYTHON) scripts/evaluate_pipeline.py
+	$(PYTHON) scripts/benchmark_llm_baseline.py
+	$(PYTHON) scripts/make_plots.py
