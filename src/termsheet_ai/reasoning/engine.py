@@ -1,5 +1,8 @@
 """Deterministic rule-based reasoning for TermSheet AI.
 
+Implements forward chaining over definite Horn clauses loaded from rules_v1.yaml,
+maintaining an agenda, working memory, derived predicate chaining, and proof-tree
+justification records as specified in the TermSheet AI KR&R architecture.
 Supports existing YAML risk rules, optional derived facts, forward chaining,
 working-memory provenance, and audit records.
 """
@@ -7,9 +10,13 @@ working-memory provenance, and audit records.
 import ast
 import operator
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
-from termsheet_ai.ontology import load_rules_from_yaml
+from termsheet_ai.ontology import (
+    DEFAULT_SEVERITY_WEIGHTS,
+    load_rules_from_yaml,
+    load_severity_weights_from_yaml,
+)
 from termsheet_ai.pipeline.base import BaseReasoner
 from termsheet_ai.schemas.contracts import (
     AuditTrace,
@@ -122,6 +129,8 @@ class HornRule:
         severity: Optional[SeverityLevel],
         message: str,
         source: str,
+        conclusion: Optional[str] = None,
+        norm_id: Optional[str] = None,
         derives: Optional[Dict[str, Any]] = None,
     ) -> None:
         self.rule_id = rule_id
@@ -130,6 +139,8 @@ class HornRule:
         self.severity = severity
         self.message = message
         self.source = source
+        self.conclusion = conclusion
+        self.norm_id = norm_id
         self.derives = dict(derives or {})
 
     @classmethod
@@ -149,6 +160,8 @@ class HornRule:
             severity=severity,
             message=data.get("message", "Rule triggered."),
             source=data.get("source", "NVCA Model Term Sheet"),
+            conclusion=data.get("conclusion"),
+            norm_id=data.get("norm_id"),
             derives=data.get("derives", {}),
         )
 
@@ -169,6 +182,7 @@ class WorkingMemory:
         clause_id: Optional[str] = None,
         source_span: Optional[str] = None,
     ) -> None:
+        """Asserts a ground or derived fact into working memory."""
         self._facts[key] = value
         if clause_id:
             self._clause_associations[key] = clause_id
@@ -244,18 +258,13 @@ class WorkingMemory:
 class ForwardChainingEngine(BaseReasoner):
     """Run rules to a fixed point, then return deterministic flags and traces."""
 
-    SEVERITY_WEIGHTS = {
-        SeverityLevel.CRITICAL: 40.0,
-        SeverityLevel.HIGH: 25.0,
-        SeverityLevel.MEDIUM: 10.0,
-        SeverityLevel.LOW: 5.0,
-        SeverityLevel.INFO: 0.0,
-    }
+    SEVERITY_WEIGHTS = dict(DEFAULT_SEVERITY_WEIGHTS)
 
     def __init__(
         self,
         rules: Optional[List[HornRule]] = None,
         rules_yaml_path: Optional[Path] = None,
+        severity_weights: Optional[Dict[SeverityLevel, float]] = None,
     ) -> None:
         if rules is not None:
             self.rules = rules
@@ -263,6 +272,11 @@ class ForwardChainingEngine(BaseReasoner):
             self.rules = [
                 HornRule.from_dict(item) for item in load_rules_from_yaml(rules_yaml_path)
             ]
+
+        if severity_weights is not None:
+            self.severity_weights = dict(severity_weights)
+        else:
+            self.severity_weights = load_severity_weights_from_yaml(rules_yaml_path)
 
     def build_working_memory_from_facts(self, facts: ExtractedFacts) -> WorkingMemory:
         wm = WorkingMemory()
@@ -325,6 +339,11 @@ class ForwardChainingEngine(BaseReasoner):
                 wm.assert_fact(f"vesting.{key}", value, fv.clause_id, span)
                 wm.assert_fact(key, value, fv.clause_id, span)
 
+            lower_span = span.lower()
+            if any(tok in lower_span for tok in ("re-vest", "revest", "vesting reset")):
+                wm.assert_fact("vesting.VestingReset", True, fv.clause_id, span)
+                wm.assert_fact("VestingReset", True, fv.clause_id, span)
+
         if facts.protective_provisions is not None and facts.protective_provisions.is_grounded:
             pp = facts.protective_provisions
             span = pp.source_span.text if pp.source_span else ""
@@ -337,6 +356,15 @@ class ForwardChainingEngine(BaseReasoner):
             wm.assert_fact(
                 "requires_series_majority", pp.requires_series_majority, pp.clause_id, span
             )
+            lower_actions = " ".join(pp.covered_actions).lower() + " " + span.lower()
+            if "day-to-day" in lower_actions or "day_to_day" in lower_actions:
+                wm.assert_fact(
+                    "protective_provisions.veto_day_to_day_operations",
+                    True,
+                    pp.clause_id,
+                    span,
+                )
+                wm.assert_fact("veto_day_to_day_operations", True, pp.clause_id, span)
 
         # S3 -> S4 grounding safeguard:
         # Raw custom facts lack per-entry source validation metadata.
@@ -353,8 +381,8 @@ class ForwardChainingEngine(BaseReasoner):
         """
         flags: List[RiskFlag] = []
         traces: List[JustificationRecord] = []
-        fired_rules = set()
         total_risk_score = 0.0
+        fired_rules: Set[str] = set()
 
         changed = True
         while changed:
@@ -379,11 +407,15 @@ class ForwardChainingEngine(BaseReasoner):
                     if clause_id != "general":
                         break
 
-                conclusion = (
-                    ", ".join(f"{key}={value!r}" for key, value in rule.derives.items())
-                    if rule.derives
-                    else f"Flag: {rule.message}"
-                )
+                if rule.derives:
+                    conclusion = ", ".join(
+                        f"{key}={value!r}" for key, value in rule.derives.items()
+                    )
+                elif rule.conclusion:
+                    conclusion = rule.conclusion
+                else:
+                    conclusion = f"Flag: {rule.message}"
+
                 record = JustificationRecord(
                     rule_id=rule.rule_id,
                     rule_name=rule.message,
@@ -392,6 +424,13 @@ class ForwardChainingEngine(BaseReasoner):
                     conclusion_flag=conclusion,
                 )
                 traces.append(record)
+
+                if rule.conclusion:
+                    for derived_key in (rule.conclusion, f"{rule.family}.{rule.conclusion}"):
+                        if not wm.has(derived_key):
+                            wm.assert_fact(derived_key, True, clause_id=clause_id)
+                            wm._derivations[derived_key] = record
+                            changed = True
 
                 for key, value in rule.derives.items():
                     if not wm.has(key):
@@ -433,7 +472,7 @@ class ForwardChainingEngine(BaseReasoner):
                         justification=record,
                     )
                 )
-                total_risk_score += self.SEVERITY_WEIGHTS.get(rule.severity, 0.0)
+                total_risk_score += self.severity_weights.get(rule.severity, 0.0)
 
         score = DocumentRiskScore(
             overall_score=min(100.0, total_risk_score),
