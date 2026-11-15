@@ -23,3 +23,5 @@ streamlit>=1.28.0
 # Development & Linting
 pytest>=7.4.0
 ruff>=0.1.0
+
+matplotlib
