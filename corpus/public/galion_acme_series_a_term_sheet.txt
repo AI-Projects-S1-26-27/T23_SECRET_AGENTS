@@ -4,7 +4,7 @@
 
 //=The Form of Agreement, with Galion default values:
 
-=[G/GalionProject-TermSheet-CmA/Form/-DefaultValues/0.md]  
+=[G/GalionProject-TermSheet-CmA/Form/-DefaultValues/0.md]
 
 //=Parameters:
 
