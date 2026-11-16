@@ -66,9 +66,9 @@
         "split": "dev",
         "provenance": "Downloaded from nvca.org",
         "licence": "NVCA public",
-        "annotator_a": null,
+        "annotator_a": "completed",
         "annotator_b": null,
-        "annotation_status": "pending"
+        "annotation_status": "annotated_a"
       },
       {
         "id": "eval-002",
@@ -90,9 +90,9 @@
         "split": "dev",
         "provenance": "https://fi.co/insight/new-plain-preferred-term-sheet",
         "licence": "Free public template",
-        "annotator_a": null,
+        "annotator_a": "completed",
         "annotator_b": null,
-        "annotation_status": "pending"
+        "annotation_status": "annotated_a"
       },
       {
         "id": "eval-004",
@@ -102,9 +102,9 @@
         "split": "dev",
         "provenance": "Generated at https://ecvc.wsgr.com/generators/term-sheet-generator",
         "licence": "Free public tool",
-        "annotator_a": null,
+        "annotator_a": "completed",
         "annotator_b": null,
-        "annotation_status": "pending"
+        "annotation_status": "annotated_a"
       },
       {
         "id": "eval-005",
@@ -114,9 +114,9 @@
         "split": "test",
         "provenance": "github.com/seriesseed/equity",
         "licence": "CC0 open source",
-        "annotator_a": null,
+        "annotator_a": "completed",
         "annotator_b": null,
-        "annotation_status": "pending"
+        "annotation_status": "annotated_a"
       },
       {
         "id": "eval-006",
@@ -126,9 +126,69 @@
         "split": "test",
         "provenance": "https://carta.com/learn/resources/term-sheet-template/",
         "licence": "Free public template",
-        "annotator_a": null,
+        "annotator_a": "completed",
         "annotator_b": null,
-        "annotation_status": "pending"
+        "annotation_status": "annotated_a"
+      },
+      {
+        "id": "eval-037",
+        "filename": "public/yc_postmoney_safe_valuation_cap_only.docx",
+        "source": "Y Combinator Post-Money SAFE - Valuation Cap Only",
+        "is_synthetic": false,
+        "split": "test",
+        "provenance": "https://www.ycombinator.com/safe",
+        "licence": "YC public SAFE documents",
+        "annotator_a": "completed",
+        "annotator_b": null,
+        "annotation_status": "annotated_a"
+      },
+      {
+        "id": "eval-038",
+        "filename": "public/yc_postmoney_safe_discount_only.docx",
+        "source": "Y Combinator Post-Money SAFE - Discount Only",
+        "is_synthetic": false,
+        "split": "test",
+        "provenance": "https://www.ycombinator.com/safe",
+        "licence": "YC public SAFE documents",
+        "annotator_a": "completed",
+        "annotator_b": null,
+        "annotation_status": "annotated_a"
+      },
+      {
+        "id": "eval-039",
+        "filename": "public/yc_postmoney_safe_mfn_only.docx",
+        "source": "Y Combinator Post-Money SAFE - MFN Only",
+        "is_synthetic": false,
+        "split": "test",
+        "provenance": "https://www.ycombinator.com/safe",
+        "licence": "YC public SAFE documents",
+        "annotator_a": "completed",
+        "annotator_b": null,
+        "annotation_status": "annotated_a"
+      },
+      {
+        "id": "eval-040",
+        "filename": "public/yc_postmoney_safe_valuation_cap_only_canada.docx",
+        "source": "Y Combinator Post-Money SAFE - Valuation Cap Only (Canada)",
+        "is_synthetic": false,
+        "split": "test",
+        "provenance": "https://www.ycombinator.com/safe",
+        "licence": "YC public SAFE documents",
+        "annotator_a": "completed",
+        "annotator_b": null,
+        "annotation_status": "annotated_a"
+      },
+      {
+        "id": "eval-041",
+        "filename": "public/galion_acme_series_a_term_sheet.txt",
+        "source": "Galion Project Acme Series A Term Sheet",
+        "is_synthetic": false,
+        "split": "test",
+        "provenance": "https://github.com/CommonAccord/GalionProject-TermSheet-CmA/blob/master/Demo/Acme-SeriesA.md",
+        "licence": "Public GitHub repository; verify applicable repository licence",
+        "annotator_a": "completed",
+        "annotator_b": null,
+        "annotation_status": "annotated_a"
       },
       {
         "id": "eval-007",

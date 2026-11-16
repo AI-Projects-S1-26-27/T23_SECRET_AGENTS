@@ -1,0 +1,120 @@
+{
+  "doc_id": "eval-003",
+  "filename": "ts_010_founder_institute_plain_preferred.doc",
+  "annotator": "A",
+  "clauses": [
+    {
+      "clause_id": "c_1",
+      "section_header": null,
+      "clause_text": "[NAME OF ISSUER]",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_2",
+      "section_header": "MEMORANDUM OF TERMS",
+      "clause_text": "MEMORANDUM OF TERMS\n[INSERT DATE]\nThis Memorandum of Terms represents only the current thinking of the parties with respect to certain of the major issues relating to the proposed private offering and does not constitute a legally binding agreement. This Memorandum of Terms does not constitute an offer to sell or a solicitation of an offer to buy securities in any state where the offer or sale is not permitted.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_3",
+      "section_header": "THE OFFERING",
+      "clause_text": "THE OFFERING\nIssuer:\t[__________], a [Delaware] corporation (the “Company”)\nSecurities:\tSeries A Preferred Stock (the “Preferred”)\nValuation of the Company:\t$[__________] pre-money\nAmount of the offering:\t$[__________]\nNumber of shares:\t[__________] shares\nPrice per share:\t$[__________]\nInvestor(s):\t[__________] or its affiliated entities and other investors acceptable to the Company.\nCapitalization:\tSee attached capitalization table for the Company’s pre-financing capitalization and pro forma capitalization.\nAnticipated closing date:\tInitial closing on or before [__________], with additional closings within 120 days.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_4",
+      "section_header": "TERMS OF THE PREFERRED",
+      "clause_text": "TERMS OF THE PREFERRED\nDividends:\tNon-cumulative dividends at an annual rate of 8% of original Preferred price (if declared by board).\nLiquidation preference:\t1x liquidation preference, non-participating.\nRedemption rights:\tNone.\nConversion:\t1:1 conversion to Class A Common Stock (subject to anti-dilution adjustments) at any time at the option of the holder.  Automatic conversion upon (i) closing of a firmly underwritten public offering, or (ii) consent of at least 50% of the outstanding Preferred.\nAnti-dilution:\tBroad based weighted average, subject to customary exceptions, including shares issued in connection with: (i) plans, agreements or similar arrangements for employees, consultants or directors approved by the board; (ii) a registered public offering; (iii) an acquisition or joint venture approved by the board; (iv) debt financing or commercial transactions approved by the board; (v) a settlement approved by the board; (vi) sponsored research, collaboration, technology license, development, OEM, marketing or similar arrangements or strategic partnerships approved by the board; and (vii) the provision of goods or services pursuant to transactions approved by the board. \nVoting rights:\tGeneral: Preferred will vote (on an as-converted basis) with the Common Stock, except as provided herein or required by law.\n\tDirectors: So long as [__________] shares of the Preferred are outstanding (i) the Preferred will be entitled to elect one director; (ii) the Class F Common Stock will be entitled to elect the Class F Director (as defined in the Company’s certificate of incorporation); and (iii) the remaining director(s) will be elected by the Preferred and Class F Common Stock voting together.\nProtective provisions:\tSo long as [__________] shares of the Preferred are outstanding, consent of at least 50% of the then-outstanding Preferred will be required to (i) alter the certificate of incorporation if it would adversely alter the rights of the Preferred; (ii) change the authorized number of Preferred Stock; (iii) authorize or issue any senior or pari passu security; (iv) approve a merger, asset sale or other corporate reorganization or acquisition; (v) repurchase Common Stock, other than upon termination of a consultant, director or employee; (vi) declare or pay any dividend or distribution on the Preferred Stock or Common Stock; or (vii) liquidate or dissolve.",
+      "clause_family": "anti_dilution",
+      "source_span": "TERMS OF THE PREFERRED\nDividends:\tNon-cumulative dividends at an annual rate of 8% of original Preferred price (if declared by board).\nLiquidation preference:\t1x liquidation preference, non-participating.\nRedemption rights:\tNone.\nConversion:\t1:1 conversion to Class A Common Stock (subject to anti-dilution adjustments) at any time at the option of the holder.  Automatic conversion upon (i) closing of a firmly underwritten public offering, or (ii) consent of at least 50% of the outstanding Preferred.\nAnti-dilution:\tBroad based weighted average, subject to customary exceptions, including shares issued in connection with: (i) plans, agreements or similar arrangements for employees, consultants or directors approved by the board; (ii) a registered public offering; (iii) an acquisition or joint venture approved by the board; (iv) debt financing or commercial transactions approved by the board; (v) a settlement approved by the board; (vi) sponsored research, collaboration, technology license, development, OEM, marketing or similar arrangements or strategic partnerships approved by the board; and (vii) the provision of goods or services pursuant to transactions approved by the board. \nVoting rights:\tGeneral: Preferred will vote (on an as-converted basis) with the Common Stock, except as provided herein or required by law.\n\tDirectors: So long as [__________] shares of the Preferred are outstanding (i) the Preferred will be entitled to elect one director; (ii) the Class F Common Stock will be entitled to elect the Class F Director (as defined in the Company’s certificate of incorporation); and (iii) the remaining director(s) will be elected by the Preferred and Class F Common Stock voting together.\nProtective provisions:\tSo long as [__________] shares of the Preferred are outstanding, consent of at least 50% of the then-outstanding Preferred will be required to (i) alter the certificate of incorporation if it would adversely alter the rights of the Preferred; (ii) change the authorized number of Preferred Stock; (iii) authorize or issue any senior or pari passu security; (iv) approve a merger, asset sale or other corporate reorganization or acquisition; (v) repurchase Common Stock, other than upon termination of a consultant, director or employee; (vi) declare or pay any dividend or distribution on the Preferred Stock or Common Stock; or (vii) liquidate or dissolve.",
+      "attributes": {
+        "anti_dilution_type": "broad_based_weighted_average",
+        "broad_based": true,
+        "narrow_based": null,
+        "adjustment_trigger": "issuance below conversion price",
+        "excluded_issuances": "customary exceptions"
+      },
+      "expected_flags": [
+        "R-AD-02"
+      ],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_5",
+      "section_header": "INVESTOR RIGHTS",
+      "clause_text": "INVESTOR RIGHTS\nInformation rights:\tHolders of Preferred will receive unaudited annual and quarterly financials and annual business plan until an IPO or change of control.\nRegistration rights:\tDemand registration: Two demand rights after the earlier of (i) five years following the financing or (ii) 180 days following the IPO.\n\t“Piggyback” registration: Customary “piggyback” rights on Company registrations, subject to underwriter cutback.\n\tS-3 rights: Two per year (if available), with minimum offering price requirement of $1,000,000.\n\tTermination: These rights expire on the earlier of (i) the date on which all shares may be sold by the holder under Rule 144 during any 90-day period or (ii) three years after an IPO.\n\tMarket stand-off: 180 days after an IPO with booster shot.\nPreemptive rights:\tHolders of Preferred will have a right to purchase pro rata share of any offering of new securities by the Company, subject to customary exceptions. Pro rata share will be determined based on the Company’s fully-diluted capitalization (on an as-converted and as-exercised basis). Right will terminate on an IPO or change of control.",
+      "clause_family": "information_rights",
+      "source_span": "INVESTOR RIGHTS\nInformation rights:\tHolders of Preferred will receive unaudited annual and quarterly financials and annual business plan until an IPO or change of control.\nRegistration rights:\tDemand registration: Two demand rights after the earlier of (i) five years following the financing or (ii) 180 days following the IPO.\n\t“Piggyback” registration: Customary “piggyback” rights on Company registrations, subject to underwriter cutback.\n\tS-3 rights: Two per year (if available), with minimum offering price requirement of $1,000,000.\n\tTermination: These rights expire on the earlier of (i) the date on which all shares may be sold by the holder under Rule 144 during any 90-day period or (ii) three years after an IPO.\n\tMarket stand-off: 180 days after an IPO with booster shot.\nPreemptive rights:\tHolders of Preferred will have a right to purchase pro rata share of any offering of new securities by the Company, subject to customary exceptions. Pro rata share will be determined based on the Company’s fully-diluted capitalization (on an as-converted and as-exercised basis). Right will terminate on an IPO or change of control.",
+      "attributes": {
+        "report_types": "financial reports",
+        "frequency": null,
+        "inspection_right": false,
+        "eligibility_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_6",
+      "section_header": "Right of first refusal",
+      "clause_text": "Right of first refusal\nand co-sale agreement:\tThe Company will have a right of first refusal on transfer of Company shares by [insert name of Founder(s)] (the “Founders”).  If the Company does not exercise this right, holders of Preferred will have a right of first refusal and a co-sale right, subject to customary exceptions.\nVoting agreement:\tCustomary voting agreement including provisions agreeing to elect the following individuals to the board (i) one representative designated by [____________] (the “Preferred Director”); (ii) one representative designated by the holders of Class F Common Stock as the Class F Director; and (iii) one representative mutually agreeable to the Preferred Director and the Class F Director.",
+      "clause_family": "rofr_co_sale",
+      "source_span": "Right of first refusal\nand co-sale agreement:\tThe Company will have a right of first refusal on transfer of Company shares by [insert name of Founder(s)] (the “Founders”).  If the Company does not exercise this right, holders of Preferred will have a right of first refusal and a co-sale right, subject to customary exceptions.\nVoting agreement:\tCustomary voting agreement including provisions agreeing to elect the following individuals to the board (i) one representative designated by [____________] (the “Preferred Director”); (ii) one representative designated by the holders of Class F Common Stock as the Class F Director; and (iii) one representative mutually agreeable to the Preferred Director and the Class F Director.",
+      "attributes": {
+        "investor_rofr": true,
+        "investor_co_sale": true,
+        "covered_holders": "founders",
+        "notice_period_days": null,
+        "transfer_exceptions": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_7",
+      "section_header": "OTHER MATTERS",
+      "clause_text": "OTHER MATTERS\nOption pool:\tThe number of shares of Class A Common Stock reserved for issuance under the Company’s equity incentive plan will be increased to a new total of [_________] shares.\nFounder Vesting:\tUpon a Change of Control, all then-unvested shares of Class F Common Stock purchased by each Founder shall immediately vest and become exercisable.\nA “Change of Control” shall mean (i) the acquisition of the Company by another entity by means of any transaction or series of related transactions (including, without limitation, any reorganization, merger or consolidation or stock transfer, but excluding any such transaction effected primarily for the purpose of changing the domicile of the Company), unless the Company’s stockholders of record immediately prior to such transaction or series of related transactions hold, immediately after such transaction or series of related transactions, at least 50% of the voting power of the surviving or acquiring entity (provided that the sale by the Company of its securities for the purposes of raising additional funds shall not constitute a Change of Control hereunder); or (ii) a sale of all or substantially all of the assets of the Company. \nExpiration date:\tThese terms are valid until, and will expire on, [___________].\n(Signature page follows)\fThis Memorandum of Terms may be executed in counterparts, which together will constitute one document. Facsimile signatures shall have the same legal effect as original signatures. \n[INSERT COMPANY NAME]\t[INSERT NAME OF INVESTOR]",
+      "clause_family": "founder_vesting",
+      "source_span": "OTHER MATTERS\nOption pool:\tThe number of shares of Class A Common Stock reserved for issuance under the Company’s equity incentive plan will be increased to a new total of [_________] shares.\nFounder Vesting:\tUpon a Change of Control, all then-unvested shares of Class F Common Stock purchased by each Founder shall immediately vest and become exercisable.\nA “Change of Control” shall mean (i) the acquisition of the Company by another entity by means of any transaction or series of related transactions (including, without limitation, any reorganization, merger or consolidation or stock transfer, but excluding any such transaction effected primarily for the purpose of changing the domicile of the Company), unless the Company’s stockholders of record immediately prior to such transaction or series of related transactions hold, immediately after such transaction or series of related transactions, at least 50% of the voting power of the surviving or acquiring entity (provided that the sale by the Company of its securities for the purposes of raising additional funds shall not constitute a Change of Control hereunder); or (ii) a sale of all or substantially all of the assets of the Company. \nExpiration date:\tThese terms are valid until, and will expire on, [___________].\n(Signature page follows)\fThis Memorandum of Terms may be executed in counterparts, which together will constitute one document. Facsimile signatures shall have the same legal effect as original signatures. \n[INSERT COMPANY NAME]\t[INSERT NAME OF INVESTOR]",
+      "attributes": {
+        "vesting_months": null,
+        "cliff_months": null,
+        "acceleration": null,
+        "repurchase_right": null,
+        "applies_to": "founders"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_8",
+      "section_header": "Signature\tSignature",
+      "clause_text": "Signature\tSignature \n\t\t\t\nPrint name\tPrint name\n\t\t\t\nPrint title\tPrint title\n\t\t\t\nDate\tDate\n\n\nTheFunded Founder Institute - Notice\n\n\tThis sample Memorandum of Terms has been prepared by Wilson Sonsini Goodrich & Rosati for informational purposes only and does not constitute advertising, a solicitation, or legal advice.  Neither the transmission of this sample Memorandum of Terms nor the transmission of any information contained in this website is intended to create, and receipt hereof or thereof does not constitute formation of, an attorney-client relationship.  Internet subscribers and online readers should not rely upon this sample Memorandum of Terms or the information contained in this website for any purpose without seeking legal advice from a licensed attorney in the reader’s state.  \n\n\tThe information contained in this website is provided only as general information and may or may not reflect the most current legal developments; accordingly, information on this website is not promised or guaranteed to be correct or complete.  Wilson Sonsini Goodrich & Rosati expressly disclaims all liability in respect to actions taken or not taken based on any or all the contents of this website.  Further, Wilson Sonsini Goodrich & Rosati does not necessarily endorse, and is not responsible for, any third-party content that may be accessed through this website.\n\n\n\fEXHIBIT: CAPITALIZATION TABLE\n\t \tThis sample Memorandum of Terms was designed to be used in conjunction with standard Founder Institute charter documents, which include Class A Common Stock and Class F Common Stock.  This sample Memorandum of Terms will need to be appropriately customized for each end-user’s application, including but not limited to replacing references to “Class A Common Stock” and “Class F Common Stock” to “Common Stock,” if appropriate. \n\t Equal to 25% of the aggregate number of Preferred shares issued in the financing.\n\t Equal to 25% of the aggregate number of Preferred shares issued in the financing.\n\t Total number of shares reserved under the option pool to be no greater than 20% of the fully-diluted capitalization of the Company post-money.\n\t \t30 days after the date first set forth above.\n\nTheFunded Founder Institute – Plain Preferred Term Sheet\n\n\n\n\n\n\n\n\n\n\nTheFunded Founder Institute – Plain Preferred Term Sheet\n\n\n\n\n\n\n\n\n\n\n\n\nTheFunded Founder Institute – Plain Preferred Term Sheet",
+      "clause_family": "option_pool",
+      "source_span": "Signature\tSignature \n\t\t\t\nPrint name\tPrint name\n\t\t\t\nPrint title\tPrint title\n\t\t\t\nDate\tDate\n\n\nTheFunded Founder Institute - Notice\n\n\tThis sample Memorandum of Terms has been prepared by Wilson Sonsini Goodrich & Rosati for informational purposes only and does not constitute advertising, a solicitation, or legal advice.  Neither the transmission of this sample Memorandum of Terms nor the transmission of any information contained in this website is intended to create, and receipt hereof or thereof does not constitute formation of, an attorney-client relationship.  Internet subscribers and online readers should not rely upon this sample Memorandum of Terms or the information contained in this website for any purpose without seeking legal advice from a licensed attorney in the reader’s state.  \n\n\tThe information contained in this website is provided only as general information and may or may not reflect the most current legal developments; accordingly, information on this website is not promised or guaranteed to be correct or complete.  Wilson Sonsini Goodrich & Rosati expressly disclaims all liability in respect to actions taken or not taken based on any or all the contents of this website.  Further, Wilson Sonsini Goodrich & Rosati does not necessarily endorse, and is not responsible for, any third-party content that may be accessed through this website.\n\n\n\fEXHIBIT: CAPITALIZATION TABLE\n\t \tThis sample Memorandum of Terms was designed to be used in conjunction with standard Founder Institute charter documents, which include Class A Common Stock and Class F Common Stock.  This sample Memorandum of Terms will need to be appropriately customized for each end-user’s application, including but not limited to replacing references to “Class A Common Stock” and “Class F Common Stock” to “Common Stock,” if appropriate. \n\t Equal to 25% of the aggregate number of Preferred shares issued in the financing.\n\t Equal to 25% of the aggregate number of Preferred shares issued in the financing.\n\t Total number of shares reserved under the option pool to be no greater than 20% of the fully-diluted capitalization of the Company post-money.\n\t \t30 days after the date first set forth above.\n\nTheFunded Founder Institute – Plain Preferred Term Sheet\n\n\n\n\n\n\n\n\n\n\nTheFunded Founder Institute – Plain Preferred Term Sheet\n\n\n\n\n\n\n\n\n\n\n\n\nTheFunded Founder Institute – Plain Preferred Term Sheet",
+      "attributes": {
+        "pool_percentage": 25.0,
+        "pre_money_pool": null,
+        "post_money_pool": null,
+        "dilution_holder": null,
+        "pool_purpose": "employee or advisor equity"
+      },
+      "expected_flags": [
+        "R-OP-01"
+      ],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    }
+  ]
+}

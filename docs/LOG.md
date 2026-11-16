@@ -45,7 +45,7 @@
   - All passing, ruff lint clean
 ### M2/M7 - Corpus collection (addendum)
 - [x] Added 5 public term sheets to `corpus/` (NVCA Model, Founder Institute Plain Preferred, WSGR generated, Series Seed Equity, Gunderson Dettmer Series Seed) and registered them in `corpus/manifest.json`
-- [ ] 5 more needed to reach the target
+- [x] Added 5 additional public financing documents under `corpus/public/` (three YC Post-Money SAFEs, one Canadian YC SAFE, and one Galion Series A example) and registered them in `corpus/manifest.json`
 
 #### M5 — KR&R: Ontology & Rule Base
 - [x] **Clause Family Definitions** — [`docs/clause_family_definitions_v0.md`](clause_family_definitions_v0.md)
@@ -54,7 +54,7 @@
 
 ### Remaining for Week 1
 - [x] **M5**: Draft annotation guide v0 (clause family definitions + attribute schemas for annotators)
-- [ ] **M2 + M7**: Collect ≥10 public term sheets, add entries to `corpus/manifest.json` (5/10 done)
+- [x] **M2 + M7**: Collect ≥10 public term sheets and add entries to `corpus/manifest.json` (10/10 collected)
 
 ### Blockers
 - None currently
@@ -203,8 +203,8 @@
 - [x] Manifest JSON and synthetic text/gold registrations validated
 
 ### Remaining
-- [ ] Gold annotations for the real documents require independent human labeling
-  by Annotators A and B before reconciliation and Cohen's kappa reporting.
+- [ ] Annotator B gold annotations for the 10 locally available real documents,
+  followed by reconciliation and Cohen's kappa reporting
 
 ## Week 5 (8–14 Nov 2026)
 
@@ -237,7 +237,8 @@
   - Covers valid and invalid spans, missing files, duplicate IDs, metrics, and malformed predictions
 - [x] **Corpus audit**
   - Synthetic sidecars are available for the 30 registered synthetic documents
-  - Real-document gold sidecars remain blocked on independent Annotator A/B labeling
+  - Annotator A gold sidecars are available for the 10 locally available real documents
+  - Independent Annotator B labeling and reconciliation remain pending
 
 #### M1 — Team Lead / System Architect & Pipeline Lead
 - [x] **Input Guardrails & Robustness Layer** — [`src/termsheet_ai/pipeline/guardrails.py`](../src/termsheet_ai/pipeline/guardrails.py)

@@ -1,0 +1,896 @@
+{
+  "doc_id": "eval-006",
+  "filename": "ts_004_gunderson_series_seed.pdf",
+  "annotator": "A",
+  "clauses": [
+    {
+      "clause_id": "c_1",
+      "section_header": "IMPORTANT NOTICE",
+      "clause_text": "IMPORTANT NOTICE  \nThe following form of term sheet for a venture capital financing has been prepared by Gunderson Dettmer \nStough Villeneuve Franklin & Hachigian LLP (Gunderson Dettmer) for informational purposes only and \ndoes not constitute advertising, a solicitation, or legal advice.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_2",
+      "section_header": "This form may be longer and more detailed than forms used by many venture capitalists for seed-stage",
+      "clause_text": "This form may be longer and more detailed than forms used by many venture capitalists for seed-stage \ninvestments. Additional detail is included in this form for educational purposes. The level of detail in a",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_3",
+      "section_header": "term sheet and the provisions themselves can vary widely based on a number of factors, including",
+      "clause_text": "term sheet and the provisions themselves can vary widely based on a number of factors, including \ninvestor preferences, geography and industry.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_4",
+      "section_header": "Gunderson Dettmer does not assume any responsibility for any consequence of your use of this",
+      "clause_text": "Gunderson Dettmer does not assume any responsibility for any consequence of your use of this \ndocument, and the availability or use of this document is not intended to create, or constitute formation of, \nan attorney-client relationship or any other special relationship or privilege. You should not rely upon this",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_5",
+      "section_header": "document for any purpose without seeking legal advice from licensed attorneys in the relevant",
+      "clause_text": "document for any purpose without seeking legal advice from licensed attorneys in the relevant \njurisdiction.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_6",
+      "section_header": "ABOUT GUNDERSON DETTMER",
+      "clause_text": "ABOUT GUNDERSON DETTMER \nGunderson Dettmer has more than 270 lawyers singularly focused on the global venture capital and \nemerging companies ecosystem, earning international recognition as the #1 law firm for venture and \ngrowth equity deals, negotiating over $56 billion in deals in 2019 alone. \nThe firm serves more than 2,500 venture-backed companies and over 450 of the world’s top venture",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_7",
+      "section_header": "capital and growth equity firms, including thousands of their underlying funds from nine offices in key",
+      "clause_text": "capital and growth equity firms, including thousands of their underlying funds from nine offices in key \nmarkets throughout the world: Silicon Valley, Ann Arbor, Boston, Los Angeles, New York, San Diego, \nSan Francisco, Beijing, and Singapore.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_8",
+      "section_header": "For venture-backed companies, the firm provides guidance at every stage in their lifecycle, from launch",
+      "clause_text": "For venture-backed companies, the firm provides guidance at every stage in their lifecycle, from launch \nthrough IPO and beyond, becoming extensions of their management teams as they prepare for their next \nstage of growth. For funds, the firm routinely negotiates close to one-third of every venture capital dollar",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_9",
+      "section_header": "raised worldwide and is the recognized global leader in the representation of venture capital and other",
+      "clause_text": "raised worldwide and is the recognized global leader in the representation of venture capital and other \ngrowth equity funds in their investment activities, negotiating more than 1,000 venture and growth \nfinancings every year. \nwww.gunder.com",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_10",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n2",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_11",
+      "section_header": "MEMORANDUM OF TERMS",
+      "clause_text": "MEMORANDUM OF TERMS \n \nFOR PRIVATE PLACEMENT OF \n \nSERIES SEED PREFERRED STOCK OF \n \n[COMPANY NAME] \n[Date]",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_12",
+      "section_header": "This memorandum summarizes the principal terms of the seed-round venture capital financing of",
+      "clause_text": "This memorandum summarizes the principal terms of the seed-round venture capital financing of \n[COMPANY NAME] (the “Company”).  The completion of the transactions contemplated by this",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_13",
+      "section_header": "memorandum will be subject to, among other things, satisfactory completion of financial and legal due",
+      "clause_text": "memorandum will be subject to, among other things, satisfactory completion of financial and legal due \ndiligence by the Investors, as well as the completion of final documents acceptable to the Investors and \nthe Company.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_14",
+      "section_header": "Offering Terms",
+      "clause_text": "Offering Terms \n \nIssuer: \n[COMPANY NAME], a Delaware corporation. \nInvestors:",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_15",
+      "section_header": "Investor Name",
+      "clause_text": "Investor Name \n[LEAD INVESTOR] \n \n[OTHER INVESTORS] \n \nAmount \n$[________] \n$[________] \nTotal Investment: \n \n$[________] \nFounders: \n[________] \n \n[________] \n \nSecurities to be issued: \n[____________] shares of Series Seed Preferred Stock. \nPrice: \n$[_____] per share (based on the capitalization of the Company set forth \non Attachment A hereto under the heading “Pro Forma Capitalization”).",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_16",
+      "section_header": "To the extent the capitalization indicates fewer or more shares than",
+      "clause_text": "To the extent the capitalization indicates fewer or more shares than \nassumed herein, the per share price shall be adjusted to reflect a pre-\nmoney valuation of $[_______].  The number of shares of Common Stock \nand options available for issuance under the Company’s stock option \nplans shall equal [__]% of the fully diluted capitalization of the Company \nfollowing the closing of the financing. \nExpected Closing Date: \nOn or about [TARGET CLOSING DATE] (the “Closing”).  The \nCompany may sell, within [____] days following the Closing, up to \n[_________] additional shares of Series Seed Preferred Stock not sold at \nthe Closing to purchasers acceptable to the Company.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_17",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n3",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_18",
+      "section_header": "Terms of Series Seed Preferred Stock",
+      "clause_text": "Terms of Series Seed Preferred Stock \nCertificate of Incorporation \nDividends: \nAnnual [__]% dividend on the Series Seed Preferred Stock, payable when",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_19",
+      "section_header": "and if declared by Board, and prior and in preference to any declaration or",
+      "clause_text": "and if declared by Board, and prior and in preference to any declaration or \npayment of other dividends; dividends are not cumulative.  For any other",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_20",
+      "section_header": "dividends or similar distributions, Preferred Stock participates with",
+      "clause_text": "dividends or similar distributions, Preferred Stock participates with \nCommon Stock on an as-converted basis. \nLiquidation Preference:",
+      "clause_family": "liquidation_preference",
+      "source_span": "dividends or similar distributions, Preferred Stock participates with \nCommon Stock on an as-converted basis. \nLiquidation Preference:",
+      "attributes": {
+        "liq_multiple": null,
+        "liq_participation": "participating",
+        "liq_cap": null,
+        "liq_seniority": null
+      },
+      "expected_flags": [
+        "R-LP-02"
+      ],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_21",
+      "section_header": "In the event of a liquidation, dissolution or winding-up, the proceeds shall",
+      "clause_text": "In the event of a liquidation, dissolution or winding-up, the proceeds shall \nbe distributed to the stockholders as follows: \n \nFirst pay 1x the original purchase price plus declared but unpaid dividends \non each share of Series Seed Preferred Stock.  Any remaining proceeds \nshall be paid to the holders of Common Stock.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_22",
+      "section_header": "A sale of all or substantially all of the assets of the Company and a",
+      "clause_text": "A sale of all or substantially all of the assets of the Company and a \nmerger, reorganization or other transaction in which 50% of the",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_23",
+      "section_header": "outstanding voting power of the Company is transferred will be treated as",
+      "clause_text": "outstanding voting power of the Company is transferred will be treated as \na liquidation event (each a “Liquidation Event”), thereby triggering the \nliquidation payment.  The holders of a majority of the outstanding",
+      "clause_family": "liquidation_preference",
+      "source_span": "outstanding voting power of the Company is transferred will be treated as \na liquidation event (each a “Liquidation Event”), thereby triggering the \nliquidation payment.  The holders of a majority of the outstanding",
+      "attributes": {
+        "liq_multiple": null,
+        "liq_participation": null,
+        "liq_cap": null,
+        "liq_seniority": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_24",
+      "section_header": "Preferred Stock may waive the treatment of such a transaction as a",
+      "clause_text": "Preferred Stock may waive the treatment of such a transaction as a \nliquidation event. \nRedemption: \nThe Preferred Stock will not be redeemable. \nConversion:",
+      "clause_family": "redemption_rights",
+      "source_span": "Preferred Stock may waive the treatment of such a transaction as a \nliquidation event. \nRedemption: \nThe Preferred Stock will not be redeemable. \nConversion:",
+      "attributes": {
+        "redemption_years": null,
+        "redemption_price": null,
+        "installments": null,
+        "approval_threshold": null,
+        "redemption_trigger": "company repurchase right"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_25",
+      "section_header": "Each share of Series Seed Preferred Stock shall initially be convertible",
+      "clause_text": "Each share of Series Seed Preferred Stock shall initially be convertible \ninto one share of Common Stock at any time at the holder’s option.  \nAutomatic Conversion:",
+      "clause_family": "conversion_rights",
+      "source_span": "Each share of Series Seed Preferred Stock shall initially be convertible \ninto one share of Common Stock at any time at the holder’s option.  \nAutomatic Conversion:",
+      "attributes": {
+        "conversion_ratio": null,
+        "optional_conversion": false,
+        "automatic_conversion": false,
+        "conversion_triggers": null,
+        "majority_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_26",
+      "section_header": "Series Seed Preferred Stock automatically converts into Common Stock",
+      "clause_text": "Series Seed Preferred Stock automatically converts into Common Stock \nupon the earlier of (i) the election of a majority of the outstanding shares \nof Series Seed Preferred Stock or (ii) the consummation of an",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_27",
+      "section_header": "underwritten public offering with aggregate proceeds in excess of",
+      "clause_text": "underwritten public offering with aggregate proceeds in excess of \n$[________] (a “Qualified Public Offering”).",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_28",
+      "section_header": "Price-Based Antidilution",
+      "clause_text": "Price-Based Antidilution \nAdjustments \nConversion ratio for Series Seed Preferred Stock shall be adjusted on a \nbroad-based weighted average basis in the event of an issuance below the \nSeries Seed Preferred Stock price, as adjusted. \n \nNo adjustment shall be made for (i) the sale of shares of Common Stock \nreserved for employees and other service providers, (ii) Common Stock \nissued pursuant to a stock split or similar reorganization, (iii) Common \nStock issued upon conversion of Preferred Stock, (iv) securities issued in",
+      "clause_family": "anti_dilution",
+      "source_span": "Price-Based Antidilution \nAdjustments \nConversion ratio for Series Seed Preferred Stock shall be adjusted on a \nbroad-based weighted average basis in the event of an issuance below the \nSeries Seed Preferred Stock price, as adjusted. \n \nNo adjustment shall be made for (i) the sale of shares of Common Stock \nreserved for employees and other service providers, (ii) Common Stock \nissued pursuant to a stock split or similar reorganization, (iii) Common \nStock issued upon conversion of Preferred Stock, (iv) securities issued in",
+      "attributes": {
+        "anti_dilution_type": "broad_based_weighted_average",
+        "broad_based": true,
+        "narrow_based": null,
+        "adjustment_trigger": "issuance below conversion price",
+        "excluded_issuances": "customary exceptions"
+      },
+      "expected_flags": [
+        "R-AD-02"
+      ],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_29",
+      "section_header": "connection with a bona fide business acquisition by the Company or an",
+      "clause_text": "connection with a bona fide business acquisition by the Company or an \ninitial public offering, (v) securities issued to persons or entities with",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_30",
+      "section_header": "which the Company has business relationships, which issuances are",
+      "clause_text": "which the Company has business relationships, which issuances are \napproved by the Board and for primarily non-equity financing purposes, or \n(vi) securities issued or issuable pursuant to equipment lease financings or",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_31",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n4",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_32",
+      "section_header": "bank credit arrangements that are approved by the Board and for primarily",
+      "clause_text": "bank credit arrangements that are approved by the Board and for primarily \nnon-equity financing purposes.\nOther Antidilution \nAdjustments:",
+      "clause_family": "anti_dilution",
+      "source_span": "bank credit arrangements that are approved by the Board and for primarily \nnon-equity financing purposes.\nOther Antidilution \nAdjustments:",
+      "attributes": {
+        "anti_dilution_type": null,
+        "broad_based": null,
+        "narrow_based": null,
+        "adjustment_trigger": null,
+        "excluded_issuances": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_33",
+      "section_header": "Proportional adjustments for stock splits and stock dividends and similar",
+      "clause_text": "Proportional adjustments for stock splits and stock dividends and similar \nevents. \nVoting Rights:",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_34",
+      "section_header": "Votes on an as-converted basis, but also has class and series vote as",
+      "clause_text": "Votes on an as-converted basis, but also has class and series vote as \nprovided by law.  In addition, approval of a majority of the Preferred \nStock required on (i) the creation of any senior or pari passu security, (ii) \npayment of dividends on any class of stock, (iii) redemptions or",
+      "clause_family": "redemption_rights",
+      "source_span": "Votes on an as-converted basis, but also has class and series vote as \nprovided by law.  In addition, approval of a majority of the Preferred \nStock required on (i) the creation of any senior or pari passu security, (ii) \npayment of dividends on any class of stock, (iii) redemptions or",
+      "attributes": {
+        "redemption_years": null,
+        "redemption_price": null,
+        "installments": null,
+        "approval_threshold": null,
+        "redemption_trigger": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_35",
+      "section_header": "repurchases of Common Stock or Preferred Stock, except for purchases at",
+      "clause_text": "repurchases of Common Stock or Preferred Stock, except for purchases at \ncost upon termination of service or the exercise by the Company of \ncontractual rights of first refusal over such shares, (iv) consummation of \nany Liquidation Event, (v) any increase or decrease in the number of \nauthorized shares of Preferred Stock or Common Stock, (vi) any",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_36",
+      "section_header": "amendment of the Certificate of Incorporation or Bylaws that adversely",
+      "clause_text": "amendment of the Certificate of Incorporation or Bylaws that adversely \naffect the powers, preferences or special privileges of the Preferred Stock \nand (vii) any increase or decrease in the size of the Board.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_37",
+      "section_header": "Terms of Preferred Stock Purchase Agreement",
+      "clause_text": "Terms of Preferred Stock Purchase Agreement \nRepresentations and \nWarranties: \nStandard representations and warranties by the Company.  \nConditions to Closing: \n(a) Standard conditions to Closing, which shall include, among other",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_38",
+      "section_header": "things, satisfactory completion of financial and legal due diligence by the",
+      "clause_text": "things, satisfactory completion of financial and legal due diligence by the \nInvestors. \n \n(b) All current and former employees and consultants shall have entered \ninto the Company’s standard form proprietary information and inventions \nagreement in form and substance acceptable to the Investors. \n \n(c) Board composition at Closing shall be as described under “Board of \nDirectors” below. \n \n(d) The Company shall have entered into indemnification agreements with \nthe members of the Board in a form acceptable to the Investors. \nExpenses: \nCounsel to the Company will draft documents.  The Company shall pay, at \nthe closing, reasonable fees and expenses of Investors’ counsel, not to \nexceed $[________].",
+      "clause_family": "board_composition",
+      "source_span": "things, satisfactory completion of financial and legal due diligence by the \nInvestors. \n \n(b) All current and former employees and consultants shall have entered \ninto the Company’s standard form proprietary information and inventions \nagreement in form and substance acceptable to the Investors. \n \n(c) Board composition at Closing shall be as described under “Board of \nDirectors” below. \n \n(d) The Company shall have entered into indemnification agreements with \nthe members of the Board in a form acceptable to the Investors. \nExpenses: \nCounsel to the Company will draft documents.  The Company shall pay, at \nthe closing, reasonable fees and expenses of Investors’ counsel, not to \nexceed $[________].",
+      "attributes": {
+        "total_seats": null,
+        "investor_seats": null,
+        "founder_seats": null,
+        "independent_seats": null,
+        "appointment_rights": "director election rights"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_39",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n5",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_40",
+      "section_header": "Terms of Investor Rights Agreement",
+      "clause_text": "Terms of Investor Rights Agreement \nRegistration Rights: \nInvestors shall receive standard demand, piggyback and S-3 registration \nrights, subject to customary limitations. \nMarket Stand-Off:",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_41",
+      "section_header": "Prior to the Closing, all stockholders of the Company and the Investors",
+      "clause_text": "Prior to the Closing, all stockholders of the Company and the Investors \nshall agree not to sell or otherwise transfer an interest in any shares of \nPreferred Stock or Common Stock owned or controlled by them \nimmediately prior to the closing of the IPO for a period of up to 180 days \nfollowing the IPO (provided directors and officers of the Company and \n[__]% stockholders agree to the same lock-up); such agreement shall",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_42",
+      "section_header": "provide that any discretionary releases from the lock-up be allocated to",
+      "clause_text": "provide that any discretionary releases from the lock-up be allocated to \nholders of registrable securities on a pro-rata basis.  Such stockholders \nshall also agree to sign the underwriter’s standard lock-up agreement \nreflecting the foregoing. \nRight of First Offer: \nThe Investors holding at least [________] shares of Series Seed Preferred \nStock (the “Major Investors”) shall have a pro rata right, but not an",
+      "clause_family": "rofr_co_sale",
+      "source_span": "provide that any discretionary releases from the lock-up be allocated to \nholders of registrable securities on a pro-rata basis.  Such stockholders \nshall also agree to sign the underwriter’s standard lock-up agreement \nreflecting the foregoing. \nRight of First Offer: \nThe Investors holding at least [________] shares of Series Seed Preferred \nStock (the “Major Investors”) shall have a pro rata right, but not an",
+      "attributes": {
+        "investor_rofr": true,
+        "investor_co_sale": false,
+        "covered_holders": null,
+        "notice_period_days": null,
+        "transfer_exceptions": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_43",
+      "section_header": "obligation, based on their percentage equity ownership of Common Stock,",
+      "clause_text": "obligation, based on their percentage equity ownership of Common Stock, \nassuming full conversion and exercise of all outstanding convertible and \nexercisable securities, to participate in subsequent financings of the \nCompany, other than (i) the issuance or sale of shares of Common Stock \n(or options therefor) to employees and similar service providers pursuant \nto plans approved by the Board, (ii) the issuance of securities pursuant to a \nbona fide, firmly underwritten public offering, (iii) the issuance of",
+      "clause_family": "conversion_rights",
+      "source_span": "obligation, based on their percentage equity ownership of Common Stock, \nassuming full conversion and exercise of all outstanding convertible and \nexercisable securities, to participate in subsequent financings of the \nCompany, other than (i) the issuance or sale of shares of Common Stock \n(or options therefor) to employees and similar service providers pursuant \nto plans approved by the Board, (ii) the issuance of securities pursuant to a \nbona fide, firmly underwritten public offering, (iii) the issuance of",
+      "attributes": {
+        "conversion_ratio": null,
+        "optional_conversion": false,
+        "automatic_conversion": false,
+        "conversion_triggers": null,
+        "majority_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_44",
+      "section_header": "securities pursuant to the conversion or exercise of convertible or",
+      "clause_text": "securities pursuant to the conversion or exercise of convertible or \nexercisable securities, (iv) the issuance of securities in connection with a \nbona fide business acquisition of or by the Company, (v) the issuance of",
+      "clause_family": "conversion_rights",
+      "source_span": "securities pursuant to the conversion or exercise of convertible or \nexercisable securities, (iv) the issuance of securities in connection with a \nbona fide business acquisition of or by the Company, (v) the issuance of",
+      "attributes": {
+        "conversion_ratio": null,
+        "optional_conversion": false,
+        "automatic_conversion": false,
+        "conversion_triggers": null,
+        "majority_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_45",
+      "section_header": "stock, warrants or other securities or rights to persons or entities with",
+      "clause_text": "stock, warrants or other securities or rights to persons or entities with \nwhich the Company has business relationships, provided such issuances \nare for other than primarily equity financing purposes or (vi) the issuance \nof securities that, with unanimous approval of the Company’s Board of \nDirectors, are not offered to any existing stockholder of the Company.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_46",
+      "section_header": "Any shares not subscribed for by an Investor may be reallocated pro rata",
+      "clause_text": "Any shares not subscribed for by an Investor may be reallocated pro rata \namong the other eligible Investors.  Such right shall not apply to any",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_47",
+      "section_header": "public offering and will terminate immediately prior to a Qualified Public",
+      "clause_text": "public offering and will terminate immediately prior to a Qualified Public \nOffering. \nFinancial Information:",
+      "clause_family": "information_rights",
+      "source_span": "public offering and will terminate immediately prior to a Qualified Public \nOffering. \nFinancial Information:",
+      "attributes": {
+        "report_types": "financial reports",
+        "frequency": null,
+        "inspection_right": false,
+        "eligibility_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_48",
+      "section_header": "The Major Investors shall receive standard information rights including",
+      "clause_text": "The Major Investors shall receive standard information rights including \nannual unaudited financial reports within [120-180] days after the end of \nthe fiscal year, quarterly unaudited financial reports within 45 days after",
+      "clause_family": "information_rights",
+      "source_span": "The Major Investors shall receive standard information rights including \nannual unaudited financial reports within [120-180] days after the end of \nthe fiscal year, quarterly unaudited financial reports within 45 days after",
+      "attributes": {
+        "report_types": "financial reports",
+        "frequency": null,
+        "inspection_right": false,
+        "eligibility_threshold": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_49",
+      "section_header": "the end of each of the first three quarters, monthly unaudited financial",
+      "clause_text": "the end of each of the first three quarters, monthly unaudited financial \nreports within 30 days after the end of the month upon request of the",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_50",
+      "section_header": "Major Investors and annual budget and business plan prior to the",
+      "clause_text": "Major Investors and annual budget and business plan prior to the \nbeginning of a fiscal year, as well as standard inspection rights.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_51",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n6 \n \nManagement Rights Letter:",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_52",
+      "section_header": "Each Investor requiring one shall receive a standard management rights",
+      "clause_text": "Each Investor requiring one shall receive a standard management rights \nletter providing for the consultation with management on significant issues \nand access to the books, records and facilities of the Company.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_53",
+      "section_header": "Board of Directors Matters",
+      "clause_text": "Board of Directors Matters \nBoard of Directors: \nAt the Closing the Board shall consist of [three] members, who shall be \n[________], [________] and [_______].  Holders of Series Seed Preferred \nStock shall be entitled to elect [one] member.1  Holders of Common Stock \nshall be entitled to elect [two] members.  Holders of the Series Seed",
+      "clause_family": "board_composition",
+      "source_span": "Board of Directors Matters \nBoard of Directors: \nAt the Closing the Board shall consist of [three] members, who shall be \n[________], [________] and [_______].  Holders of Series Seed Preferred \nStock shall be entitled to elect [one] member.1  Holders of Common Stock \nshall be entitled to elect [two] members.  Holders of the Series Seed",
+      "attributes": {
+        "total_seats": null,
+        "investor_seats": null,
+        "founder_seats": null,
+        "independent_seats": null,
+        "appointment_rights": "director election rights"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_54",
+      "section_header": "Preferred Stock and Common Stock, voting as a single class on an as-",
+      "clause_text": "Preferred Stock and Common Stock, voting as a single class on an as-\nconverted basis, shall elect any remaining directors.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_55",
+      "section_header": "Other Matters",
+      "clause_text": "Other Matters \n \nEmployee Common Stock \nVesting:",
+      "clause_family": "founder_vesting",
+      "source_span": "Other Matters \n \nEmployee Common Stock \nVesting:",
+      "attributes": {
+        "vesting_months": null,
+        "cliff_months": null,
+        "acceleration": null,
+        "repurchase_right": null,
+        "applies_to": "employees"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_56",
+      "section_header": "Unless otherwise approved by the Board, employee Common Stock shall",
+      "clause_text": "Unless otherwise approved by the Board, employee Common Stock shall \nvest as follows: after 12 months of employment, 25% will vest; the \nremainder will vest monthly over the following 36 months.  The Company \nshall have a repurchase option on unvested shares at cost.2",
+      "clause_family": "founder_vesting",
+      "source_span": "Unless otherwise approved by the Board, employee Common Stock shall \nvest as follows: after 12 months of employment, 25% will vest; the \nremainder will vest monthly over the following 36 months.  The Company \nshall have a repurchase option on unvested shares at cost.2",
+      "attributes": {
+        "vesting_months": 36,
+        "cliff_months": 12,
+        "acceleration": null,
+        "repurchase_right": "repurchase of unvested shares",
+        "applies_to": "employees"
+      },
+      "expected_flags": [
+        "R-VS-01"
+      ],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_57",
+      "section_header": "Restrictions on Common",
+      "clause_text": "Restrictions on Common \nStock: \n(a) No transfers allowed prior to vesting except for certain estate planning. \n \n(b) Company right of first refusal on vested shares until initial public \noffering. \n \n(c) No transfers or sales permitted during lock-up period of up to 180 days",
+      "clause_family": "founder_vesting",
+      "source_span": "Restrictions on Common \nStock: \n(a) No transfers allowed prior to vesting except for certain estate planning. \n \n(b) Company right of first refusal on vested shares until initial public \noffering. \n \n(c) No transfers or sales permitted during lock-up period of up to 180 days",
+      "attributes": {
+        "vesting_months": null,
+        "cliff_months": null,
+        "acceleration": null,
+        "repurchase_right": null,
+        "applies_to": "employees"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_58",
+      "section_header": "as required by underwriters in connection with stock offerings by the",
+      "clause_text": "as required by underwriters in connection with stock offerings by the \nCompany. \n \n(d) The number of authorized shares of Common Stock may be increased",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_59",
+      "section_header": "or decreased upon the approval of the holders of a majority of the",
+      "clause_text": "or decreased upon the approval of the holders of a majority of the \noutstanding shares of the Company’s capital stock, regardless of Section \n242 of the DGCL. \n                                                          \n1 In some seed financings, the Series Seed investors do not have a representative on the board of directors, in which \ncase, the lead investor typically receives board observer rights. \n2 Founder vesting arrangements may also include double-trigger acceleration following a sale of the company.",
+      "clause_family": "board_composition",
+      "source_span": "or decreased upon the approval of the holders of a majority of the \noutstanding shares of the Company’s capital stock, regardless of Section \n242 of the DGCL. \n                                                          \n1 In some seed financings, the Series Seed investors do not have a representative on the board of directors, in which \ncase, the lead investor typically receives board observer rights. \n2 Founder vesting arrangements may also include double-trigger acceleration following a sale of the company.",
+      "attributes": {
+        "total_seats": null,
+        "investor_seats": null,
+        "founder_seats": null,
+        "independent_seats": null,
+        "appointment_rights": "director election rights"
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_60",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n7",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_61",
+      "section_header": "Right of First Refusal and",
+      "clause_text": "Right of First Refusal and \nCo-Sale Right:",
+      "clause_family": "rofr_co_sale",
+      "source_span": "Right of First Refusal and \nCo-Sale Right:",
+      "attributes": {
+        "investor_rofr": false,
+        "investor_co_sale": true,
+        "covered_holders": null,
+        "notice_period_days": null,
+        "transfer_exceptions": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_62",
+      "section_header": "Until the Qualified Public Offering, each Major Investor shall have the",
+      "clause_text": "Until the Qualified Public Offering, each Major Investor shall have the \nright to participate on a pro rata basis in transfers of any stock held by the \nFounders; and a right of first refusal on such transfers, subordinate to the \nCompany’s right of first refusal.  Any shares not subscribed for by an \nInvestor may be reallocated pro rata among the other eligible Investors.",
+      "clause_family": "rofr_co_sale",
+      "source_span": "Until the Qualified Public Offering, each Major Investor shall have the \nright to participate on a pro rata basis in transfers of any stock held by the \nFounders; and a right of first refusal on such transfers, subordinate to the \nCompany’s right of first refusal.  Any shares not subscribed for by an \nInvestor may be reallocated pro rata among the other eligible Investors.",
+      "attributes": {
+        "investor_rofr": true,
+        "investor_co_sale": false,
+        "covered_holders": "founders",
+        "notice_period_days": null,
+        "transfer_exceptions": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_63",
+      "section_header": "The right of first refusal and co-sale shall not apply, in the case of an",
+      "clause_text": "The right of first refusal and co-sale shall not apply, in the case of an \nindividual, to (a) transfers to any spouse or member of Founder’s  \nimmediate family, or to other estate planning transfers, (b) any sale to the \npublic pursuant to an effective registration, (c) any transfer or transfers by",
+      "clause_family": "rofr_co_sale",
+      "source_span": "The right of first refusal and co-sale shall not apply, in the case of an \nindividual, to (a) transfers to any spouse or member of Founder’s  \nimmediate family, or to other estate planning transfers, (b) any sale to the \npublic pursuant to an effective registration, (c) any transfer or transfers by",
+      "attributes": {
+        "investor_rofr": false,
+        "investor_co_sale": true,
+        "covered_holders": "founders",
+        "notice_period_days": null,
+        "transfer_exceptions": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_64",
+      "section_header": "a Founder which in the aggregate, over the term of this Agreement,",
+      "clause_text": "a Founder which in the aggregate, over the term of this Agreement, \namount to no more than [________] shares held by a Founder, (d) any",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_65",
+      "section_header": "pledge of Founder Stock made pursuant to a bona fide loan transaction",
+      "clause_text": "pledge of Founder Stock made pursuant to a bona fide loan transaction \nthat creates a mere security interest, or (e) any bona fide gift to any \ncharitable organization described in Section 501(c)(3) of the Internal \nRevenue Code. \nDrag-Along Right:",
+      "clause_family": "drag_along",
+      "source_span": "pledge of Founder Stock made pursuant to a bona fide loan transaction \nthat creates a mere security interest, or (e) any bona fide gift to any \ncharitable organization described in Section 501(c)(3) of the Internal \nRevenue Code. \nDrag-Along Right:",
+      "attributes": {
+        "approval_threshold": null,
+        "requires_founder_consent": true,
+        "requires_preferred_consent": false,
+        "sale_scope": null
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_66",
+      "section_header": "In the event of a sale of the Company by way of a merger, recapitalization,",
+      "clause_text": "In the event of a sale of the Company by way of a merger, recapitalization, \nsale of all or substantially all of the Company’s stock or assets or",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_67",
+      "section_header": "otherwise, which is approved by holders of a majority of the Preferred",
+      "clause_text": "otherwise, which is approved by holders of a majority of the Preferred \nStock and the holders of a majority of the Common Stock, the Founders \nand the Company’s stockholders who are party to the Voting Agreement",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_68",
+      "section_header": "shall be required to vote for, consent to, transfer their shares of capital",
+      "clause_text": "shall be required to vote for, consent to, transfer their shares of capital \nstock pursuant to, and take such other action as may be required to \nconsummate, such sale.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_69",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \n8",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_70",
+      "section_header": "This term sheet is non-binding and is intended solely as a summary of the terms that are currently",
+      "clause_text": "This term sheet is non-binding and is intended solely as a summary of the terms that are currently \nproposed by the parties.  The parties acknowledge that they neither intend to enter, nor have they entered",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_71",
+      "section_header": "into, any agreement to negotiate a definitive agreement pursuant to this term sheet, and either party may,",
+      "clause_text": "into, any agreement to negotiate a definitive agreement pursuant to this term sheet, and either party may, \nat any time prior to execution of such definitive agreement, propose different terms from those \nsummarized herein or unilaterally terminate all negotiations pursuant to this term sheet without any \nliability whatsoever to the other party.  Each party shall be solely liable for all of its own fees, costs and",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_72",
+      "section_header": "other expenses in conjunction with negotiation and preparation of a final agreement pursuant to this term",
+      "clause_text": "other expenses in conjunction with negotiation and preparation of a final agreement pursuant to this term \nsheet.",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_73",
+      "section_header": "If the terms of this memorandum are acceptable to the Company, please so indicate on the",
+      "clause_text": "If the terms of this memorandum are acceptable to the Company, please so indicate on the \nenclosed copy of this memorandum and return it to the undersigned no later than [TIME] on [DATE]. \n[COMPANY NAME] \nBy:     \n \n \nName:  \n \n \nDate:   \n \nLEAD INVESTOR:  \n[VENTURE FUND] \nBy:    \n \n \nName:  \n \n \nDate:",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_74",
+      "section_header": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP",
+      "clause_text": "Provided by Gunderson Dettmer Stough Villeneuve Franklin & Hachigian LLP \nATTACHMENT A \n \nPRO FORMA CAPITALIZATION \nSeries Seed Preferred Stock: \n__________ shares  \n______% \nCommon Stock Outstanding: \n__________ shares  \n______%",
+      "clause_family": "other",
+      "source_span": null,
+      "attributes": {},
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    },
+    {
+      "clause_id": "c_75",
+      "section_header": "Options to Purchase Common Stock",
+      "clause_text": "Options to Purchase Common Stock \nOutstanding: \n__________ shares  \n______% \nOptions Available for Grant:  \n__________ shares  \n______% \nWarrants/Convertible Notes/SAFEs: \n__________ shares \n______% \n    Total \n__________ shares  \n100% \nPost-Closing Valuation:  \n$__________",
+      "clause_family": "conversion_rights",
+      "source_span": "Options to Purchase Common Stock \nOutstanding: \n__________ shares  \n______% \nOptions Available for Grant:  \n__________ shares  \n______% \nWarrants/Convertible Notes/SAFEs: \n__________ shares \n______% \n    Total \n__________ shares  \n100% \nPost-Closing Valuation:  \n$__________",
+      "attributes": {
+        "conversion_ratio": null,
+        "optional_conversion": false,
+        "automatic_conversion": false,
+        "conversion_triggers": null,
+        "majority_threshold": 100.0
+      },
+      "expected_flags": [],
+      "notes": "Annotated from explicit clause text; unexpressed attributes left null."
+    }
+  ]
+}
