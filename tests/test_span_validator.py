@@ -307,3 +307,74 @@ def test_page_number_mismatch_rejected():
     result = validate_source_span(clause, span)
     assert result.is_valid is False
     assert "page number mismatch" in result.error_message.lower()
+
+
+# ===========================================================================
+# Adversarial and Boundary Edge Cases
+# ===========================================================================
+
+
+def test_span_text_longer_than_clause_rejected():
+    """Span text longer than parent clause text is rejected cleanly."""
+    clause = ClauseSpan(clause_id="c_short", raw_text="Short clause.", page_number=1)
+    span = SourceSpan(
+        text="Short clause that continues far beyond what the document actually contains."
+    )
+    result = validate_source_span(clause, span)
+    assert result.is_valid is False
+    assert result.match_count == 0
+
+
+def test_regex_special_characters_in_normalized_matching():
+    """Spans containing regex metacharacters ($10,000, 1.5x (capped), [A-1]) match safely."""
+    clause = ClauseSpan(
+        clause_id="c_meta",
+        raw_text="Investment of $10,000,000   at [Series A-1] with (1.5x) liquidation preference.",
+        page_number=1,
+    )
+    span = SourceSpan(text="$10,000,000 at [Series A-1] with (1.5x)")
+    result = validate_source_span(clause, span, allow_whitespace_normalization=True)
+    assert result.is_valid is True
+    assert result.is_exact is False
+    assert result.resolved_span is not None
+    assert "$10,000,000" in result.resolved_span.text
+
+
+def test_case_sensitivity_strictly_enforced():
+    """Case variations must not match: 'Series A' must not match 'series a'."""
+    clause = ClauseSpan(clause_id="c_case", raw_text="Series A Preferred stock.", page_number=1)
+    span = SourceSpan(text="series a preferred")
+    result = validate_source_span(clause, span, allow_whitespace_normalization=True)
+    assert result.is_valid is False
+    assert result.match_count == 0
+
+
+def test_full_clause_boundary_offsets():
+    """Spans spanning the exact boundaries [0:len(raw_text)] resolve correctly."""
+    clause = ClauseSpan(clause_id="c_full", raw_text="Exact full clause text.", page_number=1)
+    span = SourceSpan(
+        text="Exact full clause text.",
+        start_char=0,
+        end_char=len("Exact full clause text."),
+        page_number=1,
+    )
+    result = validate_source_span(clause, span)
+    assert result.is_valid is True
+    assert result.is_exact is True
+    assert result.resolved_span.start_char == 0
+    assert result.resolved_span.end_char == len("Exact full clause text.")
+
+
+def test_crlf_mixed_newlines_normalization():
+    """Multi-line clauses with CRLF and LF newlines resolve under whitespace normalization."""
+    clause = ClauseSpan(
+        clause_id="c_crlf",
+        raw_text="First line.\r\nSecond line.\nThird line.",
+        page_number=1,
+    )
+    span = SourceSpan(text="First line. Second line. Third line.")
+    result = validate_source_span(clause, span, allow_whitespace_normalization=True)
+    assert result.is_valid is True
+    assert result.resolved_span is not None
+    assert result.resolved_span.start_char == 0
+    assert result.resolved_span.end_char == len(clause.raw_text)

@@ -71,9 +71,115 @@ def test_evaluation_reports_family_and_multilabel_metrics():
 
     metrics, output = evaluation.evaluate(records, LLMOnlyBaseline(lambda _: next(responses)))
 
-    assert metrics == {
-        "records": 2,
-        "family_accuracy": 0.5,
-        "risk_flag_micro": {"precision": 0.5, "recall": 0.5, "f1": 0.5},
-    }
+    assert metrics["records"] == 2
+    assert metrics["family_accuracy"] == 0.5
+    assert metrics["risk_flag_micro"] == {"precision": 0.5, "recall": 0.5, "f1": 0.5}
+    assert metrics["metadata"]["sample_count"] == 2
+    assert metrics["metadata"]["evaluated_document_ids"] == ["a", "b"]
+    assert metrics["clause_family_classification"]["accuracy"] == 0.5
+    assert metrics["risk_flag_detection"]["micro"]["f1"] == 0.5
     assert [row["id"] for row in output] == ["a", "b"]
+
+
+def test_evaluation_from_saved_predictions_offline():
+    """Verify that evaluate() can score pre-saved predictions without making LLM calls."""
+    records = [
+        {
+            "id": "doc1",
+            "text": "clause 1",
+            "gold_family": "liquidation_preference",
+            "gold_flags": ["R-LP-01"],
+        },
+        {
+            "id": "doc2",
+            "text": "clause 2",
+            "gold_family": "anti_dilution",
+            "gold_flags": ["R-AD-01"],
+        },
+    ]
+    saved_preds = [
+        {
+            "id": "doc1",
+            "clause_family": "liquidation_preference",
+            "risk_flags": ["R-LP-01"],
+            "summary": "2x liq pref",
+        },
+        {"id": "doc2", "clause_family": "other", "risk_flags": [], "summary": "uncategorized"},
+    ]
+
+    metrics, output = evaluation.evaluate(records, predictions=saved_preds)
+
+    assert metrics["metadata"]["evaluation_mode"] == "saved_predictions"
+    assert metrics["metadata"]["sample_count"] == 2
+    assert metrics["metadata"]["evaluated_document_ids"] == ["doc1", "doc2"]
+    assert metrics["clause_family_classification"]["accuracy"] == 0.5
+    assert metrics["risk_flag_micro"]["precision"] == 1.0
+    assert metrics["risk_flag_micro"]["recall"] == 0.5
+    assert len(output) == 2
+
+
+def test_evaluation_split_safeguards_reject_unassigned_splits():
+    """Verify that filter_by_split strictly rejects held-out evaluation on unassigned datasets."""
+    records = [
+        {"id": "doc1", "text": "clause 1", "split": None},
+        {"id": "doc2", "text": "clause 2"},
+    ]
+
+    with pytest.raises(ValueError, match="Dataset split error"):
+        evaluation.filter_by_split(records, split="test")
+
+
+def test_baseline_risk_flag_ids_contains_all_25_canonical_rules():
+    """Verify that RISK_FLAG_IDS covers all 25 rules defined in rules_v1.yaml."""
+    from termsheet_ai.baseline.llm_only import RISK_FLAG_IDS
+
+    assert len(RISK_FLAG_IDS) == 25
+    expected_prefixes = {
+        "R-LP-",
+        "R-AD-",
+        "R-CT-",
+        "R-VS-",
+        "R-PP-",
+        "R-DA-",
+        "R-OP-",
+        "R-RD-",
+        "R-EX-",
+        "R-DV-",
+        "R-RO-",
+    }
+    for flag_id in RISK_FLAG_IDS:
+        assert any(flag_id.startswith(p) for p in expected_prefixes)
+
+
+def test_evaluation_detailed_metrics():
+    """Verify detailed evaluation calculates macro precision, recall, f1, and per-flag metrics."""
+    responses = iter(
+        [
+            '{"clause_family":"liquidation_preference","risk_flags":["R-LP-01"],"summary":"x"}',
+            '{"clause_family":"anti_dilution","risk_flags":["R-AD-01"],"summary":"y"}',
+        ]
+    )
+    records = [
+        {
+            "id": "1",
+            "text": "x",
+            "gold_flags": ["R-LP-01"],
+        },
+        {
+            "id": "2",
+            "text": "y",
+            "gold_flags": ["R-AD-01"],
+        },
+    ]
+
+    metrics, _ = evaluation.evaluate(
+        records, LLMOnlyBaseline(lambda _: next(responses)), detailed=True
+    )
+
+    assert "risk_flag_macro" in metrics
+    macro = metrics["risk_flag_macro"]
+    assert macro["precision"] == 1.0
+    assert macro["recall"] == 1.0
+    assert macro["f1"] == 1.0
+    assert "R-LP-01" in macro["per_flag"]
+    assert "R-AD-01" in macro["per_flag"]

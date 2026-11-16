@@ -157,11 +157,181 @@ class TestMakeGeminiCallableUnit:
         """A network connection error returns empty string to allow fallback."""
         import httpx
 
-        with patch("httpx.post", side_effect=httpx.ConnectError("connection refused")):
+        with (
+            patch("httpx.post", side_effect=httpx.ConnectError("connection refused")),
+            patch("time.sleep"),
+        ):
             fn = make_gemini_callable(api_key="mock-key")
             result = fn("hello")
 
         assert result == ""
+
+    def test_default_timeout_is_90_seconds(self):
+        """Default request timeout must be 90.0 seconds."""
+        import httpx
+
+        mock_resp = MagicMock(spec=httpx.Response)
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.return_value = {"candidates": [{"content": {"parts": [{"text": "ok"}]}}]}
+
+        with patch("httpx.post", return_value=mock_resp) as mock_post:
+            fn = make_gemini_callable(api_key="mock-key")
+            fn("hello")
+
+        mock_post.assert_called_once()
+        _, kwargs = mock_post.call_args
+        assert kwargs["timeout"] == 90.0
+
+    def test_timeout_from_environment_variable(self, monkeypatch):
+        """GEMINI_TIMEOUT_SECONDS environment variable configures timeout."""
+        import httpx
+
+        monkeypatch.setenv("GEMINI_TIMEOUT_SECONDS", "120.0")
+
+        mock_resp = MagicMock(spec=httpx.Response)
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.return_value = {"candidates": [{"content": {"parts": [{"text": "ok"}]}}]}
+
+        with patch("httpx.post", return_value=mock_resp) as mock_post:
+            fn = make_gemini_callable(api_key="mock-key")
+            fn("hello")
+
+        mock_post.assert_called_once()
+        _, kwargs = mock_post.call_args
+        assert kwargs["timeout"] == 120.0
+
+    def test_timeout_parameter_overrides_env_var(self, monkeypatch):
+        """Explicit timeout parameter takes precedence over environment variable."""
+        import httpx
+
+        monkeypatch.setenv("GEMINI_TIMEOUT_SECONDS", "120.0")
+
+        mock_resp = MagicMock(spec=httpx.Response)
+        mock_resp.raise_for_status.return_value = None
+        mock_resp.json.return_value = {"candidates": [{"content": {"parts": [{"text": "ok"}]}}]}
+
+        with patch("httpx.post", return_value=mock_resp) as mock_post:
+            fn = make_gemini_callable(api_key="mock-key", timeout=45.0)
+            fn("hello")
+
+        mock_post.assert_called_once()
+        _, kwargs = mock_post.call_args
+        assert kwargs["timeout"] == 45.0
+
+    def test_retry_on_timeout_recovers_on_second_attempt(self):
+        """Transient ReadTimeout triggers backoff retry and succeeds on attempt 2."""
+        import httpx
+
+        mock_success = MagicMock(spec=httpx.Response)
+        mock_success.raise_for_status.return_value = None
+        mock_success.json.return_value = {
+            "candidates": [{"content": {"parts": [{"text": "recovered"}]}}]
+        }
+
+        mock_req = httpx.Request("POST", "https://example.com")
+        effects = [httpx.ReadTimeout("timed out", request=mock_req), mock_success]
+
+        with (
+            patch("httpx.post", side_effect=effects) as mock_post,
+            patch("time.sleep") as mock_sleep,
+        ):
+            fn = make_gemini_callable(api_key="mock-key", max_retries=2, initial_backoff=0.5)
+            result = fn("extract")
+
+        assert result == "recovered"
+        assert mock_post.call_count == 2
+        mock_sleep.assert_called_once_with(0.5)
+
+    def test_retry_on_connect_error_recovers_on_second_attempt(self):
+        """Transient ConnectError triggers backoff retry and succeeds on attempt 2."""
+        import httpx
+
+        mock_success = MagicMock(spec=httpx.Response)
+        mock_success.raise_for_status.return_value = None
+        mock_success.json.return_value = {
+            "candidates": [{"content": {"parts": [{"text": "connected"}]}}]
+        }
+
+        effects = [httpx.ConnectError("connection refused"), mock_success]
+
+        with (
+            patch("httpx.post", side_effect=effects) as mock_post,
+            patch("time.sleep") as mock_sleep,
+        ):
+            fn = make_gemini_callable(api_key="mock-key", max_retries=2, initial_backoff=0.5)
+            result = fn("extract")
+
+        assert result == "connected"
+        assert mock_post.call_count == 2
+        mock_sleep.assert_called_once_with(0.5)
+
+    def test_exhausted_retries_returns_empty_string(self):
+        """When transient timeout retries are exhausted, returns empty string."""
+        import httpx
+
+        mock_req = httpx.Request("POST", "https://example.com")
+        with (
+            patch(
+                "httpx.post", side_effect=httpx.ReadTimeout("timed out", request=mock_req)
+            ) as mock_post,
+            patch("time.sleep"),
+        ):
+            fn = make_gemini_callable(api_key="mock-key", max_retries=2)
+            result = fn("extract")
+
+        assert result == ""
+        # 1 initial call + 2 retries = 3 calls
+        assert mock_post.call_count == 3
+
+    def test_fatal_errors_do_not_retry(self):
+        """401/403, 404, 429, and 400 are never retried."""
+        import httpx
+
+        mock_req = httpx.Request("POST", "https://example.com")
+        mock_resp_401 = httpx.Response(401, request=mock_req, text="Unauthorized")
+        mock_resp_404 = httpx.Response(404, request=mock_req, text="Not Found")
+        mock_resp_429 = httpx.Response(429, request=mock_req, text="Rate limit")
+        mock_resp_400 = httpx.Response(400, request=mock_req, text="Bad Request")
+
+        # 401: exactly 1 call
+        with patch(
+            "httpx.post",
+            side_effect=httpx.HTTPStatusError("401", request=mock_req, response=mock_resp_401),
+        ) as p:
+            fn = make_gemini_callable(api_key="mock-key")
+            with pytest.raises(GeminiAuthenticationError):
+                fn("prompt")
+            assert p.call_count == 1
+
+        # 404: exactly 1 call
+        with patch(
+            "httpx.post",
+            side_effect=httpx.HTTPStatusError("404", request=mock_req, response=mock_resp_404),
+        ) as p:
+            fn = make_gemini_callable(api_key="mock-key")
+            with pytest.raises(GeminiModelNotFoundError):
+                fn("prompt")
+            assert p.call_count == 1
+
+        # 429: exactly 1 call
+        with patch(
+            "httpx.post",
+            side_effect=httpx.HTTPStatusError("429", request=mock_req, response=mock_resp_429),
+        ) as p:
+            fn = make_gemini_callable(api_key="mock-key")
+            with pytest.raises(GeminiQuotaError):
+                fn("prompt")
+            assert p.call_count == 1
+
+        # 400: exactly 1 call, returns ""
+        with patch(
+            "httpx.post",
+            side_effect=httpx.HTTPStatusError("400", request=mock_req, response=mock_resp_400),
+        ) as p:
+            fn = make_gemini_callable(api_key="mock-key")
+            res = fn("prompt")
+            assert res == ""
+            assert p.call_count == 1
 
     def test_malformed_response_returns_empty_string(self):
         """A response missing candidates returns empty string."""
