@@ -46,6 +46,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 pythonpath = ["src"]
 addopts = "-v"
+markers = ["live: marks tests as live integration tests requiring real API key"]
 
 [tool.ruff]
 line-length = 100

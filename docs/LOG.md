@@ -198,6 +198,21 @@
   - Covers positive, empty, ambiguous, failed, cached, batched, rate-limited,
     and invalid-input lookups
 
+#### M4 — Information Extraction & Plain-English Summaries
+- [x] **Stage S3 Fact Extraction Architecture** — [`src/termsheet_ai/extract/extractor.py`](../src/termsheet_ai/extract/extractor.py)
+  - Designed structured JSON extraction schemas and Gemini prompts for venture capital term sheets.
+  - Implemented `FactExtractor` supporting both Gemini-powered extraction and deterministic fallback regex/keyword extractors.
+  - Added prompt caching via `llm_cache.py` (`make_cached_callable`) to eliminate redundant LLM calls and control evaluation costs.
+  - Enforced anti-hallucination safeguards: missing terms are represented as `None`/`"unknown"`; values are never fabricated.
+  - Numerical sanity checking via `_quote_contains_numeric()` verifies that extracted numbers match the supporting quote.
+- [x] **Source-Span Validation Engine** — [`src/termsheet_ai/extract/span_validator.py`](../src/termsheet_ai/extract/span_validator.py)
+  - Implemented `validate_source_span` verifying that extracted attributes are strictly grounded in source clause text.
+  - Verifies exact substring matches, word-boundary-safe whitespace normalization, and character offsets (`start_char`, `end_char`).
+  - Detects and rejects ambiguous matches when candidate citations appear multiple times without explicit offsets.
+  - Verifies page number consistency against parent clause metadata.
+- [x] **Unit & Integration Tests** — [`tests/test_extractor.py`](../tests/test_extractor.py) and [`tests/test_span_validator.py`](../tests/test_span_validator.py)
+  - Added comprehensive test coverage for all fact types, fallback extraction, hallucinated quotes, and span validation edge cases.
+
 ### Validation
 - [x] Targeted EDGAR tests pass in the repository virtual environment
 - [x] Manifest JSON and synthetic text/gold registrations validated
@@ -342,6 +357,25 @@
   - Formally froze canonical rule base at 31 rules (`rules_v1.yaml`) for MVP scope freeze.
 
 
+#### M4 — Information Extraction & Plain-English Summaries
+- [x] **Stage S5 Plain-English Explainer** — [`src/termsheet_ai/explain/explainer.py`](../src/termsheet_ai/explain/explainer.py)
+  - Implemented `PlainEnglishExplainer` generating founder-friendly plain-English summaries grounded in retrieved clause text, extracted facts, symbolic risk flags, and SBERT market exemplars.
+  - Implemented deterministic template fallback on API failures, empty responses, or unverified numerical claims.
+  - Ensured output conforms to `ClauseSummary` contract (`clause_id`, `summary_text`, `numbers_verified`).
+- [x] **Deterministic Number Consistency Checker** — [`src/termsheet_ai/explain/consistency.py`](../src/termsheet_ai/explain/consistency.py)
+  - Implemented `NumberConsistencyChecker` ensuring zero-hallucination on numerical terms by verifying that every number in a summary exists in the clause text, extracted facts, rule justification premises, or standard market norms `{1.0, 4.0, 12.0, 48.0, 100.0}`.
+  - Implemented `CrossClauseConsistencyChecker` to detect cross-clause contradictions:
+    - Conflicting liquidation preference multiples across clauses via `custom_facts`.
+    - Conflicting founder vesting schedules (duration and cliff) across clauses.
+    - Board seat arithmetic verification (`founder_seats + investor_seats + independent_seats == total_seats`).
+  - Documented schema constraints in `SCHEMA_LIMITATIONS`.
+- [x] **Single-Prompt LLM-Only Baseline** — [`src/termsheet_ai/baseline/llm_only.py`](../src/termsheet_ai/baseline/llm_only.py)
+  - Implemented `LLMOnlyBaseline` as a controlled comparator independent of retrieval and symbolic reasoning pipelines.
+  - Predicts clause family, risk flags, and concise summary in a single direct prompt.
+  - Implemented evaluation runner [`scripts/evaluate_llm_baseline.py`](../scripts/evaluate_llm_baseline.py) with micro/macro multi-label metrics and JSONL export.
+- [x] **Test Suites** — [`tests/test_explainer.py`](../tests/test_explainer.py), [`tests/test_consistency.py`](../tests/test_consistency.py), [`tests/test_llm_baseline.py`](../tests/test_llm_baseline.py)
+  - 100% offline passing tests covering RAG prompts, template fallbacks, consistency checking, and baseline evaluation.
+
 ### Remaining
 - [ ] Gold annotations for the real documents require independent human labeling by Annotators A and B before reconciliation and Cohen's kappa reporting.
 
@@ -386,6 +420,45 @@
   - Documented empirical norm calibration results and severity weight profiles separating standard clean NVCA term sheets from adversarial founder-hostile covenants (+90.0 gap).
 - [x] **Peer Review & Verification with M6**
   - Completed designated peer review pairing with Member 6 (KR&R Inference & Explainability) on multi-step forward chaining (`R-CT-02` -> `R-CT-05`), justification records, and S3->S4 grounding guards.
+
+#### M4 — Information Extraction & Plain-English Summaries
+- [x] **Expanded Extraction Coverage to All 12 Clause Families** — [`src/termsheet_ai/extract/extractor.py`](../src/termsheet_ai/extract/extractor.py)
+  - Added structured LLM prompts and deterministic fallback heuristics for all remaining clause families:
+    - `drag_along`: `approval_threshold`, `requires_founder_consent`
+    - `option_pool`: `pool_percentage`, `pre_money_pool`
+    - `redemption_rights`: `redemption_years`, `interest_rate`
+    - `exclusivity_no_shop`: `duration_days`
+    - `rofr_co_sale`: `investor_co_sale`, `investor_rofr`
+    - `information_rights`: `financial_statements_days`, `inspection_rights`
+    - `conversion_rights`: `conversion_ratio`, `optional_conversion`
+    - `protective_provisions`: operational veto (`veto_day_to_day_operations`)
+    - `dividends`: cumulative dividends (`cumulative`)
+  - Integrated with `custom_facts` ensuring all 25 canonical Horn rules in `rules_v1.yaml` can fire.
+  - Added secondary clause tracking for liquidation multiples and vesting schedules to enable automated cross-clause contradiction detection.
+- [x] **Completed Baseline Rule Vocabulary & Evaluation Metrics** — [`src/termsheet_ai/baseline/llm_only.py`](../src/termsheet_ai/baseline/llm_only.py) & [`scripts/evaluate_llm_baseline.py`](../scripts/evaluate_llm_baseline.py)
+  - Expanded `RISK_FLAG_IDS` from 14 to all 25 canonical rule IDs across all 11 risk categories.
+  - Added macro-averaged precision, recall, F1, and per-flag performance metrics via `--detailed` CLI flag.
+  - Fixed prompt template JSON brace escaping bug (`KeyError: '\n  "clause_family"'`).
+- [x] **Adversarial & Edge-Case Span Validation** — [`tests/test_span_validator.py`](../tests/test_span_validator.py)
+  - Added adversarial tests for oversized spans, regex metacharacter matching (`$`, `[]`, `()`), strict case sensitivity enforcement, full-clause boundary offsets, and mixed CRLF/LF newlines.
+- [x] **Multi-Exemplar Stage S5 Integration** — [`src/termsheet_ai/explain/explainer.py`](../src/termsheet_ai/explain/explainer.py)
+  - Integrated with M3's multi-exemplar retrieval pipeline (`retrieval_top_k`, `min_retrieval_similarity`), incorporating multiple exemplar references into grounded RAG prompts while preventing false-positive hallucination flags.
+- [x] **Gemini Client Timeout & Exponential Backoff Retries** — [`src/termsheet_ai/extract/llm_client.py`](../src/termsheet_ai/extract/llm_client.py), [`tests/test_gemini_client.py`](../tests/test_gemini_client.py)
+  - Configurable request timeout via `timeout` argument and `GEMINI_TIMEOUT_SECONDS` / `GEMINI_TIMEOUT` environment variables, increasing sensible default from 30s to 90s for free-tier flash models.
+  - Added limited retries (default 2 retries, 3 total attempts) with exponential backoff for transient timeout (`httpx.TimeoutException`, `httpx.ReadTimeout`) and connection (`httpx.ConnectError`) errors only.
+  - Strictly non-retryable fatal errors (HTTP 401/403 authentication, HTTP 404 model not found, HTTP 429 quota exhaustion, and HTTP 400 malformed requests) fail immediately without retries.
+  - Preserved backward-compatible public interface for `make_gemini_callable` and added full test suite covering timeout resolution, retry recovery, exhausted retries, and non-retryable error gating (221 tests passing).
+- [x] **Full Pipeline Integration & Verification**
+  - All 221 tests passing across `src/`, `tests/`, and `scripts/` (0 failed, 14 skipped due to live API/fixture requirements).
+  - Zero Ruff linter and formatting errors across all 58 files.
+- [x] **Dataset Split Safeguards & Offline Baseline Evaluation** — [`scripts/evaluate_llm_baseline.py`](../scripts/evaluate_llm_baseline.py)
+  - Added strict split validation via `filter_by_split()`, explicitly rejecting `--split test` or `--split dev` when dataset records lack declared split metadata, preventing silent assignment of synthetic documents to held-out partitions.
+  - Added offline evaluation mode via `--predictions <path>`, allowing reproducible scoring of pre-saved prediction JSONL files without requiring live Gemini API access.
+  - Clearly separated `clause_family_classification` metrics from `risk_flag_detection` (micro and macro) metrics in output JSON, including evaluated document IDs and sample counts.
+- [x] **Cross-Clause Consistency Integration & Scope Documentation** — [`src/termsheet_ai/explain/explainer.py`](../src/termsheet_ai/explain/explainer.py), [`src/termsheet_ai/explain/consistency.py`](../src/termsheet_ai/explain/consistency.py)
+  - Integrated `CrossClauseConsistencyChecker` into `PlainEnglishExplainer.explain()`: captures multi-clause contradictions in `facts.custom_facts["consistency_issues"]` and flags involved clauses with `numbers_verified=False`.
+  - Identified and documented the required contract change for Member 1 (Team Lead / Architect): extending `PipelinePayload` with `consistency_issues: List[ConsistencyIssue] = Field(default_factory=list)` (left unimplemented pending teammate schema approval).
+  - Clarified evaluation reality: held-out evaluation on the planned 20 dev / 30 test split across 50 documents is blocked pending gold annotations for the 20 public documents (`annotation_status: pending` in `corpus/manifest.json`). The synthetic corpus (30 documents, 423 clauses) was evaluated via `scripts/benchmark_synthetic.py` (TF-IDF 74.23%, SBERT 71.63%), and prior ungrounded narrative baseline estimates were formally withdrawn.
 
 ### Remaining (M7)
 - [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting
