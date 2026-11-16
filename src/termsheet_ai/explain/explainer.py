@@ -101,6 +101,10 @@ class PlainEnglishExplainer(BaseExplainer):
         A ``(prompt: str) -> str`` callable backed by Gemini (or any compatible
         LLM). When supplied, the explainer generates grounded RAG summaries using
         the LLM. When *None*, the deterministic template path is used for every clause.
+    retrieval_top_k:
+        Number of nearest market exemplars to retrieve via SBERT (default 3).
+    min_retrieval_similarity:
+        Minimum cosine similarity threshold to cite an exemplar (default 0.35).
     """
 
     def __init__(
@@ -184,8 +188,23 @@ class PlainEnglishExplainer(BaseExplainer):
             for k, v in raw.items():
                 if v is not None and v != [] and v != {}:
                     lines.append(f"  {k}: {v}")
-        for k, v in facts.custom_facts.items():
-            lines.append(f"  {k}: {v}")
+        if facts.custom_facts:
+            lines.append("Additional Terms:")
+            seen_clean = set()
+            for k, v in sorted(facts.custom_facts.items()):
+                if (
+                    k.startswith("liquidation_multiple_")
+                    or k.startswith("vesting_years_")
+                    or k.startswith("vesting_cliff_")
+                ):
+                    continue
+                if "." in k:
+                    fam, attr = k.split(".", 1)
+                    title = f"{fam.replace('_', ' ').title()} - {attr.replace('_', ' ')}"
+                    seen_clean.add(attr)
+                    lines.append(f"  {title}: {v}")
+                elif k not in seen_clean:
+                    lines.append(f"  {k.replace('_', ' ').title()}: {v}")
         return "\n".join(lines) if lines else "No structured facts extracted."
 
     @staticmethod
@@ -359,6 +378,29 @@ class PlainEnglishExplainer(BaseExplainer):
         for f in audit_trace.flags:
             flags_by_clause.setdefault(f.clause_id, []).append(f)
 
+        # Cross-clause consistency verification (intra-document numerical contradictions)
+        cross_clause_contradiction_clause_ids: set[str] = set()
+        if effective_facts:
+            from termsheet_ai.explain.consistency import CrossClauseConsistencyChecker
+
+            detected_issues = CrossClauseConsistencyChecker().check_all(effective_facts)
+            if detected_issues:
+                # Smallest compatible integration: expose issues in facts.custom_facts
+                # so downstream consumers of PipelinePayload.facts have immediate visibility
+                effective_facts.custom_facts["consistency_issues"] = [
+                    {
+                        "issue_type": issue.issue_type,
+                        "description": issue.description,
+                        "clause_ids": issue.clause_ids,
+                        "values": issue.values,
+                        "is_contradiction": issue.is_contradiction,
+                    }
+                    for issue in detected_issues
+                ]
+                for issue in detected_issues:
+                    if issue.is_contradiction:
+                        cross_clause_contradiction_clause_ids.update(issue.clause_ids)
+
         summaries: List[ClauseSummary] = []
 
         for clause in clauses:
@@ -444,6 +486,13 @@ class PlainEnglishExplainer(BaseExplainer):
                 )
                 summary_text = template_text
                 numbers_verified = verified_tmpl
+
+            if clause.clause_id in cross_clause_contradiction_clause_ids:
+                numbers_verified = False
+                logger.warning(
+                    "Clause %s is involved in a cross-clause numerical contradiction; numbers_verified set to False.",
+                    clause.clause_id,
+                )
 
             summaries.append(
                 ClauseSummary(

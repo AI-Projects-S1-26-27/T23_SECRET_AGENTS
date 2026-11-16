@@ -1,27 +1,30 @@
-"""Tests for PlainEnglishExplainer — LLM-powered RAG summarisation (Member 4 / S5).
+"""Tests for PlainEnglishExplainer ΓÇö LLM-powered RAG summarisation (Member 4 / S5).
 
 Coverage
 --------
-1.  Deterministic template — backward compatibility (no llm_callable).
+1.  Deterministic template ΓÇö backward compatibility (no llm_callable).
 2.  LLM summary is used when llm_callable returns a non-empty string.
-3.  Grounding context — prompt includes clause text, facts, flags, and exemplar.
+3.  Grounding context ΓÇö prompt includes clause text, facts, flags, and exemplar.
 4.  Retrieved exemplar is forwarded to the prompt and allowed-extras set.
 5.  Missing exemplar (retriever absent or below similarity threshold).
-6.  API failure — llm_callable raises an exception → fallback to template.
-7.  LLM returns empty string → fallback to template.
-8.  Numerical hallucination — LLM introduces an unverified number → fallback.
-9.  Reasoning flags — HIGH risk flag text appears in the template output.
-10. Clause with no flags → "Standard … provision" in template output.
+6.  API failure ΓÇö llm_callable raises an exception ΓåÆ fallback to template.
+7.  LLM returns empty string ΓåÆ fallback to template.
+8.  Numerical hallucination ΓÇö LLM introduces an unverified number ΓåÆ fallback.
+9.  Reasoning flags ΓÇö HIGH risk flag text appears in the template output.
+10. Clause with no flags ΓåÆ "Standard ΓÇª provision" in template output.
 11. ``numbers_verified=True`` only when checker passes.
 12. ``numbers_verified=False`` propagates correctly on bad template numbers.
 """
 
 from __future__ import annotations
 
+import os
+import socket
 from typing import List, Optional
 from unittest.mock import MagicMock, patch
 
 import pytest
+from dotenv import load_dotenv
 
 from termsheet_ai.explain.consistency import NumberConsistencyChecker
 from termsheet_ai.explain.explainer import _RAG_PROMPT_TEMPLATE, PlainEnglishExplainer
@@ -38,6 +41,8 @@ from termsheet_ai.schemas.contracts import (
     SeverityLevel,
     SourceSpan,
 )
+
+load_dotenv()
 
 # ---------------------------------------------------------------------------
 # Shared fixtures
@@ -69,8 +74,8 @@ def _make_liq_clause(
 def _make_justification() -> JustificationRecord:
     return JustificationRecord(
         rule_id="RULE_LIQ_MULT_GT_1X",
-        rule_name="Liquidation Multiple > 1×",
-        market_norm_cite="NVCA Model Term Sheet 2023 §4",
+        rule_name="Liquidation Multiple > 1├ù",
+        market_norm_cite="NVCA Model Term Sheet 2023 ┬º4",
         premise_facts={"multiple": 2.0},
         conclusion_flag="High liquidation multiple",
     )
@@ -81,9 +86,9 @@ def _make_flag(clause_id: str = "c_1") -> RiskFlag:
         flag_id="flag_001",
         clause_id=clause_id,
         title="Elevated Liquidation Multiple",
-        explanation="A 2× multiple is above the market-standard 1× preference.",
+        explanation="A 2├ù multiple is above the market-standard 1├ù preference.",
         severity=SeverityLevel.HIGH,
-        market_standard_source="NVCA Model Term Sheet 2023 §4",
+        market_standard_source="NVCA Model Term Sheet 2023 ┬º4",
         justification=_make_justification(),
     )
 
@@ -109,7 +114,7 @@ def _make_facts(doc_id: str = "doc_1") -> ExtractedFacts:
 
 
 # ---------------------------------------------------------------------------
-# 1. Backward compatibility — no llm_callable
+# 1. Backward compatibility ΓÇö no llm_callable
 # ---------------------------------------------------------------------------
 
 
@@ -129,7 +134,7 @@ def test_template_path_no_llm():
 
 
 def test_template_no_flags():
-    """Clause with no flags → standard provision message in template output."""
+    """Clause with no flags ΓåÆ standard provision message in template output."""
     explainer = PlainEnglishExplainer()
     clause = _make_liq_clause()
     trace = _make_audit_trace(flags=[])
@@ -165,7 +170,7 @@ def test_llm_summary_used_when_valid():
 
 
 # ---------------------------------------------------------------------------
-# 3. Grounding context — prompt contains clause text, facts, flags, exemplar
+# 3. Grounding context ΓÇö prompt contains clause text, facts, flags, exemplar
 # ---------------------------------------------------------------------------
 
 
@@ -211,7 +216,7 @@ def test_retrieved_exemplar_in_prompt():
         return "Explanation without hallucinated figures."
 
     exemplar = {
-        "source": "NVCA 2023 §4",
+        "source": "NVCA 2023 ┬º4",
         "text": "Standard 1x non-participating liquidation preference.",
         "cosine_similarity": 0.75,
     }
@@ -230,11 +235,11 @@ def test_retrieved_exemplar_in_prompt():
 
     assert len(captured) == 1
     assert "Standard 1x non-participating" in captured[0]
-    assert "NVCA 2023 §4" in captured[0]
+    assert "NVCA 2023 ┬º4" in captured[0]
 
 
 # ---------------------------------------------------------------------------
-# 5. Missing exemplar — retriever absent or below threshold
+# 5. Missing exemplar ΓÇö retriever absent or below threshold
 # ---------------------------------------------------------------------------
 
 
@@ -264,7 +269,7 @@ def test_no_exemplar_below_similarity_threshold():
         return "Clean explanation."
 
     low_sim_exemplar = {
-        "source": "NVCA 2023 §4",
+        "source": "NVCA 2023 ┬º4",
         "text": "Some irrelevant text.",
         "cosine_similarity": 0.10,
     }
@@ -284,7 +289,7 @@ def test_no_exemplar_below_similarity_threshold():
 
 
 # ---------------------------------------------------------------------------
-# 6. API failure — exception → fallback to deterministic template
+# 6. API failure ΓÇö exception ΓåÆ fallback to deterministic template
 # ---------------------------------------------------------------------------
 
 
@@ -323,7 +328,7 @@ def test_generic_exception_falls_back():
 
 
 # ---------------------------------------------------------------------------
-# 7. LLM returns empty string → fallback to template
+# 7. LLM returns empty string ΓåÆ fallback to template
 # ---------------------------------------------------------------------------
 
 
@@ -351,7 +356,7 @@ def test_whitespace_only_llm_response_falls_back():
 
 
 # ---------------------------------------------------------------------------
-# 8. Numerical hallucination — unverified number → fallback, numbers_verified=False
+# 8. Numerical hallucination ΓÇö unverified number ΓåÆ fallback, numbers_verified=False
 # ---------------------------------------------------------------------------
 
 
@@ -382,12 +387,12 @@ def test_hallucinated_number_triggers_fallback():
 
     # Should have fallen back to the template, which contains no bad numbers
     assert hallucinated not in summaries[0].summary_text
-    # Template has no flags here — verify numbers_verified reflects template result
+    # Template has no flags here ΓÇö verify numbers_verified reflects template result
     assert isinstance(summaries[0].numbers_verified, bool)
 
 
 # ---------------------------------------------------------------------------
-# 9. Reasoning flags — HIGH flag appears in the output
+# 9. Reasoning flags ΓÇö HIGH flag appears in the output
 # ---------------------------------------------------------------------------
 
 
@@ -404,7 +409,7 @@ def test_risk_flags_in_output():
 
 
 # ---------------------------------------------------------------------------
-# 10. numbers_verified flag — correct propagation
+# 10. numbers_verified flag ΓÇö correct propagation
 # ---------------------------------------------------------------------------
 
 
@@ -426,7 +431,7 @@ def test_numbers_verified_false_when_unverifiable():
     return (False, [42.0]) so we can test the propagation path without crafting
     a clause that defeats the allowed-constants set.
     """
-    explainer = PlainEnglishExplainer()  # no LLM — template path
+    explainer = PlainEnglishExplainer()  # no LLM ΓÇö template path
     clause = _make_liq_clause()
     trace = _make_audit_trace(flags=[_make_flag()])
 
@@ -441,7 +446,7 @@ def test_numbers_verified_false_when_unverifiable():
 
 
 # ---------------------------------------------------------------------------
-# 11. Multiple clauses — one per clause, correct clause_id mapping
+# 11. Multiple clauses ΓÇö one per clause, correct clause_id mapping
 # ---------------------------------------------------------------------------
 
 
@@ -529,7 +534,7 @@ def test_retriever_exception_is_swallowed():
 
 
 # ---------------------------------------------------------------------------
-# 14. Prompt template sanity — required sections present
+# 14. Prompt template sanity ΓÇö required sections present
 # ---------------------------------------------------------------------------
 
 
@@ -547,9 +552,72 @@ def test_rag_prompt_template_has_required_placeholders():
         assert key in _RAG_PROMPT_TEMPLATE, f"Prompt template missing placeholder: {key}"
 
 
-# ---------------------------------------------------------------------------
-# 15. Multi-Exemplar S5 Retrieval Tests (Week 4 Deliverable)
-# ---------------------------------------------------------------------------
+def test_explainer_summarizes_extended_clause_family_with_custom_facts():
+    """Verify that explainer formats custom_facts for extended families in prompt."""
+    captured_prompts = []
+
+    def mock_llm(prompt: str) -> str:
+        captured_prompts.append(prompt)
+        return "This option pool clause sets aside 20% for future hires on a pre-money basis."
+
+    explainer = PlainEnglishExplainer(llm_callable=mock_llm)
+    clause = ClauseSpan(
+        clause_id="c_op_1",
+        raw_text="The company shall reserve a 20% unallocated option pool on a pre-money basis.",
+        detected_family=ClauseFamily.OPTION_POOL,
+    )
+    facts = ExtractedFacts(
+        doc_id="d_op",
+        custom_facts={
+            "pool_percentage": 20.0,
+            "option_pool.pool_percentage": 20.0,
+            "pre_money_pool": True,
+            "option_pool.pre_money_pool": True,
+        },
+    )
+    trace = AuditTrace(
+        doc_id="d_op",
+        risk_score=DocumentRiskScore(overall_score=0.0),
+        flags=[],
+    )
+
+    summaries = explainer.explain([clause], trace, facts=facts)
+
+    assert len(summaries) == 1
+    assert summaries[0].numbers_verified is True
+    assert "Option Pool" in captured_prompts[0]
+    assert "20.0" in captured_prompts[0]
+    assert "option pool" in summaries[0].summary_text.lower()
+
+
+def test_explainer_rejects_hallucinated_number_in_extended_family():
+    """Verify that hallucinated numbers in extended family summaries trigger template fallback."""
+
+    def hallucinating_llm(prompt: str) -> str:
+        return "The drag along threshold is set at an unusual 88.8% supermajority."
+
+    explainer = PlainEnglishExplainer(llm_callable=hallucinating_llm)
+    clause = ClauseSpan(
+        clause_id="c_da_1",
+        raw_text="Drag-along approval threshold is set at 50%.",
+        detected_family=ClauseFamily.DRAG_ALONG,
+    )
+    facts = ExtractedFacts(
+        doc_id="d_da",
+        custom_facts={"approval_threshold": 50.0},
+    )
+    trace = AuditTrace(
+        doc_id="d_da",
+        risk_score=DocumentRiskScore(overall_score=0.0),
+        flags=[],
+    )
+
+    summaries = explainer.explain([clause], trace, facts=facts)
+
+    # 88.8 was hallucinated, so it must fall back to template
+    assert len(summaries) == 1
+    assert "88.8" not in summaries[0].summary_text
+    assert "Standard Drag Along provision" in summaries[0].summary_text
 
 
 def test_multi_exemplar_retrieval_prompt_formatting():
@@ -562,7 +630,7 @@ def test_multi_exemplar_retrieval_prompt_formatting():
 
     exemplars = [
         {
-            "source": "NVCA 2023 §4",
+            "source": "NVCA 2023 ┬º4",
             "text": "Standard 1x non-participating liquidation preference.",
             "cosine_similarity": 0.88,
         },
@@ -593,7 +661,7 @@ def test_multi_exemplar_retrieval_prompt_formatting():
 
     assert len(captured) == 1
     prompt = captured[0]
-    assert "1. From NVCA 2023 §4" in prompt
+    assert "1. From NVCA 2023 ┬º4" in prompt
     assert "2. From NVCA 2020 Model" in prompt
     assert "3. From Series Seed v3" in prompt
     assert "Standard 1x non-participating" in prompt
@@ -603,12 +671,12 @@ def test_multi_exemplar_allowed_extras_prevent_hallucination():
     """Numbers occurring across all retrieved exemplars are added to allowed_extras."""
     exemplars = [
         {
-            "source": "NVCA 2023 §4",
+            "source": "NVCA 2023 ┬º4",
             "text": "Market standard is a 1x preference.",
             "cosine_similarity": 0.85,
         },
         {
-            "source": "NVCA 2020 §2",
+            "source": "NVCA 2020 ┬º2",
             "text": "Standard cumulative dividend rate is 8 percent.",
             "cosine_similarity": 0.75,
         },
@@ -617,7 +685,6 @@ def test_multi_exemplar_allowed_extras_prevent_hallucination():
     mock_retriever = MagicMock()
     mock_retriever.retrieve_nearest_exemplars.return_value = exemplars
 
-    # LLM summary mentions numbers 2.0 (from clause), 1.0 (from exemplar 1), and 8.0 (from exemplar 2)
     def citing_llm(prompt: str) -> str:
         return (
             "The term specifies a 2.0x preference compared to the 1x norm and 8 percent standard."
@@ -637,17 +704,62 @@ def test_multi_exemplar_allowed_extras_prevent_hallucination():
     assert "8 percent standard" in summaries[0].summary_text
 
 
+def test_explainer_cross_clause_contradiction_marks_numbers_unverified_and_stores_issues():
+    """Verify that PlainEnglishExplainer detects cross-clause conflicts, stores them in
+    facts.custom_facts['consistency_issues'], and flags affected clauses with numbers_verified=False.
+    """
+    c1 = ClauseSpan(
+        clause_id="c_liq1",
+        raw_text="Investors receive a 1.0x non-participating preference.",
+        page_number=1,
+        detected_family=ClauseFamily.LIQUIDATION_PREFERENCE,
+    )
+    c2 = ClauseSpan(
+        clause_id="c_liq2",
+        raw_text="Series A shall receive a 2.0x liquidation preference.",
+        page_number=2,
+        detected_family=ClauseFamily.LIQUIDATION_PREFERENCE,
+    )
+
+    facts = ExtractedFacts(
+        doc_id="test_contradiction_doc",
+        liquidation_preference=LiquidationPreferenceFact(
+            clause_id="c_liq1",
+            multiple=1.0,
+            participation=ParticipationType.NON_PARTICIPATING,
+            source_span=SourceSpan(text="1.0x preference", page_number=1),
+            is_grounded=True,
+        ),
+        custom_facts={"liquidation_multiple_c_liq2": 2.0},
+    )
+
+    audit_trace = AuditTrace(
+        doc_id="test_contradiction_doc",
+        risk_score=DocumentRiskScore(overall_score=30.0),
+        flags=[],
+    )
+
+    explainer = PlainEnglishExplainer()
+    summaries = explainer.explain([c1, c2], audit_trace, facts=facts)
+
+    # Check that issues were captured in custom_facts
+    assert "consistency_issues" in facts.custom_facts
+    issues = facts.custom_facts["consistency_issues"]
+    assert len(issues) == 1
+    assert issues[0]["issue_type"] == "liquidation_multiple_conflict"
+    assert set(issues[0]["clause_ids"]) == {"c_liq1", "c_liq2"}
+    assert issues[0]["is_contradiction"] is True
+
+    # Check that affected clauses were marked unverified due to the numerical contradiction
+    summary_by_id = {s.clause_id: s for s in summaries}
+    assert summary_by_id["c_liq1"].numbers_verified is False
+    assert summary_by_id["c_liq2"].numbers_verified is False
+
+
 # ===========================================================================
 # Live Gemini Summarization Tests (Deliverable 2)
 # Skipped automatically when GEMINI_API_KEY is absent or network is unavailable.
 # ===========================================================================
-
-import os  # noqa: E402
-import socket  # noqa: E402
-
-from dotenv import load_dotenv  # noqa: E402
-
-load_dotenv()
 
 _HAS_KEY = bool(os.getenv("GEMINI_API_KEY"))
 
@@ -664,8 +776,12 @@ _NETWORK_OK = _network_available()
 
 
 @pytest.mark.live
-@pytest.mark.skipif(not _HAS_KEY, reason="GEMINI_API_KEY not set — live summarization test skipped")
-@pytest.mark.skipif(not _NETWORK_OK, reason="No outbound network — live summarization test skipped")
+@pytest.mark.skipif(
+    not _HAS_KEY, reason="GEMINI_API_KEY not set ΓÇö live summarization test skipped"
+)
+@pytest.mark.skipif(
+    not _NETWORK_OK, reason="No outbound network ΓÇö live summarization test skipped"
+)
 class TestPlainEnglishExplainerLiveIntegration:
     """Live Gemini integration tests for PlainEnglishExplainer RAG summarization.
 
@@ -674,7 +790,7 @@ class TestPlainEnglishExplainerLiveIntegration:
     is available.  A single cache-warmed run will not re-consume quota.
 
     Important: a single successful live test does NOT guarantee overall
-    summary reliability — it verifies connectivity, response format, and
+    summary reliability ΓÇö it verifies connectivity, response format, and
     numerical consistency gating only.
     """
 
@@ -739,7 +855,7 @@ class TestPlainEnglishExplainerLiveIntegration:
 
         If Gemini introduces a hallucinated number, the checker rejects the
         summary and falls back to the deterministic template.  Either way,
-        numbers_verified reflects the actual accepted summary — not the raw
+        numbers_verified reflects the actual accepted summary ΓÇö not the raw
         LLM output.
         """
         explainer = self._make_explainer()
@@ -747,12 +863,12 @@ class TestPlainEnglishExplainerLiveIntegration:
 
         assert len(summaries) == 1
         s = summaries[0]
-        # numbers_verified must be a truthful boolean — not silently True
+        # numbers_verified must be a truthful boolean ΓÇö not silently True
         assert isinstance(s.numbers_verified, bool)
         # For this controlled clause, we expect verification to pass
         # (2.0 is both in the clause text and the fact base)
         assert s.numbers_verified is True, (
-            f"Number verification failed — summary may contain hallucinated figures: "
+            f"Number verification failed ΓÇö summary may contain hallucinated figures: "
             f"{s.summary_text!r}"
         )
 
@@ -803,11 +919,11 @@ class TestPlainEnglishExplainerLiveIntegration:
             title="Elevated Liquidation Multiple",
             explanation="A 2x multiple exceeds the market-standard 1x preference.",
             severity=SeverityLevel.HIGH,
-            market_standard_source="NVCA Model Term Sheet 2023 §4",
+            market_standard_source="NVCA Model Term Sheet 2023 ┬º4",
             justification=JustificationRecord(
                 rule_id="RULE_LIQ_GT_1X",
                 rule_name="Liquidation Multiple > 1x",
-                market_norm_cite="NVCA §4",
+                market_norm_cite="NVCA ┬º4",
                 premise_facts={"multiple": 2.0},
                 conclusion_flag="High multiple",
             ),
