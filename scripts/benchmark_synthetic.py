@@ -202,7 +202,7 @@ def run_benchmark():
     print(
         "[*] Initializing and evaluating SBERT Hybrid Classifier (all-MiniLM-L6-v2 + ChromaDB + LR)..."
     )
-    sbert_hybrid = SbertClassifier(mode="hybrid", confidence_threshold=0.20, ood_threshold=0.10)
+    sbert_hybrid = SbertClassifier(mode="hybrid")
     sbert_preds_spans = sbert_hybrid.classify(clauses)
     sbert_preds = [c.detected_family for c in sbert_preds_spans]
     sbert_report = compute_metrics(gold_labels, sbert_preds)
