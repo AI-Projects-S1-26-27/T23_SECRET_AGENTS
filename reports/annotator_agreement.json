@@ -1,0 +1,554 @@
+{
+  "documents_compared": 5,
+  "clause_family": {
+    "n_clauses": 90,
+    "percent_agreement": 0.6222222222222222,
+    "kappa": 0.341227125941873,
+    "interpretation": "fair"
+  },
+  "expected_flags": {
+    "n_decisions": 2790,
+    "n_rules": 31,
+    "clause_exact_match_rate": 0.9222222222222223,
+    "kappa": 0.19862128392934922,
+    "interpretation": "slight"
+  },
+  "attributes": {
+    "adjustment_trigger": {
+      "matches": 0,
+      "compared": 2,
+      "exact_match_rate": 0.0
+    },
+    "amounts": {
+      "matches": 0,
+      "compared": 3,
+      "exact_match_rate": 0.0
+    },
+    "anti_dilution_type": {
+      "matches": 1,
+      "compared": 2,
+      "exact_match_rate": 0.5
+    },
+    "applies_to": {
+      "matches": 1,
+      "compared": 4,
+      "exact_match_rate": 0.25
+    },
+    "appointment_rights": {
+      "matches": 0,
+      "compared": 3,
+      "exact_match_rate": 0.0
+    },
+    "automatic_conversion": {
+      "matches": 0,
+      "compared": 6,
+      "exact_match_rate": 0.0
+    },
+    "broad_based": {
+      "matches": 1,
+      "compared": 2,
+      "exact_match_rate": 0.5
+    },
+    "cliff_months": {
+      "matches": 1,
+      "compared": 1,
+      "exact_match_rate": 1.0
+    },
+    "conditions": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "consent_threshold": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "conversion_ratio": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "conversion_triggers": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "covered_holders": {
+      "matches": 0,
+      "compared": 3,
+      "exact_match_rate": 0.0
+    },
+    "eligibility_threshold": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "excluded_issuances": {
+      "matches": 0,
+      "compared": 2,
+      "exact_match_rate": 0.0
+    },
+    "frequency": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "inspection_right": {
+      "matches": 0,
+      "compared": 5,
+      "exact_match_rate": 0.0
+    },
+    "investor_co_sale": {
+      "matches": 0,
+      "compared": 5,
+      "exact_match_rate": 0.0
+    },
+    "investor_rofr": {
+      "matches": 1,
+      "compared": 5,
+      "exact_match_rate": 0.2
+    },
+    "liq_multiple": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "liq_participation": {
+      "matches": 0,
+      "compared": 4,
+      "exact_match_rate": 0.0
+    },
+    "liq_seniority": {
+      "matches": 0,
+      "compared": 2,
+      "exact_match_rate": 0.0
+    },
+    "majority_threshold": {
+      "matches": 0,
+      "compared": 3,
+      "exact_match_rate": 0.0
+    },
+    "optional_conversion": {
+      "matches": 0,
+      "compared": 5,
+      "exact_match_rate": 0.0
+    },
+    "protected_actions": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "redemption_trigger": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "report_types": {
+      "matches": 0,
+      "compared": 4,
+      "exact_match_rate": 0.0
+    },
+    "repurchase_right": {
+      "matches": 0,
+      "compared": 2,
+      "exact_match_rate": 0.0
+    },
+    "requires_founder_consent": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "requires_preferred_consent": {
+      "matches": 0,
+      "compared": 2,
+      "exact_match_rate": 0.0
+    },
+    "requires_series_majority": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "restricted_activities": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "sale_scope": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "topic": {
+      "matches": 0,
+      "compared": 4,
+      "exact_match_rate": 0.0
+    },
+    "transfer_exceptions": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    },
+    "vesting_months": {
+      "matches": 0,
+      "compared": 1,
+      "exact_match_rate": 0.0
+    }
+  },
+  "unmatched": {
+    "documents_only_a": [
+      "ts_010_founder_institute_plain_preferred.doc.gold.json",
+      "yc_postmoney_safe_discount_only.docx.gold.json",
+      "yc_postmoney_safe_mfn_only.docx.gold.json",
+      "yc_postmoney_safe_valuation_cap_only.docx.gold.json",
+      "yc_postmoney_safe_valuation_cap_only_canada.docx.gold.json"
+    ],
+    "documents_only_b": [],
+    "clauses": []
+  },
+  "disagreements": [
+    {
+      "doc": "ts_001_nvca_model_term_sheet.docx.gold.json",
+      "clause_id": "c_2",
+      "field": "clause_family",
+      "A": "exclusivity_no_shop",
+      "B": "other",
+      "clause_text": "TERM SHEET FOR SERIES A PREFERRED STOCK FINANCING OF [INSERT COMPANY NAME], INC. [__________, 20__] This Term Sheet summarizes the principal terms of the Series A Preferred Stock Financing of [_______"
+    },
+    {
+      "doc": "ts_002_wsgr_venture_financing.docx.gold.json",
+      "clause_id": "c_4",
+      "field": "clause_family",
+      "A": "anti_dilution",
+      "B": "liquidation_preference",
+      "clause_text": "TERMS OF THE PREFERRED Dividends:\tDividend rate: 8% Cumulation: Noncumulative Priority: Senior to common. Participation: After preferential dividends, Series\u00a0A Preferred does not participate in furthe"
+    },
+    {
+      "doc": "ts_002_wsgr_venture_financing.docx.gold.json",
+      "clause_id": "c_4",
+      "field": "expected_flags",
+      "A": [
+        "R-AD-02"
+      ],
+      "B": [],
+      "clause_text": "TERMS OF THE PREFERRED Dividends:\tDividend rate: 8% Cumulation: Noncumulative Priority: Senior to common. Participation: After preferential dividends, Series\u00a0A Preferred does not participate in furthe"
+    },
+    {
+      "doc": "ts_002_wsgr_venture_financing.docx.gold.json",
+      "clause_id": "c_5",
+      "field": "clause_family",
+      "A": "conversion_rights",
+      "B": "other",
+      "clause_text": "INVESTOR RIGHTS Registration rights:\tRegistrable securities. The common stock issued or issuable upon conversion of the preferred stock will be \u201cRegistrable Securities.\u201d Demand registration. Subject t"
+    },
+    {
+      "doc": "ts_002_wsgr_venture_financing.docx.gold.json",
+      "clause_id": "c_6",
+      "field": "clause_family",
+      "A": "information_rights",
+      "B": "rofr_co_sale",
+      "clause_text": "Right to maintain proportionate ownership:\tEach holder of at least 10 shares of Series\u00a0A Preferred will have a right to purchase its pro rata share of any offering of new securities by the Company, su"
+    },
+    {
+      "doc": "ts_002_wsgr_venture_financing.docx.gold.json",
+      "clause_id": "c_6",
+      "field": "expected_flags",
+      "A": [],
+      "B": [
+        "R-RO-01"
+      ],
+      "clause_text": "Right to maintain proportionate ownership:\tEach holder of at least 10 shares of Series\u00a0A Preferred will have a right to purchase its pro rata share of any offering of new securities by the Company, su"
+    },
+    {
+      "doc": "ts_003_series_seed_equity.txt.gold.json",
+      "clause_id": "c_2",
+      "field": "expected_flags",
+      "A": [
+        "R-LP-02",
+        "R-LP-03"
+      ],
+      "B": [],
+      "clause_text": "Offering Terms Securities to Issue: Shares of Series Seed Preferred Stock of the Company (the \u201cSeries Seed\u201d). Aggregate Proceeds: $[_________] in aggregate. Purchasers: [Accredited investors approved "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_16",
+      "field": "clause_family",
+      "A": "other",
+      "B": "option_pool",
+      "clause_text": "To the extent the capitalization indicates fewer or more shares than  assumed herein, the per share price shall be adjusted to reflect a pre- money valuation of $[_______].  The number of shares of Co"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_20",
+      "field": "clause_family",
+      "A": "liquidation_preference",
+      "B": "other",
+      "clause_text": "dividends or similar distributions, Preferred Stock participates with  Common Stock on an as-converted basis.  Liquidation Preference:"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_20",
+      "field": "expected_flags",
+      "A": [
+        "R-LP-02"
+      ],
+      "B": [],
+      "clause_text": "dividends or similar distributions, Preferred Stock participates with  Common Stock on an as-converted basis.  Liquidation Preference:"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_21",
+      "field": "clause_family",
+      "A": "other",
+      "B": "liquidation_preference",
+      "clause_text": "In the event of a liquidation, dissolution or winding-up, the proceeds shall  be distributed to the stockholders as follows:    First pay 1x the original purchase price plus declared but unpaid divide"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_22",
+      "field": "clause_family",
+      "A": "other",
+      "B": "liquidation_preference",
+      "clause_text": "A sale of all or substantially all of the assets of the Company and a  merger, reorganization or other transaction in which 50% of the"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_26",
+      "field": "clause_family",
+      "A": "other",
+      "B": "conversion_rights",
+      "clause_text": "Series Seed Preferred Stock automatically converts into Common Stock  upon the earlier of (i) the election of a majority of the outstanding shares  of Series Seed Preferred Stock or (ii) the consummat"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_27",
+      "field": "clause_family",
+      "A": "other",
+      "B": "conversion_rights",
+      "clause_text": "underwritten public offering with aggregate proceeds in excess of  $[________] (a \u201cQualified Public Offering\u201d)."
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_29",
+      "field": "clause_family",
+      "A": "other",
+      "B": "anti_dilution",
+      "clause_text": "connection with a bona fide business acquisition by the Company or an  initial public offering, (v) securities issued to persons or entities with"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_30",
+      "field": "clause_family",
+      "A": "other",
+      "B": "anti_dilution",
+      "clause_text": "which the Company has business relationships, which issuances are  approved by the Board and for primarily non-equity financing purposes, or  (vi) securities issued or issuable pursuant to equipment l"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_33",
+      "field": "clause_family",
+      "A": "other",
+      "B": "anti_dilution",
+      "clause_text": "Proportional adjustments for stock splits and stock dividends and similar  events.  Voting Rights:"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_34",
+      "field": "clause_family",
+      "A": "redemption_rights",
+      "B": "protective_provisions",
+      "clause_text": "Votes on an as-converted basis, but also has class and series vote as  provided by law.  In addition, approval of a majority of the Preferred  Stock required on (i) the creation of any senior or pari "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_34",
+      "field": "expected_flags",
+      "A": [],
+      "B": [
+        "R-PP-02"
+      ],
+      "clause_text": "Votes on an as-converted basis, but also has class and series vote as  provided by law.  In addition, approval of a majority of the Preferred  Stock required on (i) the creation of any senior or pari "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_35",
+      "field": "clause_family",
+      "A": "other",
+      "B": "protective_provisions",
+      "clause_text": "repurchases of Common Stock or Preferred Stock, except for purchases at  cost upon termination of service or the exercise by the Company of  contractual rights of first refusal over such shares, (iv) "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_36",
+      "field": "clause_family",
+      "A": "other",
+      "B": "protective_provisions",
+      "clause_text": "amendment of the Certificate of Incorporation or Bylaws that adversely  affect the powers, preferences or special privileges of the Preferred Stock  and (vii) any increase or decrease in the size of t"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_38",
+      "field": "clause_family",
+      "A": "board_composition",
+      "B": "other",
+      "clause_text": "things, satisfactory completion of financial and legal due diligence by the  Investors.    (b) All current and former employees and consultants shall have entered  into the Company\u2019s standard form pro"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_42",
+      "field": "clause_family",
+      "A": "rofr_co_sale",
+      "B": "other",
+      "clause_text": "provide that any discretionary releases from the lock-up be allocated to  holders of registrable securities on a pro-rata basis.  Such stockholders  shall also agree to sign the underwriter\u2019s standard"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_43",
+      "field": "clause_family",
+      "A": "conversion_rights",
+      "B": "other",
+      "clause_text": "obligation, based on their percentage equity ownership of Common Stock,  assuming full conversion and exercise of all outstanding convertible and  exercisable securities, to participate in subsequent "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_44",
+      "field": "clause_family",
+      "A": "conversion_rights",
+      "B": "other",
+      "clause_text": "securities pursuant to the conversion or exercise of convertible or  exercisable securities, (iv) the issuance of securities in connection with a  bona fide business acquisition of or by the Company, "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_47",
+      "field": "clause_family",
+      "A": "information_rights",
+      "B": "other",
+      "clause_text": "public offering and will terminate immediately prior to a Qualified Public  Offering.  Financial Information:"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_49",
+      "field": "clause_family",
+      "A": "other",
+      "B": "information_rights",
+      "clause_text": "the end of each of the first three quarters, monthly unaudited financial  reports within 30 days after the end of the month upon request of the"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_50",
+      "field": "clause_family",
+      "A": "other",
+      "B": "information_rights",
+      "clause_text": "Major Investors and annual budget and business plan prior to the  beginning of a fiscal year, as well as standard inspection rights."
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_52",
+      "field": "clause_family",
+      "A": "other",
+      "B": "information_rights",
+      "clause_text": "Each Investor requiring one shall receive a standard management rights  letter providing for the consultation with management on significant issues  and access to the books, records and facilities of "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_54",
+      "field": "clause_family",
+      "A": "other",
+      "B": "board_composition",
+      "clause_text": "Preferred Stock and Common Stock, voting as a single class on an as- converted basis, shall elect any remaining directors."
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_55",
+      "field": "clause_family",
+      "A": "founder_vesting",
+      "B": "other",
+      "clause_text": "Other Matters    Employee Common Stock  Vesting:"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_56",
+      "field": "expected_flags",
+      "A": [
+        "R-VS-01"
+      ],
+      "B": [],
+      "clause_text": "Unless otherwise approved by the Board, employee Common Stock shall  vest as follows: after 12 months of employment, 25% will vest; the  remainder will vest monthly over the following 36 months.  The "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_57",
+      "field": "clause_family",
+      "A": "founder_vesting",
+      "B": "other",
+      "clause_text": "Restrictions on Common  Stock:  (a) No transfers allowed prior to vesting except for certain estate planning.    (b) Company right of first refusal on vested shares until initial public  offering.    "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_59",
+      "field": "clause_family",
+      "A": "board_composition",
+      "B": "other",
+      "clause_text": "or decreased upon the approval of the holders of a majority of the  outstanding shares of the Company\u2019s capital stock, regardless of Section  242 of the DGCL.                                          "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_62",
+      "field": "expected_flags",
+      "A": [],
+      "B": [
+        "R-RO-01"
+      ],
+      "clause_text": "Until the Qualified Public Offering, each Major Investor shall have the  right to participate on a pro rata basis in transfers of any stock held by the  Founders; and a right of first refusal on such "
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_64",
+      "field": "clause_family",
+      "A": "other",
+      "B": "rofr_co_sale",
+      "clause_text": "a Founder which in the aggregate, over the term of this Agreement,  amount to no more than [________] shares held by a Founder, (d) any"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_65",
+      "field": "clause_family",
+      "A": "drag_along",
+      "B": "rofr_co_sale",
+      "clause_text": "pledge of Founder Stock made pursuant to a bona fide loan transaction  that creates a mere security interest, or (e) any bona fide gift to any  charitable organization described in Section 501(c)(3) o"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_66",
+      "field": "clause_family",
+      "A": "other",
+      "B": "drag_along",
+      "clause_text": "In the event of a sale of the Company by way of a merger, recapitalization,  sale of all or substantially all of the Company\u2019s stock or assets or"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_67",
+      "field": "clause_family",
+      "A": "other",
+      "B": "drag_along",
+      "clause_text": "otherwise, which is approved by holders of a majority of the Preferred  Stock and the holders of a majority of the Common Stock, the Founders  and the Company\u2019s stockholders who are party to the Votin"
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_68",
+      "field": "clause_family",
+      "A": "other",
+      "B": "drag_along",
+      "clause_text": "shall be required to vote for, consent to, transfer their shares of capital  stock pursuant to, and take such other action as may be required to  consummate, such sale."
+    },
+    {
+      "doc": "ts_004_gunderson_series_seed.pdf.gold.json",
+      "clause_id": "c_75",
+      "field": "clause_family",
+      "A": "conversion_rights",
+      "B": "other",
+      "clause_text": "Options to Purchase Common Stock  Outstanding:  __________ shares   ______%  Options Available for Grant:   __________ shares   ______%  Warrants/Convertible Notes/SAFEs:  __________ shares  ______%  "
+    }
+  ]
+}

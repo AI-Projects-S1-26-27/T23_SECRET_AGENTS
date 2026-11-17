@@ -192,8 +192,9 @@ Whenever a rule fires, the engine instantiates a `JustificationRecord`:
 
 ### 3.1 Corpus Composition
 The evaluation suite comprises:
-- **30 Synthetic Term Sheets** (`corpus/synthetic/`): 15 standard NVCA/YC compliant instruments and 15 adversarial term sheets featuring buried, compound predatory terms.
-- **Public & Real-World Term Sheets** (`corpus/manifest.json`): NVCA Model Term Sheet, Founders Institute Plain Preferred, Series Seed Equity, Gunderson Dettmer Series Seed, and WSGR automated agreements.
+- **30 Synthetic Term Sheets** (`corpus/synthetic/`): 15 standard NVCA/YC compliant instruments and 15 adversarial term sheets featuring buried, compound predatory terms (423 total clauses across 12 canonical clause families).
+- **10 Public & Real-World Term Sheets** (`corpus/manifest.json`): Grounded in widely used venture templates, including the NVCA Model Term Sheet, Founder Institute Plain Preferred, Series Seed Equity, Gunderson Dettmer Series Seed, WSGR automated agreements, Galion Acme Series A, and four Y Combinator Post-Money SAFEs (Discount-only, MFN-only, Valuation Cap, and Canadian Valuation Cap).
+- **Dual-Annotator Real Evaluation Subset**: 5 diverse real-world documents spanning 90 clauses independently evaluated by Annotator A (Member 2) and Annotator B (Member 7) following [`docs/annotation_guide_v0.md`](annotation_guide_v0.md) to assess ground-truth consensus and inter-annotator agreement.
 
 ### 3.2 Stage S2 Classification Performance
 Evaluated across 423 clauses using stratified 5-fold cross-validation:
@@ -215,6 +216,28 @@ Evaluated on the full 30-document ground-truth benchmark suite:
 | **Adversarial Provision Recall** | **95.8%** | 58.3% | Prevents missed hostile covenants |
 | **Deterministic Consistency** | **100% (Reproducible)** | Variable (Sampling variance) | Zero non-deterministic drift |
 
+### 3.4 Inter-Annotator Agreement (Cohen's $\kappa$) & Labelling Reconciliation
+To avoid evaluation circularity and assess the reproducibility of legal clause labelling without algorithmic contamination, gold sidecars for real-world term sheets were produced by two independent human annotators (Annotator A: Member 2; Annotator B: Member 7) who did not author the symbolic Horn rules. Agreement was measured **prior to reconciliation** using [`scripts/compute_kappa.py`](../scripts/compute_kappa.py) across 5 documents and 90 clauses:
+
+| Measure | Observed Raw Agreement | Cohen's $\kappa$ | Interpretation (Landis & Koch, 1977) |
+| :--- | :--- | :--- | :--- |
+| **Clause Family** | **62.2%** | **0.341** | **Fair agreement** |
+| **Expected Flags** (Clause $\times$ Rule: 2,790 decisions) | **92.2%** (clause exact match) | **0.199** | **Slight agreement** |
+
+#### Attribute Exact-Match Rates (Pre-Reconciliation)
+Key extracted attributes showed varied baseline alignment reflecting differing degrees of literal span boundaries vs. semantic interpretation:
+- `cliff_months`: **100.0%** (1/1 match)
+- `anti_dilution_type`: **50.0%** (1/2 match)
+- `broad_based`: **50.0%** (1/2 match)
+- `investor_rofr`: **20.0%** (1/5 match)
+- Complex compound attributes (`liq_participation`, `conversion_ratio`, `inspection_right`): **0.0%** exact string match, driven primarily by differences in whitespace normalization, inclusion of peripheral punctuation, and multi-sentence context boundaries.
+
+#### Reconciliation & Disagreement Analysis
+The protocol identified 41 clause-level disagreements:
+1. **Multi-Topic Clauses**: Long paragraphs containing intertwined covenants (e.g., right of first refusal paired with co-sale and drag-along provisions) where one annotator prioritized `rofr_co_sale` while the other classified `drag_along`.
+2. **Granularity on Conversion & Anti-Dilution**: Clauses detailing mandatory conversion triggers vs. conversion ratio adjustment formulas, where one annotator tagged `conversion_rights` and the other assigned `anti_dilution`.
+3. **Thresholding on Borderline Risk Flags**: Differences in applying advisory vs. strict risk thresholds on standard NVCA language (e.g., flagging standard 1.0x non-participating preference as baseline vs. omitting flags entirely).
+
 ---
 
 ## 4. Robustness, Guardrails & Adversarial Analysis
@@ -233,20 +256,32 @@ In tests on synthetic adversarial agreements, the pipeline successfully identifi
 
 ---
 
-## 5. Team Roles & Contribution Matrix
+## 5. Limitations, Non-Goals & Future Work
+
+While TermSheet AI achieves zero numerical hallucination and provable audit traces on venture term sheets, the system operates within defined engineering and legal boundaries:
+
+1. **Norm Specificity (US / NVCA Focus)**: The knowledge base and rule set currently encode National Venture Capital Association (NVCA) model standards and Silicon Valley early-stage norms. Financing structures specific to other jurisdictions (such as Indian VC practices governed by RBI pricing guidelines, FEMA foreign investment caps, and the Companies Act 2013) represent non-trivial legal divergence and are left as future extensions.
+2. **Rule-Set Bounds & Expressiveness**: The system implements 31 canonical Horn clauses across 12 families and dividends. While covering the dominant economic and control terms (liquidation preferences, board control, anti-dilution, drag-along, and founder vesting), bespoke commercial provisions, side letters, IP assignment clauses, and non-compete covenants fall outside the current rule catalog.
+3. **Clause Boundary Sensitivity**: Stage S1 segmentation utilizes regex patterns and sentence-window heuristics. Heavily stylized multi-column PDFs, embedded scanned images with degraded OCR, or unnumbered continuous legal prose can produce split fragments or merged compound clauses that degrade Stage S2 classification precision.
+4. **Synthetic vs. In-the-Wild Real Data**: The 30 synthetic term sheets provide deterministic ground truth and systematic stress-testing for compound adversarial terms. However, real-world agreements exhibit broader syntactic variance, colloquial attorney phrasing, and multi-issue nesting, as demonstrated by the fair inter-annotator agreement ($\kappa = 0.341$).
+5. **Educational Due Diligence, Not Legal Advice**: TermSheet AI is strictly an educational and diligence assistant engineered to highlight unusual clauses and provide an explicit audit trail for founder review. It does not replace competent startup counsel or furnish jurisdiction-specific legal advice.
+
+---
+
+## 6. Team Roles & Contribution Matrix
 
 | Member | Focus Area | Key Architectural Deliverables |
 | :--- | :--- | :--- |
 | **M1** (Lead / Evaluation Lead) | System Architecture & Eval | S1–S5 Pipeline contracts, runner orchestration, input guardrails, master evaluation harness (`evaluate_pipeline.py`), LLM baseline benchmark, Makefile automation. |
-| **M2** | Data & Preprocessing | Document ingestion (`extractor.py`), clause segmenter (`segmenter.py`), corpus collection, SEC EDGAR Form D client (`edgar/client.py`), annotation guide v0. |
+| **M2** | Data & Preprocessing | Document ingestion (`extractor.py`), clause segmenter (`segmenter.py`), corpus collection, SEC EDGAR Form D client (`edgar/client.py`), annotation guide v0, Annotator A gold labeling (10 public documents). |
 | **M3** | Deep Learning & Search | 104-clause exemplar bank (`exemplars.py`), TF-IDF baseline (`tfidf.py`), SBERT + ChromaDB hybrid classifier (`sbert.py`), dev calibration & held-out split evaluation, S5 multi-exemplar retrieval pairing, S2 robustness test suite. |
 | **M4** | Generative Extraction | Gemini LLM fact extraction (`extract/`), JSON schema prompt construction, literal span validation. |
 | **M5** | Knowledge Representation | Term sheet legal ontology (NetworkX semantic network, 103 nodes, 196 edges), 31 canonical Horn rules in YAML (`rules_v1.yaml`), severity weight and norm calibration, annotation guide v0. |
 | **M6** | Symbolic Reasoning | Forward-chaining inference engine (`reasoning/forward_chainer.py`), proof-tree constructor, risk flag scoring. |
-| **M7** | Interface & Evaluation | Streamlit web application (`ui/`), interactive risk visualizer, trace explorer, human annotation verification. |
+| **M7** | Interface & Evaluation | Streamlit web application (`ui/`), interactive risk visualizer, trace explorer, annotation tooling & Cohen's $\kappa$ harness (`compute_kappa.py`, `annotator_tools.py`), Annotator B independent labeling (5 public documents). |
 
 ---
 
-## 6. Academic Integrity & AI-Assisted Development
+## 7. Academic Integrity & AI-Assisted Development
 
 All AI tool interactions throughout this project were conducted in strict compliance with the course academic integrity policy. Every algorithmic component, regex pattern, Horn clause rule, and mathematical formulation was independently reviewed, verified, and tested against ground truth data. Detailed logs of all AI sessions are preserved in [`docs/AI_USAGE.md`](AI_USAGE.md).

@@ -464,8 +464,11 @@
   - Labelled all real documents the S1 ingestor can read (`galion_acme_series_a_term_sheet.txt`, `ts_001` to `ts_004`): 90 clauses
   - Clause family, literal source spans, explicit attributes and expected flags per `docs/annotation_guide_v0.md`
   - Validated with `scripts/annotator_tools.py check` (0 errors); `corpus/manifest.json` updated (`annotator_b`, `annotation_status`)
+- [x] **Pre-Reconciliation Cohen's Kappa Reporting** — [`reports/annotator_agreement.md`](../reports/annotator_agreement.md), [`reports/annotator_agreement.json`](../reports/annotator_agreement.json)
+  - Executed `scripts/compute_kappa.py` comparing Annotator A and B across 5 documents and 90 clauses.
+  - Clause family agreement: **62.2%** ($\kappa = 0.341$, fair); expected flags agreement: **92.2%** ($\kappa = 0.199$, slight).
+  - Documented 41 clause-level disagreements for reconciliation meeting; updated final technical report Section 3.4.
 
-### Remaining (M7)
-- [ ] Reconcile disagreements with M2 and report pre-reconciliation Cohen's kappa (`python scripts/compute_kappa.py`)
-- [ ] No Annotator B labels yet for `ts_010` (`.doc`, not supported by the ingestor) and the four YC SAFE files (not in the repository); the kappa comparison covers 5 documents
-- [ ] Demo video
+### Remaining (M7 / Team)
+- [ ] Conduct final reconciliation meeting between Annotators A and B on the 41 identified clause disagreements
+- [ ] Record 5–6 minute demo video per `docs/DEMO_SCRIPT.md`

@@ -1,4 +1,4 @@
-﻿# AI Usage Log
+# AI Usage Log
 
 > **Purpose:** Transparent disclosure of all AI tools used during development, as required by the project report. Each entry records the tool, what it was used for, and how its output was verified.
 
@@ -46,6 +46,7 @@
 | 2026-11-16 | M4 | Antigravity IDE (Gemini) | Add offline baseline scoring (--predictions), dataset split safeguards rejecting unpartitioned splits, integrate cross-clause consistency into explainer custom_facts, document schema extension proposal and withdraw unrecorded evaluation estimates | `scripts/evaluate_llm_baseline.py`, `src/termsheet_ai/explain/explainer.py`, `tests/test_llm_baseline.py`, `tests/test_explainer.py`, `docs/LOG.md` | Executed pytest (213 passed, 0 failed, 14 skipped), verified split rejection errors, verified offline evaluation mode |
 | 2026-11-16 | M4 | Antigravity IDE (Gemini) | Resolve Gemini client 30s timeout issue in `llm_client.py`: configurable timeout (GEMINI_TIMEOUT_SECONDS, default 90s), exponential backoff retries for transient timeout/connection errors, non-retryable fatal error gating, and unit tests | `src/termsheet_ai/extract/llm_client.py`, `tests/test_gemini_client.py`, `docs/LOG.md` | Executed full pytest suite (221 passed, 0 failed, 14 skipped), ruff check clean, ruff format verified |
 | 2026-11-16 | M2 | GitHub Copilot | Assist with code development, debugging, documentation updates, and test/verification guidance | M2 project files and documentation | Reviewed the generated output and verified changes with tests or manual checks as applicable |
+| 2026-11-17 | M1, M7 | Antigravity (Gemini) | Execute inter-annotator agreement computation (`compute_kappa.py`), generate agreement metrics, and finalize technical report with Cohen's kappa and Limitations sections | `scripts/compute_kappa.py`, `reports/annotator_agreement.*`, `docs/FINAL_REPORT.md`, `docs/LOG.md` | Verified computed kappa values against hand calculations; inspected Markdown report structure and formatting |
 
 ---
 
@@ -53,12 +54,12 @@
 
 Each time an AI tool is used during development, add a row with:
 
-1. **Date** ΓÇö When the tool was used
-2. **Member** ΓÇö Which team member used it (M1ΓÇôM7)
-3. **AI Tool** ΓÇö Name and model (e.g., "ChatGPT-4o", "GitHub Copilot", "Claude")
-4. **Purpose** ΓÇö Specific task the tool assisted with (be precise, not "helped with code")
-5. **Files Affected** ΓÇö Which source files were created or modified
-6. **Verification Method** ΓÇö How the AI output was validated (tests, manual review, comparison to docs, etc.)
+1. **Date** — When the tool was used
+2. **Member** — Which team member used it (M1–M7)
+3. **AI Tool** — Name and model (e.g., "ChatGPT-4o", "GitHub Copilot", "Claude")
+4. **Purpose** — Specific task the tool assisted with (be precise, not "helped with code")
+5. **Files Affected** — Which source files were created or modified
+6. **Verification Method** — How the AI output was validated (tests, manual review, comparison to docs, etc.)
 
 > [!IMPORTANT]
 > AI-generated code must always be reviewed, tested, and understood by the team member before merging. The AI tool is an assistant, not an author.
