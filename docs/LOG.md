@@ -179,6 +179,14 @@
 - [x] **Full 12-Family Attribute Schema & Annotation Guide Update** — [`docs/attribute_schema_v0.json`](attribute_schema_v0.json), [`docs/clause_family_definitions_v0.md`](clause_family_definitions_v0.md), and [`docs/annotation_guide_v0.md`](annotation_guide_v0.md)
   - Expanded JSON schema and annotation documentation to cover all 12 canonical clause families + dividends, rule IDs, and severity weights for Week 4 gold evaluation labelling.
 
+#### M6 — KR&R: Forward-Chaining Engine & Verification
+- [x] **Rule Engine Development and Integration** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
+  - Worked on the forward-chaining rule execution flow, working-memory fact assertions, derived facts, and rule-triggered risk scoring in coordination with M5's ontology and rule-base work.
+  - Reviewed the interface between YAML Horn-rule conditions and the structured facts provided by Stage S3.
+- [x] **Multi-Step Reasoning and Proof-Tree Regression Tests** — [`tests/test_reasoning.py\`](../tests/test_reasoning.py)
+  - Added and checked scenarios in which a derived fact triggers a dependent rule, including reverse rule-order execution.
+  - Verified nested justification records and recursive proof-tree premises for the multi-step reasoning scenario.
+
 ---
 
 *Last updated: 2026-11-11 by M5*
@@ -277,33 +285,28 @@
   - Authored full architecture report, KR&R proofs, benchmark tables, failure analysis, and member contribution matrix.
 
 #### M6 — Symbolic Knowledge Representation & Reasoning (KR&R)
-
 - [x] **Multi-Step Forward-Chaining Rule Engine** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
   - Implemented iterative forward chaining over YAML-defined Horn rules until no additional facts can be derived.
   - Extended `HornRule` to support derived facts through the `derives` attribute.
   - Maintained working-memory facts and clause associations for source traceability.
   - Supported rule-order-independent inference for dependent rules.
   - Integrated rule-based severity scoring and generation of risk flags.
-
 - [x] **Justification Records & Recursive Proof Trees** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
   - Implemented recursive proof-tree construction for inferred facts and risk flags.
   - Linked triggered rules to premise facts, source references, and intermediate derivations.
   - Added cycle detection to prevent infinite recursion during proof generation.
   - Enabled multi-step reasoning explanations for auditability.
-
 - [x] **S3 → S4 Fact Grounding Safeguards** — [`src/termsheet_ai/reasoning/engine.py`](../src/termsheet_ai/reasoning/engine.py)
   - Added `is_grounded` verification before inserting structured extracted facts into working memory.
   - Excluded ungrounded liquidation preference, anti-dilution, board composition, founder vesting, and protective provision facts.
   - Prevented raw `custom_facts` without per-entry grounding metadata from entering S4 working memory.
   - Preserved existing `custom_facts` data for other pipeline components, including consistency checking and explanations.
   - Documented the need for future source-validated custom-fact support.
-
 - [x] **JSON Audit Trace & Proof-Tree Export Utilities** — [`src/termsheet_ai/reasoning/export.py`](../src/termsheet_ai/reasoning/export.py)
   - Developed JSON serialization utilities for reasoning audit traces and nested proof trees.
   - Added support for exporting risk scores, rule traces, justification records, and premise facts.
   - Implemented readable UTF-8 JSON output with consistent dictionary-key ordering.
   - Added automated tests in [`tests/test_reasoning_export.py`](../tests/test_reasoning_export.py).
-
 - [x] **S4 Risk-Flag Evaluation & Error Analysis** — [`scripts/analyze_reasoning_errors.py`](../scripts/analyze_reasoning_errors.py)
   - Analyzed risk-flag predictions across 30 synthetic term sheets using the existing end-to-end evaluation results.
   - Developed per-document and per-rule false-positive and false-negative analysis.
@@ -312,37 +315,6 @@
     - [`reports/reasoning_error_analysis.md`](../reports/reasoning_error_analysis.md)
   - Identified frequently misclassified and missed risk rules to guide future improvements.
   - Investigated the interaction between S3 participation extraction and S4 liquidation-preference rules.
-
-### M6 — Validation & Evaluation
-
-- [x] **Reasoning Unit Tests** — [`tests/test_reasoning.py`](../tests/test_reasoning.py)
-  - 11 reasoning tests passed.
-  - Verified multi-step forward chaining and recursive proof-tree generation.
-  - Verified rejection of ungrounded structured facts and unverified custom facts.
-  - Confirmed that unverified custom facts cannot independently trigger risk warnings.
-
-- [x] **30-Document Risk-Flag Evaluation**
-  - True Positives: **63**
-  - False Positives: **74**
-  - False Negatives: **133**
-  - Risk-Flag Precision: **45.99%**
-  - Risk-Flag Recall: **32.14%**
-  - Risk-Flag F1 Score: **37.84%**
-  - Documents with reported execution errors: **0**
-
-- [x] **Rule-Level Error Analysis**
-  - Most frequent false positive: `R-LP-05` — 26 occurrences.
-  - Other frequent false positives: `R-LP-02` and `R-VS-03` — 12 each.
-  - Most frequently missed rules: `R-DV-01` and `R-EX-01` — 17 each.
-  - Additional frequent misses: `R-OP-01` and `R-RD-01` — 15 each.
-  - Identified potential participation-negation handling problems in upstream extraction.
-  - Confirmed that the evaluation metrics describe the full S1–S5 pipeline, not S4 in isolation.
-
-### M6 — Blockers & Limitations
-- Raw `custom_facts` currently lack per-entry validated source evidence and are excluded from S4 inference, potentially reducing coverage for some rule families.
-- The existing end-to-end evaluation has relatively low risk-flag precision and recall; errors cannot yet be attributed exclusively to S4.
-- Some extraction improvements require coordination with members responsible for S3.
-- Independent human annotations for real-document evaluation remain a team-level dependency.
 
 #### M5 — KR&R: Ontology & Rule Base
 - [x] **Contract Family Alignment in YAML Rule Base** — [`docs/rules_v1.yaml`](rules_v1.yaml)
