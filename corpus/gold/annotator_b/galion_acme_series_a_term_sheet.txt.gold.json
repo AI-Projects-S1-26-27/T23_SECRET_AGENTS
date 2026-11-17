@@ -1,0 +1,20 @@
+{
+  "doc_id": "eval-041",
+  "filename": "public/galion_acme_series_a_term_sheet.txt",
+  "annotator": "B",
+  "clauses": [
+    {
+      "clause_id": "c_1",
+      "section_header": null,
+      "clause_text": "//=Parties: =[G/GalionProject-TermSheet-CmA/Demo/Acme-SeriesA-Parties.md] //=The Form of Agreement, with Galion default values: =[G/GalionProject-TermSheet-CmA/Form/-DefaultValues/0.md] //=Parameters: SeriesA.Price.Total.$=2,000,000 Euros SeriesA.Valuation.$=8,000,000 Euros SeriesA.Price.PerShare.$=One Euro SeriesA.Price.P1.$=1,200,000 Euros SeriesA.Price.P2.$=800,000 Euros InitialBoardMember.Name.Full=Eleanore Ellenbow //=Reducing the threshold for requirement of stockholder approval of indebtedness from 200,000 Euros (the Galion default), to: Decide.Debt.Max.$=100,000 Euros //=Anticipated fee to legal professionals for handling the transaction Expense.$=30,000 Euros Law.State=France Law.Forum.cl=the commercial courts of Paris, France",
+      "clause_family": "other",
+      "source_span": "SeriesA.Price.Total.$=2,000,000 Euros SeriesA.Valuation.$=8,000,000 Euros",
+      "attributes": {
+        "topic": "Series A deal parameters (price, valuation, debt-approval threshold, expenses, governing law)",
+        "amounts": "Price total 2,000,000 Euros; valuation 8,000,000 Euros"
+      },
+      "expected_flags": [],
+      "notes": "Mixed parameter block with no dominant family. The debt-approval item concerns stockholder approval, not an investor veto, so not protective_provisions."
+    }
+  ]
+}
