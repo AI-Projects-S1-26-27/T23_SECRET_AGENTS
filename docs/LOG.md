@@ -460,6 +460,12 @@
   - Identified and documented the required contract change for Member 1 (Team Lead / Architect): extending `PipelinePayload` with `consistency_issues: List[ConsistencyIssue] = Field(default_factory=list)` (left unimplemented pending teammate schema approval).
   - Clarified evaluation reality: held-out evaluation on the planned 20 dev / 30 test split across 50 documents is blocked pending gold annotations for the 20 public documents (`annotation_status: pending` in `corpus/manifest.json`). The synthetic corpus (30 documents, 423 clauses) was evaluated via `scripts/benchmark_synthetic.py` (TF-IDF 74.23%, SBERT 71.63%), and prior ungrounded narrative baseline estimates were formally withdrawn.
 
+- [x] **Annotator B gold labels** — [`corpus/gold/annotator_b/`](../corpus/gold/annotator_b/)
+  - Labelled all real documents the S1 ingestor can read (`galion_acme_series_a_term_sheet.txt`, `ts_001` to `ts_004`): 90 clauses
+  - Clause family, literal source spans, explicit attributes and expected flags per `docs/annotation_guide_v0.md`
+  - Validated with `scripts/annotator_tools.py check` (0 errors); `corpus/manifest.json` updated (`annotator_b`, `annotation_status`)
+
 ### Remaining (M7)
-- [ ] Annotator B labels for the real documents (independent human labelling), then reconciliation with M2 and kappa reporting
+- [ ] Reconcile disagreements with M2 and report pre-reconciliation Cohen's kappa (`python scripts/compute_kappa.py`)
+- [ ] No Annotator B labels yet for `ts_010` (`.doc`, not supported by the ingestor) and the four YC SAFE files (not in the repository); the kappa comparison covers 5 documents
 - [ ] Demo video

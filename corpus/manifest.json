@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Corpus manifest tracking all term-sheet documents used for training, evaluation, and rule-base calibration.",
     "version": "0.2.0",
-    "last_updated": "2026-11-12"
+    "last_updated": "2026-11-17"
   },
   "knowledge_sources": [
     {
@@ -67,8 +67,8 @@
         "provenance": "Downloaded from nvca.org",
         "licence": "NVCA public",
         "annotator_a": "completed",
-        "annotator_b": null,
-        "annotation_status": "annotated_a"
+        "annotator_b": "M7 (Shresth Prakash Singh)",
+        "annotation_status": "double-annotated"
       },
       {
         "id": "eval-002",
@@ -103,8 +103,8 @@
         "provenance": "Generated at https://ecvc.wsgr.com/generators/term-sheet-generator",
         "licence": "Free public tool",
         "annotator_a": "completed",
-        "annotator_b": null,
-        "annotation_status": "annotated_a"
+        "annotator_b": "M7 (Shresth Prakash Singh)",
+        "annotation_status": "double-annotated"
       },
       {
         "id": "eval-005",
@@ -115,8 +115,8 @@
         "provenance": "github.com/seriesseed/equity",
         "licence": "CC0 open source",
         "annotator_a": "completed",
-        "annotator_b": null,
-        "annotation_status": "annotated_a"
+        "annotator_b": "M7 (Shresth Prakash Singh)",
+        "annotation_status": "double-annotated"
       },
       {
         "id": "eval-006",
@@ -127,8 +127,8 @@
         "provenance": "https://carta.com/learn/resources/term-sheet-template/",
         "licence": "Free public template",
         "annotator_a": "completed",
-        "annotator_b": null,
-        "annotation_status": "annotated_a"
+        "annotator_b": "M7 (Shresth Prakash Singh)",
+        "annotation_status": "double-annotated"
       },
       {
         "id": "eval-037",
@@ -187,8 +187,8 @@
         "provenance": "https://github.com/CommonAccord/GalionProject-TermSheet-CmA/blob/master/Demo/Acme-SeriesA.md",
         "licence": "Public GitHub repository; verify applicable repository licence",
         "annotator_a": "completed",
-        "annotator_b": null,
-        "annotation_status": "annotated_a"
+        "annotator_b": "M7 (Shresth Prakash Singh)",
+        "annotation_status": "double-annotated"
       },
       {
         "id": "eval-007",
