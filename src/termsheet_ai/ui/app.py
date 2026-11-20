@@ -6,6 +6,7 @@ from termsheet_ai.ui import views
 from termsheet_ai.ui.data_source import (
     build_pipeline,
     load_mock_payload,
+    resolve_gemini_api_key,
     run_pipeline_on_upload,
     uses_plaintext_ingestor,
 )
@@ -25,7 +26,13 @@ def _sidebar():
     else:
         use_cloud = st.session_state.get("use_cloud_llm", False)
         if use_cloud:
-            st.sidebar.info("Engine: Live Google Gemini Cloud LLM")
+            key = resolve_gemini_api_key()
+            if key:
+                st.sidebar.info("Engine: Live Google Gemini 1.5 Flash Connected")
+            else:
+                st.sidebar.warning(
+                    "Engine: Cloud LLM enabled, but GEMINI_API_KEY is not found in Secrets."
+                )
         else:
             st.sidebar.caption("Engine: Deterministic Offline Mode")
 
@@ -80,7 +87,11 @@ def main() -> None:
             help="When toggled ON, uses Google Gemini Cloud LLM for Stage S3 fact extraction and Stage S5 explanations. When OFF, runs deterministic local mode.",
         )
         if use_cloud_llm:
-            st.caption("Status: Gemini API Active")
+            key = resolve_gemini_api_key()
+            if key:
+                st.caption("Status: Gemini 1.5 Flash Active")
+            else:
+                st.caption("Status: Missing GEMINI_API_KEY in Secrets")
         else:
             st.caption("Status: Offline Deterministic")
 

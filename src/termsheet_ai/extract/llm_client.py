@@ -52,7 +52,7 @@ class GeminiAuthenticationError(GeminiAPIError):
 # ---------------------------------------------------------------------------
 
 _API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-_DEFAULT_MODEL = "gemini-3.5-flash"
+_DEFAULT_MODEL = "gemini-1.5-flash"
 _DEFAULT_TIMEOUT_SECONDS = 90.0  # sensible default for extraction prompts on free/flash tier
 _TIMEOUT_SECONDS = _DEFAULT_TIMEOUT_SECONDS  # backward-compatible alias
 _DEFAULT_MAX_RETRIES = 2
@@ -169,7 +169,12 @@ def make_gemini_callable(
     """
     load_dotenv()
 
-    resolved_model = model or os.getenv("GEMINI_MODEL") or _DEFAULT_MODEL
+    raw_model = model or os.getenv("GEMINI_MODEL") or _DEFAULT_MODEL
+    # Gracefully redirect nonexistent or legacy model identifiers to working gemini-1.5-flash
+    if raw_model in ("gemini-3.5-flash", "gemini-3-flash"):
+        resolved_model = "gemini-1.5-flash"
+    else:
+        resolved_model = raw_model
     resolved_timeout = _resolve_timeout(timeout)
     resolved_retries = _resolve_max_retries(max_retries)
     resolved_backoff = _resolve_backoff(initial_backoff)

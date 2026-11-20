@@ -409,6 +409,9 @@ class TermSheetPipeline:
                 ):
                     self.explainer.retriever = self.classifier
                 summaries = self.explainer.explain(clauses, audit_trace)
+                last_err = getattr(self.explainer, "last_llm_error", None)
+                if last_err:
+                    errors.append(f"Gemini LLM Notice: {last_err}")
             except Exception as e:
                 errors.append(f"S5 Summary Error: {str(e)}")
 

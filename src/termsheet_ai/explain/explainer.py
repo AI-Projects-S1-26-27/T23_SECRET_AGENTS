@@ -122,6 +122,7 @@ class PlainEnglishExplainer(BaseExplainer):
         self.llm_callable = llm_callable
         self.retrieval_top_k = retrieval_top_k
         self.min_retrieval_similarity = min_retrieval_similarity
+        self.last_llm_error: Optional[str] = None
 
     # ------------------------------------------------------------------
     # Private helpers — retrieval and formatting
@@ -335,6 +336,9 @@ class PlainEnglishExplainer(BaseExplainer):
             )
             return None
         except Exception as exc:
+            self.last_llm_error = str(exc)
+            if effective_facts is not None:
+                effective_facts.custom_facts["last_llm_error"] = str(exc)
             logger.warning(
                 "LLM call failed for clause %s (%s) — falling back to template.",
                 clause.clause_id,
@@ -436,6 +440,7 @@ class PlainEnglishExplainer(BaseExplainer):
                 clause, clause_flags, primary_market_ref
             )
 
+            generator_source = "deterministic"
             if llm_text is not None:
                 # Verify numbers in the LLM output
                 verified, unverified = self.checker.verify_summary(
@@ -448,12 +453,14 @@ class PlainEnglishExplainer(BaseExplainer):
                 if verified:
                     summary_text = llm_text
                     numbers_verified = True
+                    generator_source = "gemini"
                     logger.debug(
                         "LLM summary accepted for clause %s (numbers verified).",
                         clause.clause_id,
                     )
                 else:
                     # LLM introduced unverifiable numbers — fall back to template
+                    generator_source = "fallback_rejected_numbers"
                     logger.warning(
                         "LLM summary for clause %s contained unverified numbers %s; "
                         "using deterministic template.",
@@ -474,6 +481,7 @@ class PlainEnglishExplainer(BaseExplainer):
                     numbers_verified = verified_tmpl
             else:
                 # Deterministic template path (no llm_callable or LLM failed)
+                generator_source = "deterministic"
                 template_text, _ = self._build_template_summary(
                     clause, clause_flags, primary_market_ref
                 )
@@ -499,6 +507,7 @@ class PlainEnglishExplainer(BaseExplainer):
                     clause_id=clause.clause_id,
                     summary_text=summary_text,
                     numbers_verified=numbers_verified,
+                    generator=generator_source,
                 )
             )
 

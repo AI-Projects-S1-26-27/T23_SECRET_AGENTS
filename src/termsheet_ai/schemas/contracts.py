@@ -285,6 +285,10 @@ class ClauseSummary(BaseModel):
         default=True,
         description="True if an automated checker confirmed all numbers match the fact base.",
     )
+    generator: Optional[str] = Field(
+        default="deterministic",
+        description="Source generator for this summary: 'gemini', 'fallback_rejected_numbers', or 'deterministic'.",
+    )
 
 
 class PipelinePayload(BaseModel):

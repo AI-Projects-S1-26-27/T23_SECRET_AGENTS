@@ -6,11 +6,11 @@ from typing import Any, Tuple
 SEVERITY_ORDER = ("critical", "high", "medium", "low", "info")
 
 SEVERITY_STYLE = {
-    "critical": {"label": "Critical", "colour": "#8E1B2E", "icon": "🔴"},
-    "high": {"label": "High", "colour": "#C4491C", "icon": "🟠"},
-    "medium": {"label": "Medium", "colour": "#A8741A", "icon": "🟡"},
-    "low": {"label": "Low", "colour": "#2F7D57", "icon": "🟢"},
-    "info": {"label": "Info", "colour": "#4F6D8A", "icon": "🔵"},
+    "critical": {"label": "Critical", "colour": "#8E1B2E", "icon": ""},
+    "high": {"label": "High", "colour": "#C4491C", "icon": ""},
+    "medium": {"label": "Medium", "colour": "#A8741A", "icon": ""},
+    "low": {"label": "Low", "colour": "#2F7D57", "icon": ""},
+    "info": {"label": "Info", "colour": "#4F6D8A", "icon": ""},
 }
 
 NEUTRAL_COLOUR = "#7A7F87"
@@ -36,7 +36,7 @@ def sev_label(severity: Any) -> str:
 
 
 def sev_icon(severity: Any) -> str:
-    return SEVERITY_STYLE.get(sev_value(severity), {}).get("icon", "⚪")
+    return SEVERITY_STYLE.get(sev_value(severity), {}).get("icon", "")
 
 
 def score_band(score: float) -> Tuple[str, str]:
