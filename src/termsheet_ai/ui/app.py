@@ -23,20 +23,31 @@ def _sidebar():
     if mode == DEMO:
         payload = load_mock_payload()
     else:
+        use_cloud = st.session_state.get("use_cloud_llm", False)
+        if use_cloud:
+            st.sidebar.info("☁️ **Engine:** Live Google Gemini Cloud LLM")
+        else:
+            st.sidebar.caption("⚡ **Engine:** Deterministic Offline Mode")
+
         upload = st.sidebar.file_uploader("PDF, DOCX or TXT", type=["pdf", "docx", "txt"])
         if (
             upload is not None
-            and uses_plaintext_ingestor(build_pipeline())
+            and uses_plaintext_ingestor(build_pipeline(use_cloud_llm=use_cloud))
             and not upload.name.lower().endswith(".txt")
         ):
             st.sidebar.warning(
                 "The current ingestor reads plain text only. PDF/DOCX parsing arrives with the real S1 stage."
             )
         if upload is not None and st.sidebar.button("Analyse", type="primary"):
-            with st.spinner("Running the pipeline..."):
+            spinner_msg = (
+                "Running pipeline with Gemini Cloud LLM..."
+                if use_cloud
+                else "Running deterministic offline pipeline..."
+            )
+            with st.spinner(spinner_msg):
                 try:
                     st.session_state["payload"] = run_pipeline_on_upload(
-                        upload.name, upload.getvalue()
+                        upload.name, upload.getvalue(), use_cloud_llm=use_cloud
                     )
                 except Exception as exc:  # surface any pipeline failure instead of a stack trace
                     st.session_state.pop("payload", None)
@@ -55,8 +66,23 @@ def _sidebar():
 def main() -> None:
     st.set_page_config(page_title="TermSheet AI", page_icon="📑", layout="wide")
     st.markdown(CSS, unsafe_allow_html=True)
-    st.title("TermSheet AI")
-    st.caption("Plain-English term sheet review with an auditable rule trace.")
+
+    header_col, toggle_col = st.columns([3, 1])
+    with header_col:
+        st.title("TermSheet AI")
+        st.caption("Plain-English term sheet review with an auditable rule trace.")
+    with toggle_col:
+        st.write("")  # vertical spacing alignment
+        use_cloud_llm = st.toggle(
+            "☁️ Cloud LLM (Gemini)",
+            value=st.session_state.get("use_cloud_llm", False),
+            key="use_cloud_llm",
+            help="When toggled ON, uses Google Gemini Cloud LLM for Stage S3 fact extraction and Stage S5 explanations. When OFF, runs deterministic local mode.",
+        )
+        if use_cloud_llm:
+            st.caption("🟢 **Status:** Gemini API Enabled")
+        else:
+            st.caption("⚪ **Status:** Offline Deterministic")
 
     mode, payload, severities, only_flagged = _sidebar()
     if payload is None:
