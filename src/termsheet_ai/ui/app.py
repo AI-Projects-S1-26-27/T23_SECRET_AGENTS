@@ -25,9 +25,9 @@ def _sidebar():
     else:
         use_cloud = st.session_state.get("use_cloud_llm", False)
         if use_cloud:
-            st.sidebar.info("☁️ **Engine:** Live Google Gemini Cloud LLM")
+            st.sidebar.info("Engine: Live Google Gemini Cloud LLM")
         else:
-            st.sidebar.caption("⚡ **Engine:** Deterministic Offline Mode")
+            st.sidebar.caption("Engine: Deterministic Offline Mode")
 
         upload = st.sidebar.file_uploader("PDF, DOCX or TXT", type=["pdf", "docx", "txt"])
         if (
@@ -64,7 +64,7 @@ def _sidebar():
 
 
 def main() -> None:
-    st.set_page_config(page_title="TermSheet AI", page_icon="📑", layout="wide")
+    st.set_page_config(page_title="TermSheet AI", layout="wide")
     st.markdown(CSS, unsafe_allow_html=True)
 
     header_col, toggle_col = st.columns([3, 1])
@@ -74,15 +74,15 @@ def main() -> None:
     with toggle_col:
         st.write("")  # vertical spacing alignment
         use_cloud_llm = st.toggle(
-            "☁️ Cloud LLM (Gemini)",
+            "Cloud LLM (Gemini)",
             value=st.session_state.get("use_cloud_llm", False),
             key="use_cloud_llm",
             help="When toggled ON, uses Google Gemini Cloud LLM for Stage S3 fact extraction and Stage S5 explanations. When OFF, runs deterministic local mode.",
         )
         if use_cloud_llm:
-            st.caption("🟢 **Status:** Gemini API Enabled")
+            st.caption("Status: Gemini API Active")
         else:
-            st.caption("⚪ **Status:** Offline Deterministic")
+            st.caption("Status: Offline Deterministic")
 
     mode, payload, severities, only_flagged = _sidebar()
     if payload is None:
